@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OmniCompost — The kitchen worm digester</title>
+  <meta name="description" content="OmniCompost is a quiet, well-made worm composting digester for the home. Feed it your kitchen scraps; harvest finished compost and compost tea for the garden." />
+  <link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" />
+  <style>
+    :root{
+      --cream:#F4EDE0; --cream-deep:#EBE2D2;
+      --sage:#5D7A5E; --sage-deep:#3D5444;
+      --terra:#9B5A44; --ochre:#9A6E1D; --teal:#5B7B7A;
+      --rust:#8A3A2A; --ink:#2A2530; --ink-soft:#564f55;
+      --line:rgba(42,37,48,.16);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--cream); color:var(--ink);
+      font-family:"Inter",system-ui,sans-serif; font-weight:400;
+      font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    h1,h2,h3,.display{font-family:"Fraunces","Georgia",serif; font-weight:400; line-height:1.08; letter-spacing:-.01em}
+    em,.italic{font-family:"Fraunces",serif; font-style:italic; font-weight:300}
+    a{color:inherit}
+    img{display:block; max-width:100%}
+    .wrap{max-width:1180px; margin:0 auto; padding:0 2rem}
+    .eyebrow{font-family:"Fraunces",serif; font-style:italic; font-weight:300;
+      color:var(--terra); font-size:1.05rem; letter-spacing:.01em}
+    .label{font-family:"Inter",sans-serif; font-weight:500; font-size:.72rem;
+      text-transform:uppercase; letter-spacing:.18em; color:var(--ink-soft)}
+    .numeral{font-family:"Fraunces",serif; font-style:italic; color:var(--terra);
+      font-size:.95rem; letter-spacing:.04em}
+    .btn{display:inline-block; font-family:"Inter",sans-serif; font-weight:500;
+      font-size:.82rem; letter-spacing:.1em; text-transform:uppercase;
+      text-decoration:none; padding:.95rem 2rem; border:1px solid var(--ink);
+      color:var(--ink); background:transparent; cursor:pointer;
+      transition:background .25s ease,color .25s ease}
+    .btn:hover{background:var(--ink); color:var(--cream)}
+    .btn--solid{background:var(--sage-deep); border-color:var(--sage-deep); color:var(--cream)}
+    .btn--solid:hover{background:var(--ink); border-color:var(--ink)}
+    hr.dash{border:0; border-top:1px dashed var(--line); margin:0}
+
+    /* announcement strip */
+    .strip{background:var(--sage-deep); color:var(--cream); text-align:center;
+      font-family:"Inter",sans-serif; font-size:.72rem; letter-spacing:.18em;
+      text-transform:uppercase; padding:.55rem 1rem}
+
+    /* header */
+    header.site{position:sticky; top:0; z-index:50; background:rgba(244,237,224,.9);
+      backdrop-filter:saturate(140%) blur(8px); border-bottom:1px solid var(--line)}
+    .site-inner{display:flex; align-items:center; justify-content:space-between;
+      max-width:1180px; margin:0 auto; padding:.85rem 2rem}
+    .brand{display:flex; align-items:center; gap:.7rem; text-decoration:none}
+    .brand img{height:34px; width:auto}
+    .brand .word{font-family:"Fraunces",serif; font-size:1.32rem; letter-spacing:-.01em}
+    .brand .word b{font-weight:600; color:var(--ink)}
+    .brand .word span{font-weight:400; color:var(--sage-deep)}
+    nav.main{display:flex; gap:2rem; align-items:center}
+    nav.main a{text-decoration:none; font-size:.82rem; letter-spacing:.04em;
+      color:var(--ink-soft); transition:color .2s}
+    nav.main a:hover{color:var(--ink)}
+    nav.main a.cta{border:1px solid var(--ink); padding:.5rem 1.15rem;
+      text-transform:uppercase; letter-spacing:.12em; font-size:.7rem; font-weight:500; color:var(--ink)}
+    nav.main a.cta:hover{background:var(--ink); color:var(--cream)}
+    .menu-btn{display:none; background:none; border:0; cursor:pointer; padding:.4rem}
+    .menu-btn span{display:block; width:22px; height:1.5px; background:var(--ink); margin:5px 0}
+
+    /* hero */
+    .hero{position:relative; padding:4.5rem 0 3.5rem}
+    .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:3.5rem; align-items:center}
+    .hero h1{font-size:clamp(2.8rem,6vw,4.6rem); margin:.6rem 0 1.4rem}
+    .hero h1 em{color:var(--sage-deep)}
+    .hero p.lede{font-size:1.18rem; color:var(--ink-soft); max-width:30rem; margin-bottom:2rem}
+    .hero-actions{display:flex; gap:1rem; flex-wrap:wrap; align-items:center}
+    .hero-figure{position:relative}
+    .hero-figure img{width:100%; aspect-ratio:3/4; object-fit:cover; filter:saturate(.9)}
+    .hero-figure .cap{position:absolute; bottom:1rem; left:1rem; right:1rem;
+      background:rgba(244,237,224,.92); padding:.7rem .95rem; font-size:.74rem;
+      color:var(--ink-soft); display:flex; justify-content:space-between; align-items:baseline}
+    .hero-figure .cap b{font-family:"Fraunces",serif; font-weight:500; color:var(--ink); font-size:.9rem}
+    .seal{position:absolute; top:-18px; right:-18px; width:104px; height:104px;
+      border-radius:50%; background:var(--cream); border:1px solid var(--ink);
+      display:grid; place-content:center; text-align:center; rotate:8deg}
+    .seal span{font-family:"Inter",sans-serif; font-size:.56rem; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--ink-soft); line-height:1.5}
+    .seal b{display:block; font-family:"Fraunces",serif; font-style:italic; font-weight:400;
+      font-size:1.5rem; color:var(--terra)}
+
+    /* ticker */
+    .ticker{border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+      overflow:hidden; white-space:nowrap; padding:.8rem 0; background:var(--cream-deep)}
+    .ticker-track{display:inline-block; animation:scroll 38s linear infinite}
+    .ticker-track span{font-family:"Fraunces",serif; font-style:italic; font-weight:300;
+      font-size:1.05rem; color:var(--ink-soft); margin:0 1.6rem}
+    .ticker-track span::after{content:"·"; margin-left:1.6rem; color:var(--terra)}
+    @keyframes scroll{from{transform:translateX(0)} to{transform:translateX(-50%)}}
+
+    /* section scaffolding */
+    section{padding:5.5rem 0}
+    .sec-head{margin-bottom:3rem; max-width:46rem}
+    .sec-head h2{font-size:clamp(2rem,4vw,3rem); margin:.5rem 0}
+    .sec-head p{color:var(--ink-soft); font-size:1.08rem; margin-top:.6rem}
+
+    /* product split */
+    .product{background:var(--cream-deep)}
+    .product .split{display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center}
+    .digester-art{display:grid; place-items:center; padding:2rem;
+      border:1px solid var(--line); background:var(--cream)}
+    .digester-art svg{width:78%; height:auto}
+    .product h2{font-size:clamp(2rem,4vw,2.9rem)}
+    .spec-list{list-style:none; margin-top:1.8rem}
+    .spec-list li{display:flex; gap:1rem; padding:1.1rem 0; border-top:1px dashed var(--line)}
+    .spec-list li:last-child{border-bottom:1px dashed var(--line)}
+    .spec-list .k{font-family:"Inter",sans-serif; font-weight:500; font-size:.72rem;
+      text-transform:uppercase; letter-spacing:.14em; color:var(--ink-soft); width:9rem; flex:none; padding-top:.15rem}
+    .spec-list .v{font-size:1rem}
+    .rating{display:flex; align-items:center; gap:.5rem; margin:1.4rem 0 .4rem}
+    .rating .stars{color:var(--ochre); letter-spacing:.12em; font-size:1.05rem}
+    .rating .score{font-family:"Fraunces",serif; font-size:1.05rem}
+    .rating .n{color:var(--ink-soft); font-size:.82rem}
+
+    /* steps */
+    .steps-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:2.5rem}
+    .step{position:relative}
+    .step .icon{width:56px; height:56px; margin-bottom:1.1rem}
+    .step .icon svg{width:100%; height:100%}
+    .step .numeral{display:block; margin-bottom:.5rem}
+    .step h3{font-size:1.4rem; margin-bottom:.5rem}
+    .step p{color:var(--ink-soft); font-size:.98rem}
+
+    /* zones row */
+    .zones{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--line)}
+    .zone{padding:2.2rem 1.8rem; border-right:1px solid var(--line)}
+    .zone:last-child{border-right:0}
+    .zone .ztag{font-family:"Inter",sans-serif; font-weight:500; font-size:.68rem;
+      text-transform:uppercase; letter-spacing:.16em; padding:.3rem .7rem; display:inline-block; margin-bottom:1rem}
+    .zone--tools .ztag{color:var(--teal); border:1px solid var(--teal)}
+    .zone--ops .ztag{color:var(--sage); border:1px solid var(--sage)}
+    .zone--tips .ztag{color:var(--ochre); border:1px solid var(--ochre)}
+    .zone h3{font-size:1.25rem; margin-bottom:.5rem}
+    .zone p{color:var(--ink-soft); font-size:.94rem}
+
+    /* gallery */
+    .gallery .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1rem}
+    .gallery figure{position:relative; overflow:hidden}
+    .gallery img{width:100%; aspect-ratio:4/5; object-fit:cover; filter:saturate(.9);
+      transition:transform .6s ease}
+    .gallery figure:hover img{transform:scale(1.04)}
+    .gallery figcaption{position:absolute; left:.7rem; bottom:.7rem;
+      background:rgba(244,237,224,.92); font-size:.66rem; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--ink-soft); padding:.3rem .55rem}
+    .gallery .grid figure:nth-child(1){grid-row:span 2}
+    .gallery .grid figure:nth-child(1) img{aspect-ratio:4/5; height:100%}
+
+    /* featured (sage band) */
+    .featured{background:var(--sage-deep); color:var(--cream)}
+    .featured .split{display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center}
+    .featured img{width:100%; aspect-ratio:4/5; object-fit:cover}
+    .featured .eyebrow{color:#d9b8a8}
+    .featured h2{font-size:clamp(2rem,4vw,3rem); margin:.6rem 0 1.2rem}
+    .featured p{color:rgba(244,237,224,.82); margin-bottom:1.5rem; font-size:1.05rem}
+    .featured .pillars{display:grid; grid-template-columns:1fr 1fr; gap:1.6rem; margin-top:2rem}
+    .featured .pillar .label{color:#d9b8a8}
+    .featured .pillar p{color:rgba(244,237,224,.8); font-size:.9rem; margin-top:.35rem; margin-bottom:0}
+    .featured .btn{border-color:var(--cream); color:var(--cream)}
+    .featured .btn:hover{background:var(--cream); color:var(--sage-deep)}
+
+    /* quote */
+    .quote{text-align:center}
+    .quote blockquote{font-family:"Fraunces",serif; font-style:italic; font-weight:300;
+      font-size:clamp(1.5rem,3.2vw,2.3rem); line-height:1.35; max-width:42rem; margin:0 auto 1.4rem; color:var(--ink)}
+    .quote .who{font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft)}
+    .quote .stars{color:var(--ochre); letter-spacing:.18em; margin-bottom:1.4rem; font-size:1.1rem}
+
+    /* testimonials */
+    .tcards{display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem}
+    .tcard{border:1px solid var(--line); padding:1.8rem; background:var(--cream)}
+    .tcard .stars{color:var(--ochre); letter-spacing:.1em; font-size:.95rem; margin-bottom:.8rem}
+    .tcard p{font-size:.98rem; margin-bottom:1.2rem}
+    .tcard .src{font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft)}
+    .tcard .score{float:right; font-family:"Fraunces",serif; font-style:italic; color:var(--terra)}
+
+    /* faq */
+    .faq details{border-top:1px dashed var(--line); padding:1.3rem 0}
+    .faq details:last-child{border-bottom:1px dashed var(--line)}
+    .faq summary{cursor:pointer; list-style:none; display:flex; justify-content:space-between;
+      align-items:center; font-family:"Fraunces",serif; font-size:1.25rem; gap:1rem}
+    .faq summary::-webkit-details-marker{display:none}
+    .faq summary::after{content:"+"; font-family:"Inter"; font-weight:300; font-size:1.5rem; color:var(--terra)}
+    .faq details[open] summary::after{content:"\2013"}
+    .faq p{color:var(--ink-soft); margin-top:.9rem; max-width:48rem}
+
+    /* contact / newsletter */
+    .closing{background:var(--cream-deep)}
+    .closing .split{display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start}
+    .closing h2{font-size:clamp(1.8rem,3.5vw,2.6rem); margin-bottom:1rem}
+    .closing p{color:var(--ink-soft); margin-bottom:1.5rem}
+    .nl-form{display:flex; gap:0; max-width:26rem; border:1px solid var(--ink)}
+    .nl-form input{flex:1; border:0; background:transparent; padding:.9rem 1rem;
+      font-family:"Inter"; font-size:.95rem; color:var(--ink)}
+    .nl-form input:focus{outline:none}
+    .nl-form button{border:0; background:var(--ink); color:var(--cream);
+      padding:0 1.4rem; cursor:pointer; font-family:"Inter"; font-size:.85rem; letter-spacing:.05em}
+    .elsewhere{list-style:none; margin-top:1.5rem}
+    .elsewhere li{padding:.4rem 0}
+    .elsewhere a{text-decoration:none; color:var(--ink-soft); font-size:.95rem}
+    .elsewhere a:hover{color:var(--ink)}
+
+    /* footer */
+    footer.site{background:var(--ink); color:var(--cream); padding:3.5rem 0 2rem}
+    .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:2.5rem}
+    footer.site .brand img{height:30px}
+    footer.site .brand .word b{color:var(--cream)}
+    footer.site .brand .word span{color:#9db89e}
+    footer.site .fbrand p{color:rgba(244,237,224,.6); font-size:.88rem; margin-top:1rem; max-width:20rem}
+    footer.site h4{font-family:"Inter"; font-weight:500; font-size:.72rem; letter-spacing:.16em;
+      text-transform:uppercase; color:#9db89e; margin-bottom:1rem}
+    footer.site ul{list-style:none}
+    footer.site ul li{padding:.3rem 0}
+    footer.site ul a{text-decoration:none; color:rgba(244,237,224,.75); font-size:.92rem}
+    footer.site ul a:hover{color:var(--cream)}
+    .foot-copy{display:flex; justify-content:space-between; border-top:1px solid rgba(244,237,224,.15);
+      margin-top:3rem; padding-top:1.5rem; font-size:.78rem; color:rgba(244,237,224,.55); flex-wrap:wrap; gap:1rem}
+
+    /* cart button in nav */
+    .cart-btn{display:flex; align-items:center; gap:.4rem; border:1px solid var(--ink);
+      padding:.5rem 1rem; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
+      cursor:pointer; background:transparent; color:var(--ink); font-family:"Inter"}
+    .cart-btn:hover{background:var(--ink); color:var(--cream)}
+    .cart-btn b{font-weight:600}
+
+    /* shop */
+    .shop{background:var(--cream-deep)}
+    .shop .shead{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:2.4rem; flex-wrap:wrap; gap:1rem}
+    .shop .filters{display:flex; gap:.5rem; flex-wrap:wrap}
+    .chip{font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; padding:.45rem .9rem;
+      border:1px solid var(--line); background:var(--cream); cursor:pointer; transition:.2s; font-family:"Inter"}
+    .chip.on,.chip:hover{background:var(--ink); color:var(--cream); border-color:var(--ink)}
+    .shop-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1.4rem}
+    .pcard{background:var(--cream); border:1px solid var(--line); display:flex; flex-direction:column}
+    .pcard.feature{grid-column:span 2; grid-row:span 2}
+    .pcard .ph{aspect-ratio:1/1; overflow:hidden; position:relative}
+    .pcard.feature .ph{aspect-ratio:auto; height:100%; min-height:240px}
+    .pcard .ph img{width:100%; height:100%; object-fit:cover; transition:transform .5s ease}
+    .pcard:hover .ph img{transform:scale(1.04)}
+    .pcard .badge{position:absolute; top:.6rem; left:.6rem; background:var(--terra); color:var(--cream);
+      font-size:.58rem; letter-spacing:.12em; text-transform:uppercase; padding:.3rem .6rem}
+    .pcard .body{padding:1.1rem 1.2rem 1.3rem; display:flex; flex-direction:column; flex:1}
+    .pcard .cat{font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:.35rem}
+    .pcard h3{font-size:1.25rem; margin-bottom:.3rem}
+    .pcard.feature h3{font-size:1.8rem}
+    .pcard .blurb{font-size:.88rem; color:var(--ink-soft); margin-bottom:.6rem}
+    .pcard .prate{font-size:.74rem; color:var(--ochre); letter-spacing:.08em; margin-bottom:.5rem}
+    .pcard .prate i{font-style:normal; color:var(--ink-soft)}
+    .pcard .price{font-family:"Fraunces",serif; font-size:1.3rem; margin:.2rem 0 .4rem}
+    .stock{display:block; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; margin:0 0 .7rem}
+    .stock--in{color:var(--sage)}.stock--low{color:var(--ochre)}.stock--out{color:var(--terra)}
+    .pcard .add{margin-top:auto; width:100%; text-align:center}
+    .btn[disabled]{opacity:.45; cursor:not-allowed}
+    .btn[disabled]:hover{background:transparent; color:var(--ink)}
+    .btn--solid[disabled]:hover{background:var(--sage-deep); color:var(--cream)}
+
+    /* cart drawer */
+    .vh{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+    .scrim{position:fixed; inset:0; background:rgba(42,37,48,.5); opacity:0; visibility:hidden; transition:.3s; z-index:90}
+    .scrim.on{opacity:1; visibility:visible}
+    .drawer{position:fixed; top:0; right:0; height:100%; width:min(390px,92vw); background:var(--cream);
+      z-index:100; transform:translateX(100%); transition:transform .3s ease; display:flex; flex-direction:column; border-left:1px solid var(--line)}
+    .drawer.on{transform:none}
+    .drawer .dh{display:flex; justify-content:space-between; align-items:center; padding:1.3rem 1.4rem; border-bottom:1px solid var(--line)}
+    .drawer .dh b{font-family:"Fraunces",serif; font-size:1.3rem}
+    .drawer .close{background:none; border:0; font-size:1.3rem; cursor:pointer; color:var(--ink)}
+    .drawer .ditems{flex:1; overflow:auto; padding:1rem 1.4rem}
+    .di{display:flex; gap:.9rem; padding:.9rem 0; border-bottom:1px dashed var(--line); align-items:center}
+    .di img{width:56px; height:56px; object-fit:cover; flex:none}
+    .di .n{font-family:"Fraunces",serif; font-size:1rem}
+    .di .meta{font-size:.78rem; color:var(--ink-soft)}
+    .di .qty{display:flex; align-items:center; gap:.5rem; margin-top:.2rem}
+    .di .qty button{width:20px; height:20px; border:1px solid var(--line); background:var(--cream); cursor:pointer; line-height:1; font-size:.9rem}
+    .di .p{margin-left:auto; font-family:"Fraunces",serif}
+    .drawer .df{padding:1.2rem 1.4rem; border-top:1px solid var(--line)}
+    .drawer .sub{display:flex; justify-content:space-between; margin-bottom:.4rem; font-size:.95rem}
+    .drawer .sub b{font-family:"Fraunces",serif; font-size:1.25rem}
+    .drawer .note{font-size:.74rem; color:var(--ink-soft); margin-bottom:.9rem}
+
+    .reveal{opacity:0; transform:translateY(18px); transition:opacity .8s ease, transform .8s ease}
+    .reveal.in{opacity:1; transform:none}
+
+    @media(max-width:880px){
+      nav.main{display:none}
+      .menu-btn{display:block}
+      .hero-grid,.product .split,.featured .split,.closing .split{grid-template-columns:1fr; gap:2.5rem}
+      .steps-grid,.tcards{grid-template-columns:1fr}
+      .zones{grid-template-columns:1fr}
+      .zone{border-right:0; border-bottom:1px solid var(--line)}
+      .gallery .grid{grid-template-columns:repeat(2,1fr)}
+      .gallery .grid figure:nth-child(1){grid-row:auto}
+      .shop-grid{grid-template-columns:repeat(2,1fr)}
+      .pcard.feature{grid-column:span 2; grid-row:auto}
+      .foot-grid{grid-template-columns:1fr 1fr}
+      .seal{width:84px;height:84px}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="strip">Edition One &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; Complimentary delivery across Orange County</div>
+
+  <header class="site">
+    <div class="site-inner">
+      <a class="brand" href="#top">
+        <img src="assets/logo/horizon_hero_512.png" alt="OmniCompost mark" />
+        <span class="word"><b>Omni</b><span>Compost</span></span>
+      </a>
+      <nav class="main">
+        <a href="#product">The Digester</a>
+        <a href="shop.html">Shop</a>
+        <a href="#how">How it works</a>
+        <a href="#garden">The Garden</a>
+        <a href="newsletter.html">Newsletter</a>
+        <a href="#faq">Questions</a>
+      </nav>
+      <div style="display:flex; align-items:center; gap:1rem">
+        <button class="cart-btn" id="cartBtn" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false" aria-label="Open cart">Cart (<b id="ct">0</b>)</button>
+        <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow reveal">A quiet machine for the kitchen.</span>
+          <h1 class="reveal">Scraps in.<br /><em>Garden out.</em></h1>
+          <p class="lede reveal">OmniCompost is a worm composting digester built for the home — feed it the day's peelings and trimmings, and harvest finished compost and compost tea for the beds. No turning, no odour, no fuss.</p>
+          <div class="hero-actions reveal">
+            <a href="#order" class="btn btn--solid">Reserve a digester</a>
+            <a href="#how" class="btn">See how it works</a>
+          </div>
+        </div>
+        <div class="hero-figure reveal">
+          <img src="assets/img/compost-in-hands.jpg" alt="Finished compost held in two hands, backlit" />
+          <div class="seal"><span>Edition<br>One</span><b>'26</b></div>
+          <div class="cap"><b>Finished compost</b><span>Eight weeks, start to soil</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Vermicompost</span><span>Compost tea</span><span>No turning</span><span>Odour-free</span><span>Counter to garden</span><span>Made to last</span><span>Vermicompost</span><span>Compost tea</span><span>No turning</span><span>Odour-free</span><span>Counter to garden</span><span>Made to last</span>
+      </div>
+    </div>
+
+    <!-- PRODUCT -->
+    <section class="product" id="product">
+      <div class="wrap split">
+        <div class="digester-art reveal">
+          <svg viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Line drawing of the OmniCompost digester">
+            <!-- lid -->
+            <path d="M40 54 q70 -26 140 0 v10 q-70 24 -140 0 z" stroke="#5D7A5E" stroke-width="2"/>
+            <ellipse cx="110" cy="54" rx="70" ry="14" stroke="#5D7A5E" stroke-width="2"/>
+            <path d="M104 40 h12 v8 h-12 z" stroke="#5D7A5E" stroke-width="2"/>
+            <!-- body -->
+            <path d="M44 64 q66 22 132 0 l-12 150 q-54 18 -108 0 z" stroke="#5D7A5E" stroke-width="2"/>
+            <!-- tray seam -->
+            <path d="M50 118 q60 18 120 0" stroke="#5D7A5E" stroke-width="1.5" stroke-dasharray="4 5"/>
+            <path d="M48 168 q62 18 124 0" stroke="#5D7A5E" stroke-width="1.5" stroke-dasharray="4 5"/>
+            <!-- tap -->
+            <path d="M158 196 h22 v12 h-10 l-2 10 h-8 z" stroke="#9B5A44" stroke-width="2"/>
+            <!-- legs -->
+            <path d="M64 214 l-6 24 M156 214 l6 24" stroke="#5D7A5E" stroke-width="2" stroke-linecap="round"/>
+            <!-- worm -->
+            <path d="M86 150 q8 -10 16 0 q8 10 16 0" stroke="#9B5A44" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="reveal">
+          <span class="numeral">I.</span>
+          <h2>The digester.</h2>
+          <p style="color:var(--ink-soft); margin-top:.8rem">A stacked-tray vermicomposter in powder-coated steel and FSC beechwood — sized for a household of four and quiet enough for a galley kitchen. The worms live in the upper trays; the tea collects in the base, drawn off through a brass tap.</p>
+          <div class="rating">
+            <span class="stars">★★★★★</span>
+            <span class="score">4.9</span>
+            <span class="n">/ 5 — 312 owner reviews</span>
+          </div>
+          <ul class="spec-list">
+            <li><span class="k">Capacity</span><span class="v">Up to 5 gallons of scraps in a single day — roughly 2 lbs daily on average.</span></li>
+            <li><span class="k">Footprint</span><span class="v">14 inches square, 24 inches tall. Sits on a counter, a balcony, or under the sink.</span></li>
+            <li><span class="k">Materials</span><span class="v">Powder-coated steel, beechwood lid, food-safe BPA-free trays, brass tap.</span></li>
+            <li><span class="k">Yield</span><span class="v">Finished compost in 8 weeks; compost tea within the first fortnight.</span></li>
+          </ul>
+          <button class="btn btn--solid add" style="margin-top:1.8rem" data-n="The Digester" data-p="385" data-i="assets/img/compost-in-hands.jpg" data-s="14">Add to cart — $385</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOP -->
+    <section class="shop" id="shop">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div>
+            <span class="numeral">II.</span>
+            <h2 style="font-size:clamp(2rem,4vw,3rem); margin:.4rem 0">The shop.</h2>
+            <p style="color:var(--ink-soft)">The digester and everything that keeps the loop running — worms, bedding, tools, and the tea your beds will ask for.</p>
+          </div>
+          <div class="filters" role="group" aria-label="Filter products">
+            <button class="chip on" data-f="all">All</button>
+            <button class="chip" data-f="digester">Digesters</button>
+            <button class="chip" data-f="living">Living</button>
+            <button class="chip" data-f="garden">Garden</button>
+            <button class="chip" data-f="bundle">Bundles</button>
+          </div>
+        </div>
+        <div class="shop-grid reveal">
+          <!-- BUILD:SHOP — generated from products.json by build.py. Do not edit by hand. -->
+          <article class="pcard feature" data-cat="digester">
+            <div class="ph"><span class="badge">Edition One · Featured</span><img src="assets/img/compost-in-hands.jpg" alt="The OmniCompost digester yield" /></div>
+            <div class="body">
+              <span class="cat">Digester</span>
+              <h3><a href="product/the-digester.html">The Digester</a></h3>
+              <p class="blurb">The centrepiece — a stacked-tray vermicomposter in powder-coated steel and beechwood, sized for a household of four. Worms up top, compost tea drawn from a brass tap below.</p>
+              <div class="prate">★★★★★ <i>4.9 (312 reviews)</i></div>
+              <span class="price">$385</span> <span class="stock stock--in">In stock</span>
+              <button class="btn btn--solid add" data-n="The Digester" data-p="385" data-i="assets/img/compost-in-hands.jpg" data-s="14">Add to cart</button>
+            </div>
+          </article>
+          <article class="pcard" data-cat="living">
+            <div class="ph"><img src="assets/img/earthworm-soil-macro.jpg" alt="Red wiggler worms" /></div>
+            <div class="body"><span class="cat">Living</span><h3><a href="product/red-wigglers.html">Red Wigglers</a></h3><div class="prate">★★★★★ <i>5.0 (208)</i></div><span class="price">$42</span> <span class="stock stock--low">Low stock — 6 left</span><button class="btn add" data-n="Red Wigglers" data-p="42" data-i="assets/img/earthworm-soil-macro.jpg" data-s="6">Add to cart</button></div>
+          </article>
+          <article class="pcard" data-cat="living">
+            <div class="ph"><img src="assets/img/seedling-dark-soil.jpg" alt="Worm starter kit" /></div>
+            <div class="body"><span class="cat">Living</span><h3><a href="product/worm-starter-kit.html">Worm Starter Kit</a></h3><div class="prate">★★★★☆ <i>4.7 (96)</i></div><span class="price">$58</span> <span class="stock stock--in">In stock</span><button class="btn add" data-n="Worm Starter Kit" data-p="58" data-i="assets/img/seedling-dark-soil.jpg" data-s="23">Add to cart</button></div>
+          </article>
+          <article class="pcard" data-cat="living">
+            <div class="ph"><img src="assets/img/linen-napkin-stack.jpg" alt="Bedding bricks" /></div>
+            <div class="body"><span class="cat">Living</span><h3><a href="product/bedding-bricks.html">Bedding Bricks ×3</a></h3><div class="prate">★★★★☆ <i>4.6 (39)</i></div><span class="price">$22</span> <span class="stock stock--out">Sold out</span><button class="btn add" disabled aria-disabled="true">Sold out</button></div>
+          </article>
+          <article class="pcard" data-cat="garden">
+            <div class="ph"><img src="assets/img/trowel-wood-soil.jpg" alt="Harvest trowel" /></div>
+            <div class="body"><span class="cat">Garden</span><h3><a href="product/harvest-trowel.html">Harvest Trowel</a></h3><div class="prate">★★★★★ <i>4.8 (54)</i></div><span class="price">$34</span> <span class="stock stock--in">In stock</span><button class="btn add" data-n="Harvest Trowel" data-p="34" data-i="assets/img/trowel-wood-soil.jpg" data-s="31">Add to cart</button></div>
+          </article>
+          <article class="pcard" data-cat="garden">
+            <div class="ph"><img src="assets/img/watering-can-plaster.jpg" alt="Compost tea watering can" /></div>
+            <div class="body"><span class="cat">Garden</span><h3><a href="product/tea-watering-can.html">Tea Watering Can</a></h3><div class="prate">★★★★★ <i>4.9 (71)</i></div><span class="price">$48</span> <span class="stock stock--low">Low stock — 9 left</span><button class="btn add" data-n="Tea Watering Can" data-p="48" data-i="assets/img/watering-can-plaster.jpg" data-s="9">Add to cart</button></div>
+          </article>
+          <article class="pcard" data-cat="garden">
+            <div class="ph"><img src="assets/img/terracotta-pots-garden.jpg" alt="Seedling pots" /></div>
+            <div class="body"><span class="cat">Garden</span><h3><a href="product/seedling-pots.html">Seedling Pots ×6</a></h3><div class="prate">★★★★★ <i>4.8 (63)</i></div><span class="price">$28</span> <span class="stock stock--in">In stock</span><button class="btn add" data-n="Seedling Pots ×6" data-p="28" data-i="assets/img/terracotta-pots-garden.jpg" data-s="40">Add to cart</button></div>
+          </article>
+          <article class="pcard" data-cat="living">
+            <div class="ph"><img src="assets/img/coffee-carafe-kitchen.jpg" alt="Compost tea concentrate" /></div>
+            <div class="body"><span class="cat">Living</span><h3><a href="product/tea-concentrate.html">Tea Concentrate</a></h3><div class="prate">★★★★☆ <i>4.5 (31)</i></div><span class="price">$19</span> <span class="stock stock--in">In stock</span><button class="btn add" data-n="Tea Concentrate" data-p="19" data-i="assets/img/coffee-carafe-kitchen.jpg" data-s="17">Add to cart</button></div>
+          </article>
+          <article class="pcard" data-cat="bundle">
+            <div class="ph"><span class="badge">Bundle · Save $66</span><img src="assets/img/greens-bowl-wood.jpg" alt="The Whole Loop bundle" /></div>
+            <div class="body"><span class="cat">Bundle</span><h3><a href="product/the-whole-loop.html">The Whole Loop</a></h3><div class="prate">★★★★★ <i>5.0 (44)</i></div><span class="price">$465</span> <span class="stock stock--low">Low stock — 5 left</span><button class="btn btn--solid add" data-n="The Whole Loop" data-p="465" data-i="assets/img/greens-bowl-wood.jpg" data-s="5">Add to cart</button></div>
+          </article>
+          <!-- /BUILD:SHOP -->
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW -->
+    <section id="how">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="numeral">III.</span>
+          <h2>How it works.</h2>
+          <p>Four unhurried steps. The worms do the labour; the household keeps the rhythm.</p>
+        </div>
+        <div class="steps-grid">
+          <div class="step reveal">
+            <div class="icon"><svg viewBox="0 0 48 48" fill="none"><path d="M10 18 h28 l-3 22 a4 4 0 0 1 -4 4 h-14 a4 4 0 0 1 -4 -4 z" stroke="#5B7B7A" stroke-width="1.8"/><path d="M16 18 v-4 a8 8 0 0 1 16 0 v4" stroke="#5B7B7A" stroke-width="1.8"/></svg></div>
+            <span class="numeral">Step one</span>
+            <h3>Feed the trays.</h3>
+            <p>Scraps go in the top — peelings, cores, coffee grounds, eggshells. Keep glossy or waxy coatings out; they carry a plastic film.</p>
+          </div>
+          <div class="step reveal">
+            <div class="icon"><svg viewBox="0 0 48 48" fill="none"><path d="M8 30 q8 -8 16 0 q8 8 16 0" stroke="#5D7A5E" stroke-width="2.2" stroke-linecap="round"/><path d="M8 38 q8 -8 16 0 q8 8 16 0" stroke="#5D7A5E" stroke-width="2.2" stroke-linecap="round"/><circle cx="13" cy="22" r="1.6" fill="#5D7A5E"/></svg></div>
+            <span class="numeral">Step two</span>
+            <h3>The worms work.</h3>
+            <p>Red wigglers turn the scraps to castings over weeks. No turning, no smell. They keep two weeks without food or water if you travel.</p>
+          </div>
+          <div class="step reveal">
+            <div class="icon"><svg viewBox="0 0 48 48" fill="none"><path d="M16 12 h16 v6 l-3 24 a3 3 0 0 1 -3 3 h-4 a3 3 0 0 1 -3 -3 l-3 -24 z" stroke="#9A6E1D" stroke-width="1.8"/><path d="M24 30 v10" stroke="#9A6E1D" stroke-width="1.8"/></svg></div>
+            <span class="numeral">Step three</span>
+            <h3>Draw the tea.</h3>
+            <p>Keep the tap open. Compost tea drips into the basin on its own — dilute to 50–90% water before it reaches the garden.</p>
+          </div>
+          <div class="step reveal">
+            <div class="icon"><svg viewBox="0 0 48 48" fill="none"><path d="M24 40 c-10 0 -16 -8 -16 -16 8 0 16 6 16 16 z" stroke="#5D7A5E" stroke-width="1.8"/><path d="M24 40 c10 0 16 -8 16 -16 -8 0 -16 6 -16 16 z" stroke="#5D7A5E" stroke-width="1.8"/><path d="M24 40 v-22" stroke="#5D7A5E" stroke-width="1.8"/></svg></div>
+            <span class="numeral">Step four</span>
+            <h3>Harvest the soil.</h3>
+            <p>After eight weeks, lift the bottom tray and spread the castings — about 6 inches deep around the roots that need it most.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ZONES -->
+    <section class="product" id="garden">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="numeral">IV.</span>
+          <h2>From counter to garden.</h2>
+          <p>The same content, three working zones — the way the field guide reads it.</p>
+        </div>
+        <div class="zones reveal">
+          <div class="zone zone--tools">
+            <span class="ztag">Tools</span>
+            <h3>What it asks of you.</h3>
+            <p>A trowel, a watering can, a fortnightly minute. The digester does the rest, indoors and out of sight.</p>
+          </div>
+          <div class="zone zone--ops">
+            <span class="ztag">Operations</span>
+            <h3>The daily rhythm.</h3>
+            <p>Empty the kitchen container within 3 days. Adding up to 5 gallons in a single day won't trouble the system.</p>
+          </div>
+          <div class="zone zone--tips">
+            <span class="ztag">Tips</span>
+            <h3>For a better harvest.</h3>
+            <p>Crushed eggshells sweeten the bed. Tear cardboard for bedding. A handful of grit keeps the castings light.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="numeral">V.</span>
+          <h2>What it gives back.</h2>
+          <p>A season of the table and the garden, fed by the same quiet machine.</p>
+        </div>
+        <div class="grid reveal">
+          <figure><img src="assets/img/tomatoes-kraft-still.jpg" alt="Vine tomatoes on kraft paper" /><figcaption>The harvest</figcaption></figure>
+          <figure><img src="assets/img/hands-seedling-soil.jpg" alt="Hands holding a seedling in dark soil" /><figcaption>The planting</figcaption></figure>
+          <figure><img src="assets/img/radishes-herbs-twine.jpg" alt="Radishes and herbs tied with twine" /><figcaption>The greens</figcaption></figure>
+          <figure><img src="assets/img/dark-soil-macro.jpg" alt="Macro of dark crumbly soil" /><figcaption>The castings</figcaption></figure>
+          <figure><img src="assets/img/greens-bowl-wood.jpg" alt="Greens in a wooden bowl" /><figcaption>The kitchen</figcaption></figure>
+          <figure><img src="assets/img/cherry-tomatoes-vine.jpg" alt="Cherry tomatoes ripening on the vine" /><figcaption>The vine</figcaption></figure>
+          <figure><img src="assets/img/sourdough-linen-towel.jpg" alt="A loaf of sourdough resting on linen" /><figcaption>The table</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED -->
+    <section class="featured">
+      <div class="wrap split">
+        <div class="reveal"><img src="assets/img/earthworm-soil-macro.jpg" alt="A single earthworm in soil, shallow focus" /></div>
+        <div class="reveal">
+          <span class="eyebrow">The quiet partner.</span>
+          <h2>The work happens<br />below the lid.</h2>
+          <p>A thriving colony of red wigglers is the engine of the digester — turning a household's scraps into some of the richest soil amendment there is. They keep to themselves, ask for nothing, and never need turning.</p>
+          <a href="#how" class="btn">Read the method</a>
+          <div class="pillars">
+            <div class="pillar"><span class="label">No odour</span><p>A balanced bin smells of forest floor, never of refuse.</p></div>
+            <div class="pillar"><span class="label">No turning</span><p>Stacked trays migrate the worms upward on their own.</p></div>
+            <div class="pillar"><span class="label">Two-week grace</span><p>Travel without worry — the colony is fine on its own.</p></div>
+            <div class="pillar"><span class="label">Made to last</span><p>Steel and beechwood, built to outlive a decade of seasons.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUOTE -->
+    <section class="quote">
+      <div class="wrap">
+        <div class="stars reveal">★★★★★</div>
+        <blockquote class="reveal">It sits on the counter like a good piece of cookware — and the garden has never looked better. I stopped thinking of it as a compost bin somewhere around week three.</blockquote>
+        <div class="who reveal">Margaret H. &nbsp;·&nbsp; Corona del Mar</div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="voices" style="padding-top:0">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="numeral">VI.</span>
+          <h2>Voices from the kitchen.</h2>
+        </div>
+        <div class="tcards">
+          <div class="tcard reveal">
+            <span class="score">5.0</span>
+            <div class="stars">★★★★★</div>
+            <p>Handsome enough to leave out, quiet enough to forget. The tea alone transformed my tomatoes.</p>
+            <span class="src">Verified owner · Newport Beach</span>
+          </div>
+          <div class="tcard reveal">
+            <span class="score">4.8</span>
+            <div class="stars">★★★★★</div>
+            <p>I was skeptical about worms in the kitchen. Two months in, there's no smell, and the soil is extraordinary.</p>
+            <span class="src">Verified owner · Laguna</span>
+          </div>
+          <div class="tcard reveal">
+            <span class="score">5.0</span>
+            <div class="stars">★★★★★</div>
+            <p>The build quality is the surprise — brass tap, real wood. It reads as an object, not an appliance.</p>
+            <span class="src">Verified owner · San Clemente</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="product" id="faq">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="numeral">VII.</span>
+          <h2>Questions.</h2>
+        </div>
+        <div class="faq reveal">
+          <details><summary>Does it smell?</summary><p>A balanced digester smells faintly of soil — never of waste. Odour is a sign of overfeeding or too much moisture, both quickly corrected by easing off the scraps for a few days.</p></details>
+          <details><summary>What can the worms eat?</summary><p>Fruit and vegetable scraps, coffee grounds, crushed eggshells, and torn cardboard. Keep out meat, dairy, oils, and anything with a glossy or waxy plastic coating.</p></details>
+          <details><summary>What if I travel?</summary><p>The colony keeps two weeks without food or water. For longer absences, a deeper feeding and a damp sheet of cardboard will carry it through a month.</p></details>
+          <details><summary>How much can I add at once?</summary><p>Up to 5 gallons in a single day won't hurt the system — a holiday or a big cleanup is no trouble. The steady average is roughly 2 lbs a day.</p></details>
+          <details><summary>What is included?</summary><p>The digester, two trays, the brass tap and basin, a starter brick of bedding, and a printed field guide. Live worms ship separately, timed to your delivery week.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <section class="closing" id="order">
+      <div class="wrap split">
+        <div class="reveal">
+          <span class="eyebrow">Reserve the Spring edition.</span>
+          <h2>Bring one home.</h2>
+          <p>The first edition is delivered and set up across Orange County, complimentary. Reserve now and we'll confirm your delivery week — worms timed to arrive with the digester.</p>
+          <a href="mailto:hello@omnicompost.example" class="btn btn--solid">Reserve — $385</a>
+          <ul class="elsewhere">
+            <li><a href="#">↗ &nbsp; Instagram — @omnicompost</a></li>
+            <li><a href="#">↗ &nbsp; The field guide (PDF)</a></li>
+            <li><a href="mailto:hello@omnicompost.example">↗ &nbsp; hello@omnicompost.example</a></li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <h2 style="font-size:1.5rem">Notes from the studio.</h2>
+          <p style="margin-top:.6rem">Occasional dispatches — seasonal feeding notes, garden results, and early word on the next edition.</p>
+          <form class="nl-form" onsubmit="return false;">
+            <input type="email" placeholder="hello@example.com" aria-label="Email address" />
+            <button type="submit">Subscribe</button>
+          </form>
+          <p style="font-size:.78rem; margin-top:.8rem; color:var(--ink-soft)">No frequency commitment. Unsubscribe at any time.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CART DRAWER -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Shopping cart" tabindex="-1">
+    <div class="dh"><b>Your cart</b><button class="close" id="closeC" aria-label="Close cart">✕</button></div>
+    <div class="ditems" id="ditems"><p style="color:var(--ink-soft); font-size:.9rem">Your cart is empty — add something from the shop.</p></div>
+    <div class="df">
+      <div class="sub"><span>Subtotal</span><b id="sub">$0</b></div>
+      <p class="note">Complimentary delivery &amp; setup across Orange County. Worms ship timed to your delivery week.</p>
+      <a href="#order" class="btn btn--solid" style="width:100%; text-align:center" id="checkoutBtn">Checkout</a>
+    </div>
+  </aside>
+  <span class="vh" id="cartLive" role="status" aria-live="polite"></span>
+
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="fbrand">
+        <a class="brand" href="#top">
+          <img src="assets/logo/monogram_knockout_512.png" alt="OmniCompost monogram" />
+          <span class="word"><b>Omni</b><span>Compost</span></span>
+        </a>
+        <p>A worm composting digester for the home — made for the kitchen, built for the garden. Edition One, Spring 2026.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#product">The Digester</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="newsletter.html">Newsletter</a></li>
+          <li><a href="#how">How it works</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Garden</h4>
+        <ul>
+          <li><a href="#garden">From counter to garden</a></li>
+          <li><a href="#voices">Voices</a></li>
+          <li><a href="#faq">Questions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="mailto:hello@omnicompost.example">Contact</a></li>
+          <li><a href="#">The field guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap foot-copy">
+      <span>© <span id="year"></span> OmniCompost · v0.9</span>
+      <span>Edition One &nbsp;·&nbsp; Spring 2026</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    // mobile menu
+    const mb=document.querySelector('.menu-btn'), nav=document.querySelector('nav.main');
+    mb.addEventListener('click',()=>{
+      const open=nav.style.display==='flex';
+      nav.style.display=open?'':'flex';
+      if(!open){nav.style.position='absolute';nav.style.flexDirection='column';nav.style.top='100%';nav.style.right='0';nav.style.background='var(--cream)';nav.style.padding='1.2rem 2rem';nav.style.border='1px solid var(--line)';nav.style.gap='1rem';}
+    });
+
+  </script>
+  <script src="cart.js"></script>
+</body>
+</html>

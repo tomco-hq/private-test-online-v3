@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OmniCompost — The shop</title>
+  <meta name="description" content="The OmniCompost shop — the digester and everything that keeps the loop running: worms, bedding, tools, and compost tea." />
+  <link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" />
+  <style>
+    :root{--cream:#F4EDE0;--cream-deep:#EBE2D2;--sage:#5D7A5E;--sage-deep:#3D5444;
+      --terra:#9B5A44;--ochre:#9A6E1D;--teal:#5B7B7A;--ink:#2A2530;--ink-soft:#564f55;--line:rgba(42,37,48,.16)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--cream);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+    h1,h2,h3,.display{font-family:"Fraunces","Georgia",serif;font-weight:400;line-height:1.08;letter-spacing:-.01em}
+    em{font-family:"Fraunces",serif;font-style:italic;font-weight:300;color:var(--sage-deep)}
+    a{color:inherit}img{display:block;max-width:100%}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 2rem}
+    .eyebrow{font-family:"Fraunces",serif;font-style:italic;font-weight:300;color:var(--terra);font-size:1.05rem}
+    .numeral{font-family:"Fraunces",serif;font-style:italic;color:var(--terra);font-size:.95rem}
+    .btn{display:inline-block;font-family:"Inter",sans-serif;font-weight:500;font-size:.82rem;letter-spacing:.1em;
+      text-transform:uppercase;text-decoration:none;padding:.95rem 2rem;border:1px solid var(--ink);color:var(--ink);
+      background:transparent;cursor:pointer;transition:background .25s,color .25s}
+    .btn:hover{background:var(--ink);color:var(--cream)}
+    .btn--solid{background:var(--sage-deep);border-color:var(--sage-deep);color:var(--cream)}
+    .btn--solid:hover{background:var(--ink);border-color:var(--ink)}
+    .strip{background:var(--sage-deep);color:var(--cream);text-align:center;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;padding:.55rem 1rem}
+    header.site{position:sticky;top:0;z-index:50;background:rgba(244,237,224,.9);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line)}
+    .site-inner{display:flex;align-items:center;justify-content:space-between;max-width:1180px;margin:0 auto;padding:.85rem 2rem}
+    .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+    .brand img{height:34px;width:auto}
+    .brand .word{font-family:"Fraunces",serif;font-size:1.32rem}
+    .brand .word b{font-weight:600;color:var(--ink)}.brand .word span{font-weight:400;color:var(--sage-deep)}
+    nav.main{display:flex;gap:2rem;align-items:center}
+    nav.main a{text-decoration:none;font-size:.82rem;letter-spacing:.04em;color:var(--ink-soft);transition:color .2s}
+    nav.main a:hover,nav.main a[aria-current]{color:var(--ink)}
+    .cart-btn{display:flex;align-items:center;gap:.4rem;border:1px solid var(--ink);padding:.5rem 1rem;font-size:.7rem;
+      letter-spacing:.1em;text-transform:uppercase;cursor:pointer;background:transparent;color:var(--ink);font-family:"Inter"}
+    .cart-btn:hover{background:var(--ink);color:var(--cream)}.cart-btn b{font-weight:600}
+    .menu-btn{display:none;background:none;border:0;cursor:pointer;padding:.4rem}
+    .menu-btn span{display:block;width:22px;height:1.5px;background:var(--ink);margin:5px 0}
+    .pagehead{padding:3.2rem 0 1rem}
+    .pagehead h1{font-size:clamp(2.4rem,5vw,3.8rem);margin:.4rem 0 .6rem}
+    .pagehead p{color:var(--ink-soft);max-width:38rem}
+    .shop{padding:2rem 0 4rem}
+    .shead{display:flex;justify-content:space-between;align-items:flex-end;margin:1.6rem 0 2.2rem;flex-wrap:wrap;gap:1rem}
+    .filters{display:flex;gap:.5rem;flex-wrap:wrap}
+    .chip{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:.45rem .9rem;border:1px solid var(--line);
+      background:var(--cream);cursor:pointer;transition:.2s;font-family:"Inter"}
+    .chip.on,.chip:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+    .shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem}
+    .pcard{background:var(--cream);border:1px solid var(--line);display:flex;flex-direction:column}
+    .pcard.feature{grid-column:span 2;grid-row:span 2}
+    .pcard .ph{aspect-ratio:1/1;overflow:hidden;position:relative}
+    .pcard.feature .ph{aspect-ratio:auto;height:100%;min-height:240px}
+    .pcard .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+    .pcard:hover .ph img{transform:scale(1.04)}
+    .pcard .badge{position:absolute;top:.6rem;left:.6rem;background:var(--terra);color:var(--cream);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .6rem}
+    .pcard .body{padding:1.1rem 1.2rem 1.3rem;display:flex;flex-direction:column;flex:1}
+    .pcard .cat{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.35rem}
+    .pcard h3{font-size:1.25rem;margin-bottom:.3rem}.pcard.feature h3{font-size:1.8rem}
+    .pcard .blurb{font-size:.88rem;color:var(--ink-soft);margin-bottom:.6rem}
+    .pcard .prate{font-size:.74rem;color:var(--ochre);letter-spacing:.08em;margin-bottom:.5rem}.pcard .prate i{font-style:normal;color:var(--ink-soft)}
+    .pcard .price{font-family:"Fraunces",serif;font-size:1.3rem;margin:.2rem 0 .4rem}
+    .stock{display:block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;margin:0 0 .7rem}
+    .stock--in{color:var(--sage)}.stock--low{color:var(--ochre)}.stock--out{color:var(--terra)}
+    .pcard .add{margin-top:auto;width:100%;text-align:center}
+    .btn[disabled]{opacity:.45;cursor:not-allowed}
+    .btn[disabled]:hover{background:transparent;color:var(--ink)}
+    .btn--solid[disabled]:hover{background:var(--sage-deep);color:var(--cream)}
+    .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+    .scrim{position:fixed;inset:0;background:rgba(42,37,48,.5);opacity:0;visibility:hidden;transition:.3s;z-index:90}
+    .scrim.on{opacity:1;visibility:visible}
+    .drawer{position:fixed;top:0;right:0;height:100%;width:min(390px,92vw);background:var(--cream);z-index:100;
+      transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column;border-left:1px solid var(--line)}
+    .drawer.on{transform:none}
+    .drawer .dh{display:flex;justify-content:space-between;align-items:center;padding:1.3rem 1.4rem;border-bottom:1px solid var(--line)}
+    .drawer .dh b{font-family:"Fraunces",serif;font-size:1.3rem}
+    .drawer .close{background:none;border:0;font-size:1.3rem;cursor:pointer;color:var(--ink)}
+    .drawer .ditems{flex:1;overflow:auto;padding:1rem 1.4rem}
+    .di{display:flex;gap:.9rem;padding:.9rem 0;border-bottom:1px dashed var(--line);align-items:center}
+    .di img{width:56px;height:56px;object-fit:cover;flex:none}
+    .di .n{font-family:"Fraunces",serif;font-size:1rem}.di .meta{font-size:.78rem;color:var(--ink-soft)}
+    .di .qty{display:flex;align-items:center;gap:.5rem;margin-top:.2rem}
+    .di .qty button{width:20px;height:20px;border:1px solid var(--line);background:var(--cream);cursor:pointer;line-height:1;font-size:.9rem}
+    .di .p{margin-left:auto;font-family:"Fraunces",serif}
+    .drawer .df{padding:1.2rem 1.4rem;border-top:1px solid var(--line)}
+    .drawer .sub{display:flex;justify-content:space-between;margin-bottom:.4rem;font-size:.95rem}
+    .drawer .sub b{font-family:"Fraunces",serif;font-size:1.25rem}
+    .drawer .note{font-size:.74rem;color:var(--ink-soft);margin-bottom:.9rem}
+    footer.site{border-top:1px solid var(--line);padding:2.4rem 0;margin-top:2rem}
+    .foot-copy{display:flex;justify-content:space-between;color:var(--ink-soft);font-size:.8rem;flex-wrap:wrap;gap:.6rem}
+    @media(max-width:880px){nav.main{display:none}.menu-btn{display:block}.shop-grid{grid-template-columns:repeat(2,1fr)}.pcard.feature{grid-column:span 2;grid-row:auto}}
+  </style>
+</head>
+<body>
+  <div class="strip">Edition One &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; Complimentary delivery across Orange County</div>
+
+  <header class="site">
+    <div class="site-inner">
+      <a class="brand" href="index.html">
+        <img src="assets/logo/horizon_hero_512.png" alt="OmniCompost mark" />
+        <span class="word"><b>Omni</b><span>Compost</span></span>
+      </a>
+      <nav class="main">
+        <a href="index.html#product">The Digester</a>
+        <a href="shop.html" aria-current="page">Shop</a>
+        <a href="index.html#how">How it works</a>
+        <a href="newsletter.html">Newsletter</a>
+        <a href="index.html#faq">Questions</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <button class="cart-btn" id="cartBtn" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false" aria-label="Open cart">Cart (<b id="ct">0</b>)</button>
+        <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="pagehead"><div class="wrap">
+    <span class="eyebrow">Everything for the loop.</span>
+    <h1>The <em>shop</em>.</h1>
+    <p>The digester and everything that keeps it running — worms, bedding, tools, and the compost tea your beds will ask for. Complimentary delivery and setup across Orange County.</p>
+  </div></section>
+
+  <section class="shop"><div class="wrap">
+    <div class="shead">
+      <div><span class="numeral">All products</span></div>
+      <div class="filters" role="group" aria-label="Filter products">
+        <button class="chip on" data-f="all">All</button>
+        <button class="chip" data-f="digester">Digesters</button>
+        <button class="chip" data-f="living">Living</button>
+        <button class="chip" data-f="garden">Garden</button>
+        <button class="chip" data-f="bundle">Bundles</button>
+      </div>
+    </div>
+    <div class="shop-grid">
+      <!-- BUILD:SHOP — generated from products.json by build.py. Do not edit by hand. -->
+      <article class="pcard feature" data-cat="digester">
+        <div class="ph"><span class="badge">Edition One · Featured</span><img src="assets/img/compost-in-hands.jpg" alt="The OmniCompost digester yield" /></div>
+        <div class="body">
+          <span class="cat">Digester</span>
+          <h3><a href="product/the-digester.html">The Digester</a></h3>
+          <p class="blurb">The centrepiece — a stacked-tray vermicomposter in powder-coated steel and beechwood, sized for a household of four. Worms up top, compost tea drawn from a brass tap below.</p>
+          <div class="prate">★★★★★ <i>4.9 (312 reviews)</i></div>
+          <span class="price">$385</span> <span class="stock stock--in">In stock</span>
+          <button class="btn btn--solid add" data-n="The Digester" data-p="385" data-i="assets/img/compost-in-hands.jpg" data-s="14">Add to cart</button>
+        </div>
+      </article>
+      <article class="pcard" data-cat="living">
+        <div class="ph"><img src="assets/img/earthworm-soil-macro.jpg" alt="Red wiggler worms" /></div>
+        <div class="body"><span class="cat">Living</span><h3><a href="product/red-wigglers.html">Red Wigglers</a></h3><div class="prate">★★★★★ <i>5.0 (208)</i></div><span class="price">$42</span> <span class="stock stock--low">Low stock — 6 left</span><button class="btn add" data-n="Red Wigglers" data-p="42" data-i="assets/img/earthworm-soil-macro.jpg" data-s="6">Add to cart</button></div>
+      </article>
+      <article class="pcard" data-cat="living">
+        <div class="ph"><img src="assets/img/seedling-dark-soil.jpg" alt="Worm starter kit" /></div>
+        <div class="body"><span class="cat">Living</span><h3><a href="product/worm-starter-kit.html">Worm Starter Kit</a></h3><div class="prate">★★★★☆ <i>4.7 (96)</i></div><span class="price">$58</span> <span class="stock stock--in">In stock</span><button class="btn add" data-n="Worm Starter Kit" data-p="58" data-i="assets/img/seedling-dark-soil.jpg" data-s="23">Add to cart</button></div>
+      </article>
+      <article class="pcard" data-cat="living">
+        <div class="ph"><img src="assets/img/linen-napkin-stack.jpg" alt="Bedding bricks" /></div>
+        <div class="body"><span class="cat">Living</span><h3><a href="product/bedding-bricks.html">Bedding Bricks ×3</a></h3><div class="prate">★★★★☆ <i>4.6 (39)</i></div><span class="price">$22</span> <span class="stock stock--out">Sold out</span><button class="btn add" disabled aria-disabled="true">Sold out</button></div>
+      </article>
+      <article class="pcard" data-cat="garden">
+        <div class="ph"><img src="assets/img/trowel-wood-soil.jpg" alt="Harvest trowel" /></div>
+        <div class="body"><span class="cat">Garden</span><h3><a href="product/harvest-trowel.html">Harvest Trowel</a></h3><div class="prate">★★★★★ <i>4.8 (54)</i></div><span class="price">$34</span> <span class="stock stock--in">In stock</span><button class="btn add" data-n="Harvest Trowel" data-p="34" data-i="assets/img/trowel-wood-soil.jpg" data-s="31">Add to cart</button></div>
+      </article>
+      <article class="pcard" data-cat="garden">
+        <div class="ph"><img src="assets/img/watering-can-plaster.jpg" alt="Compost tea watering can" /></div>
+        <div class="body"><span class="cat">Garden</span><h3><a href="product/tea-watering-can.html">Tea Watering Can</a></h3><div class="prate">★★★★★ <i>4.9 (71)</i></div><span class="price">$48</span> <span class="stock stock--low">Low stock — 9 left</span><button class="btn add" data-n="Tea Watering Can" data-p="48" data-i="assets/img/watering-can-plaster.jpg" data-s="9">Add to cart</button></div>
+      </article>
+      <article class="pcard" data-cat="garden">
+        <div class="ph"><img src="assets/img/terracotta-pots-garden.jpg" alt="Seedling pots" /></div>
+        <div class="body"><span class="cat">Garden</span><h3><a href="product/seedling-pots.html">Seedling Pots ×6</a></h3><div class="prate">★★★★★ <i>4.8 (63)</i></div><span class="price">$28</span> <span class="stock stock--in">In stock</span><button class="btn add" data-n="Seedling Pots ×6" data-p="28" data-i="assets/img/terracotta-pots-garden.jpg" data-s="40">Add to cart</button></div>
+      </article>
+      <article class="pcard" data-cat="living">
+        <div class="ph"><img src="assets/img/coffee-carafe-kitchen.jpg" alt="Compost tea concentrate" /></div>
+        <div class="body"><span class="cat">Living</span><h3><a href="product/tea-concentrate.html">Tea Concentrate</a></h3><div class="prate">★★★★☆ <i>4.5 (31)</i></div><span class="price">$19</span> <span class="stock stock--in">In stock</span><button class="btn add" data-n="Tea Concentrate" data-p="19" data-i="assets/img/coffee-carafe-kitchen.jpg" data-s="17">Add to cart</button></div>
+      </article>
+      <article class="pcard" data-cat="bundle">
+        <div class="ph"><span class="badge">Bundle · Save $66</span><img src="assets/img/greens-bowl-wood.jpg" alt="The Whole Loop bundle" /></div>
+        <div class="body"><span class="cat">Bundle</span><h3><a href="product/the-whole-loop.html">The Whole Loop</a></h3><div class="prate">★★★★★ <i>5.0 (44)</i></div><span class="price">$465</span> <span class="stock stock--low">Low stock — 5 left</span><button class="btn btn--solid add" data-n="The Whole Loop" data-p="465" data-i="assets/img/greens-bowl-wood.jpg" data-s="5">Add to cart</button></div>
+      </article>
+      <!-- /BUILD:SHOP -->
+    </div>
+  </div></section>
+
+  <!-- CART DRAWER -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Shopping cart" tabindex="-1">
+    <div class="dh"><b>Your cart</b><button class="close" id="closeC" aria-label="Close cart">✕</button></div>
+    <div class="ditems" id="ditems"><p style="color:var(--ink-soft);font-size:.9rem">Your cart is empty — add something from the shop.</p></div>
+    <div class="df">
+      <div class="sub"><span>Subtotal</span><b id="sub">$0</b></div>
+      <p class="note">Complimentary delivery &amp; setup across Orange County. Worms ship timed to your delivery week.</p>
+      <button class="btn btn--solid" style="width:100%;text-align:center" id="checkoutBtn">Checkout</button>
+    </div>
+  </aside>
+  <span class="vh" id="cartLive" role="status" aria-live="polite"></span>
+
+  <footer class="site"><div class="wrap foot-copy">
+    <span>© <span id="year"></span> OmniCompost · v1.0</span>
+    <span><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="newsletter.html">Newsletter</a></span>
+  </div></footer>
+
+  <script>
+    document.getElementById('year').textContent=new Date().getFullYear();
+    const mb=document.querySelector('.menu-btn'),nav=document.querySelector('nav.main');
+    mb.addEventListener('click',()=>{const open=nav.style.display==='flex';nav.style.display=open?'':'flex';
+      if(!open){nav.style.position='absolute';nav.style.flexDirection='column';nav.style.top='100%';nav.style.right='0';nav.style.background='var(--cream)';nav.style.padding='1.2rem 2rem';nav.style.border='1px solid var(--line)';nav.style.gap='1rem';}});
+  </script>
+  <script src="cart.js"></script>
+</body>
+</html>

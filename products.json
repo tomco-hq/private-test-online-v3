@@ -1,0 +1,211 @@
+{
+  "store": {
+    "name": "OmniCompost",
+    "tagline": "The digester and everything that keeps the loop running.",
+    "currency": "usd",
+    "domain": "https://omnicompost.example"
+  },
+  "products": [
+    {
+      "id": "oc-digester",
+      "slug": "the-digester",
+      "name": "The Digester",
+      "category": "digester",
+      "price": 385,
+      "featured": true,
+      "badge": "Edition One · Featured",
+      "cta": "solid",
+      "image": "assets/img/compost-in-hands.jpg",
+      "alt": "The OmniCompost digester yield",
+      "stars": "★★★★★",
+      "score": 4.9,
+      "count": 312,
+      "stock": 14,
+      "blurb": "The centrepiece — a stacked-tray vermicomposter in powder-coated steel and beechwood, sized for a household of four. Worms up top, compost tea drawn from a brass tap below.",
+      "desc": "The centrepiece. A stacked-tray vermicomposter in powder-coated steel and beechwood, sized for a household of four. Worms work the upper trays; finished compost and tea draw from a brass tap below. Quiet, odourless when balanced, and built to sit in a kitchen rather than hide in a garage.",
+      "details": [
+        "Powder-coated steel and beechwood",
+        "Sized for a household of four",
+        "Brass tap for compost tea",
+        "Odourless when the bin is balanced"
+      ]
+    },
+    {
+      "id": "oc-red-wigglers",
+      "slug": "red-wigglers",
+      "name": "Red Wigglers",
+      "category": "living",
+      "price": 42,
+      "featured": false,
+      "cta": "plain",
+      "image": "assets/img/earthworm-soil-macro.jpg",
+      "alt": "Red wiggler worms",
+      "stars": "★★★★★",
+      "score": 5.0,
+      "count": 208,
+      "stock": 6,
+      "desc": "Eisenia fetida — the red wiggler, the worm that does the work. One pound establishes the digester and roughly doubles its population across a season of steady feeding. Shipped live in moist bedding, ready for the top tray.",
+      "details": [
+        "1 lb live worms — roughly 1,000",
+        "Eisenia fetida",
+        "Ships live in moist bedding",
+        "Doubles in a season under steady feeding"
+      ]
+    },
+    {
+      "id": "oc-starter-kit",
+      "slug": "worm-starter-kit",
+      "name": "Worm Starter Kit",
+      "category": "living",
+      "price": 58,
+      "featured": false,
+      "cta": "plain",
+      "image": "assets/img/seedling-dark-soil.jpg",
+      "alt": "Worm starter kit",
+      "stars": "★★★★☆",
+      "score": 4.7,
+      "count": 96,
+      "stock": 23,
+      "desc": "Everything the bin needs on day one — coir bedding, a mineral grit, and a feeding guide keyed to the first six weeks. Pairs with a pound of worms to bring a new digester up to temperature without guesswork.",
+      "details": [
+        "Coir bedding block",
+        "Mineral grit for grinding",
+        "Six-week feeding guide",
+        "Pairs with Red Wigglers"
+      ]
+    },
+    {
+      "id": "oc-bedding-bricks",
+      "slug": "bedding-bricks",
+      "name": "Bedding Bricks ×3",
+      "category": "living",
+      "price": 22,
+      "featured": false,
+      "cta": "plain",
+      "image": "assets/img/linen-napkin-stack.jpg",
+      "alt": "Bedding bricks",
+      "stars": "★★★★☆",
+      "score": 4.6,
+      "count": 39,
+      "stock": 0,
+      "desc": "Three compressed coir bricks — each expands to roughly 8 litres in warm water. Bedding is the carbon half of the bin; refresh a handful whenever the trays read wet or the balance tips sour.",
+      "details": [
+        "3 compressed coir bricks",
+        "Roughly 8 L expanded each",
+        "Low-dust, pH-neutral",
+        "Refreshes wet or sour trays"
+      ]
+    },
+    {
+      "id": "oc-harvest-trowel",
+      "slug": "harvest-trowel",
+      "name": "Harvest Trowel",
+      "category": "garden",
+      "price": 34,
+      "featured": false,
+      "cta": "plain",
+      "image": "assets/img/trowel-wood-soil.jpg",
+      "alt": "Harvest trowel",
+      "stars": "★★★★★",
+      "score": 4.8,
+      "count": 54,
+      "stock": 31,
+      "desc": "A narrow stainless trowel sized for tray work — deep enough to lift a finished layer, slim enough to leave the worms behind. Beechwood handle to match the digester.",
+      "details": [
+        "Stainless steel head",
+        "Beechwood handle",
+        "Narrow profile for tray work",
+        "6-inch blade"
+      ]
+    },
+    {
+      "id": "oc-tea-can",
+      "slug": "tea-watering-can",
+      "name": "Tea Watering Can",
+      "category": "garden",
+      "price": 48,
+      "featured": false,
+      "cta": "plain",
+      "image": "assets/img/watering-can-plaster.jpg",
+      "alt": "Compost tea watering can",
+      "stars": "★★★★★",
+      "score": 4.9,
+      "count": 71,
+      "stock": 9,
+      "desc": "A two-litre can in glazed stoneware, filled straight from the digester's tap. The long spout reaches the base of a pot; the mark inside reads half-and-half, so the tea goes out at strength.",
+      "details": [
+        "2 L glazed stoneware",
+        "Long reaching spout",
+        "Half-and-half fill mark",
+        "Draws from the tap"
+      ]
+    },
+    {
+      "id": "oc-seedling-pots",
+      "slug": "seedling-pots",
+      "name": "Seedling Pots ×6",
+      "category": "garden",
+      "price": 28,
+      "featured": false,
+      "cta": "plain",
+      "image": "assets/img/terracotta-pots-garden.jpg",
+      "alt": "Seedling pots",
+      "stars": "★★★★★",
+      "score": 4.8,
+      "count": 63,
+      "stock": 40,
+      "desc": "Six terracotta pots, 7 cm across — sized for the seedlings the compost will raise. Unglazed, so the roots breathe and the soil dries evenly between waterings.",
+      "details": [
+        "6 terracotta pots",
+        "7 cm diameter",
+        "Unglazed and breathable",
+        "Drainage hole in each"
+      ]
+    },
+    {
+      "id": "oc-tea-concentrate",
+      "slug": "tea-concentrate",
+      "name": "Tea Concentrate",
+      "category": "living",
+      "price": 19,
+      "featured": false,
+      "cta": "plain",
+      "image": "assets/img/coffee-carafe-kitchen.jpg",
+      "alt": "Compost tea concentrate",
+      "stars": "★★★★☆",
+      "score": 4.5,
+      "count": 31,
+      "stock": 17,
+      "desc": "A bottled head-start for a young bin — a measured culture of the microbes finished compost carries. One capful seeds the first brew while the worms find their rhythm.",
+      "details": [
+        "250 ml concentrate",
+        "Live microbial culture",
+        "One capful per brew",
+        "Bridges the first weeks"
+      ]
+    },
+    {
+      "id": "oc-whole-loop",
+      "slug": "the-whole-loop",
+      "name": "The Whole Loop",
+      "category": "bundle",
+      "price": 465,
+      "featured": false,
+      "badge": "Bundle · Save $66",
+      "cta": "solid",
+      "image": "assets/img/greens-bowl-wood.jpg",
+      "alt": "The Whole Loop bundle",
+      "stars": "★★★★★",
+      "score": 5.0,
+      "count": 44,
+      "stock": 5,
+      "desc": "The digester and everything that keeps it running — worms, bedding, the starter kit, trowel, watering can, and a season of tea concentrate, gathered into one order. Saves $66 over buying the loop piece by piece.",
+      "details": [
+        "The Digester",
+        "Red Wigglers + Worm Starter Kit",
+        "Trowel, watering can, bedding, concentrate",
+        "Saves $66 versus buying separately"
+      ]
+    }
+  ]
+}

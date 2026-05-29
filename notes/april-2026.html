@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OmniCompost — Field Notes · The spring wake-up</title>
+  <meta name="description" content="Field Notes, April 2026 — why the bin slows in winter, and the three small adjustments that bring it back to life as the kitchen fills with peelings again." />
+  <link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" />
+  <style>
+    :root{--cream:#F4EDE0;--cream-deep:#EBE2D2;--sage:#5D7A5E;--sage-deep:#3D5444;
+      --terra:#9B5A44;--ochre:#9A6E1D;--teal:#5B7B7A;--ink:#2A2530;--ink-soft:#564f55;--line:rgba(42,37,48,.16)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--cream);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+    h1,h2,h3{font-family:"Fraunces","Georgia",serif;font-weight:400;line-height:1.1;letter-spacing:-.01em}
+    em,i{font-family:"Fraunces",serif;font-style:italic;font-weight:300;color:var(--sage-deep)}
+    a{color:inherit}img{display:block;max-width:100%}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 2rem}
+    .narrow{max-width:660px}
+    .eyebrow{font-family:"Fraunces",serif;font-style:italic;font-weight:300;color:var(--terra);font-size:1.05rem}
+    .btn{display:inline-block;font-family:"Inter",sans-serif;font-weight:500;font-size:.82rem;letter-spacing:.1em;
+      text-transform:uppercase;text-decoration:none;padding:.95rem 2rem;border:1px solid var(--ink);color:var(--ink);
+      background:transparent;cursor:pointer;transition:background .25s,color .25s}
+    .btn:hover{background:var(--ink);color:var(--cream)}
+    .btn--solid{background:var(--sage-deep);border-color:var(--sage-deep);color:var(--cream)}
+    .btn--solid:hover{background:var(--ink);border-color:var(--ink)}
+    .strip{background:var(--sage-deep);color:var(--cream);text-align:center;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;padding:.55rem 1rem}
+    header.site{position:sticky;top:0;z-index:50;background:rgba(244,237,224,.9);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line)}
+    .site-inner{display:flex;align-items:center;justify-content:space-between;max-width:1180px;margin:0 auto;padding:.85rem 2rem}
+    .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+    .brand img{height:34px;width:auto}
+    .brand .word{font-family:"Fraunces",serif;font-size:1.32rem}
+    .brand .word b{font-weight:600;color:var(--ink)}.brand .word span{font-weight:400;color:var(--sage-deep)}
+    nav.main{display:flex;gap:2rem;align-items:center}
+    nav.main a{text-decoration:none;font-size:.82rem;letter-spacing:.04em;color:var(--ink-soft);transition:color .2s}
+    nav.main a:hover,nav.main a[aria-current]{color:var(--ink)}
+    .cart-btn{display:flex;align-items:center;gap:.4rem;border:1px solid var(--ink);padding:.5rem 1rem;font-size:.7rem;
+      letter-spacing:.1em;text-transform:uppercase;cursor:pointer;background:transparent;color:var(--ink);font-family:"Inter"}
+    .cart-btn:hover{background:var(--ink);color:var(--cream)}.cart-btn b{font-weight:600}
+    .menu-btn{display:none;background:none;border:0;cursor:pointer;padding:.4rem}
+    .menu-btn span{display:block;width:22px;height:1.5px;background:var(--ink);margin:5px 0}
+    .crumb{padding:1.6rem 0 0;font-size:.78rem;letter-spacing:.04em;color:var(--ink-soft)}
+    .crumb a{text-decoration:none}.crumb a:hover{color:var(--ink)}
+    article.note{padding:2.4rem 0 1rem}
+    article.note .mo{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terra)}
+    article.note h1{font-size:clamp(2.2rem,4.6vw,3.4rem);margin:.7rem 0 1.4rem}
+    article.note .lede{font-size:1.2rem;color:var(--ink-soft);font-family:"Fraunces",serif;font-style:italic;font-weight:300;margin-bottom:2rem}
+    article.note p{margin-bottom:1.3rem}
+    article.note hr{border:0;border-top:1px dashed var(--line);margin:2.2rem 0}
+    article.note h2{font-size:clamp(1.5rem,3vw,2rem);margin:2.4rem 0 1rem}
+    article.note figure{margin:2.2rem 0}
+    article.note figure img{width:100%;height:340px;object-fit:cover;border:1px solid var(--line)}
+    article.note figure.wide{width:100vw;max-width:1180px;margin-left:50%;transform:translateX(-50%)}
+    article.note figure.wide img{height:440px}
+    article.note figcaption{font-family:"Fraunces",serif;font-style:italic;color:var(--ink-soft);font-size:.92rem;margin-top:.6rem;text-align:center}
+    .signoff{font-family:"Fraunces",serif;font-style:italic;color:var(--sage-deep);font-size:1.05rem}
+    .endcta{background:var(--cream-deep);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:3rem 0;margin-top:2.4rem;text-align:center}
+    .endcta h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:.6rem}
+    .endcta p{color:var(--ink-soft);margin-bottom:1.4rem}
+    .scrim{position:fixed;inset:0;background:rgba(42,37,48,.5);opacity:0;visibility:hidden;transition:.3s;z-index:90}
+    .scrim.on{opacity:1;visibility:visible}
+    .drawer{position:fixed;top:0;right:0;height:100%;width:min(390px,92vw);background:var(--cream);z-index:100;
+      transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column;border-left:1px solid var(--line)}
+    .drawer.on{transform:none}
+    .drawer .dh{display:flex;justify-content:space-between;align-items:center;padding:1.3rem 1.4rem;border-bottom:1px solid var(--line)}
+    .drawer .dh b{font-family:"Fraunces",serif;font-size:1.3rem}
+    .drawer .close{background:none;border:0;font-size:1.3rem;cursor:pointer;color:var(--ink)}
+    .drawer .ditems{flex:1;overflow:auto;padding:1rem 1.4rem}
+    .di{display:flex;gap:.9rem;padding:.9rem 0;border-bottom:1px dashed var(--line);align-items:center}
+    .di img{width:56px;height:56px;object-fit:cover;flex:none}
+    .di .n{font-family:"Fraunces",serif;font-size:1rem}.di .meta{font-size:.78rem;color:var(--ink-soft)}
+    .di .qty{display:flex;align-items:center;gap:.5rem;margin-top:.2rem}
+    .di .qty button{width:20px;height:20px;border:1px solid var(--line);background:var(--cream);cursor:pointer;line-height:1;font-size:.9rem}
+    .di .p{margin-left:auto;font-family:"Fraunces",serif}
+    .drawer .df{padding:1.2rem 1.4rem;border-top:1px solid var(--line)}
+    .drawer .sub{display:flex;justify-content:space-between;margin-bottom:.4rem;font-size:.95rem}
+    .drawer .sub b{font-family:"Fraunces",serif;font-size:1.25rem}
+    .drawer .note{font-size:.74rem;color:var(--ink-soft);margin-bottom:.9rem}
+    .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+    footer.site{border-top:1px solid var(--line);padding:2.4rem 0;margin-top:1rem}
+    .foot-copy{display:flex;justify-content:space-between;color:var(--ink-soft);font-size:.8rem;flex-wrap:wrap;gap:.6rem}
+    @media(max-width:880px){nav.main{display:none}.menu-btn{display:block}}
+  </style>
+</head>
+<body>
+  <div class="strip">Field Notes &nbsp;·&nbsp; One considered letter a month</div>
+
+  <header class="site">
+    <div class="site-inner">
+      <a class="brand" href="../index.html">
+        <img src="../assets/logo/horizon_hero_512.png" alt="OmniCompost mark" />
+        <span class="word"><b>Omni</b><span>Compost</span></span>
+      </a>
+      <nav class="main">
+        <a href="../index.html#product">The Digester</a>
+        <a href="../shop.html">Shop</a>
+        <a href="../index.html#how">How it works</a>
+        <a href="../newsletter.html" aria-current="page">Newsletter</a>
+        <a href="../index.html#faq">Questions</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <button class="cart-btn" id="cartBtn" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false" aria-label="Open cart">Cart (<b id="ct">0</b>)</button>
+        <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap crumb"><a href="../newsletter.html">Field Notes</a> &nbsp;/&nbsp; April 2026</div>
+
+  <main class="wrap narrow">
+    <article class="note">
+      <span class="mo">April · 2026</span>
+      <h1>The spring wake-up</h1>
+      <p class="lede">Why the bin slows in winter, and the three small adjustments that bring it back to life as the kitchen fills with peelings again.</p>
+
+      <p>The bin slows in winter. Worms are creatures of temperature, and below 50°F they draw down — eating less, breeding less, holding at the warm centre of the tray and waiting out the cold. Nothing is wrong. The system is doing what it should. A digester is not a machine that runs at one speed; it is a population, and populations follow the weather more honestly than any thermostat.</p>
+
+      <p>The signs are easy to misread. Food sits longer. The trays feel heavier and a little wetter. The tap runs slow. A first-winter owner often reads this as failure and overcorrects — adding heat, adding food, turning the bedding — when the kinder response is patience. The worms have not left. They have gathered, a few inches down and toward the middle, where the mass of the bin holds its own faint warmth, and they are waiting for a reason to spread out again.</p>
+
+      <figure class="wide">
+        <img src="../assets/img/earthworm-soil-macro.jpg" alt="Red wiggler worms working through dark, moist bedding" />
+        <figcaption>The population draws to the warm centre through the cold months — quieter, not gone.</figcaption>
+      </figure>
+
+      <h2>Three small adjustments</h2>
+
+      <p>Spring asks three of them, and no more. The temptation in a warming kitchen is to do everything at once; the bin rewards restraint. Make the changes in order, a week apart, and watch how the trays answer before reaching for the next.</p>
+
+      <p>First, feed lighter for the first fortnight — a handful every few days rather than the summer cupful, until the population catches up with the warmth. A cold-thinned colony cannot process a full load, and uneaten food is what turns a balanced bin sour. Let the worms set the pace; when a feeding disappears in two days rather than five, the population has recovered enough to ask for more.</p>
+
+      <p>Second, check the moisture. A winter bin runs dry at the edges, where the air reaches it, while the centre stays damp. The fix is a fresh coir brick, soaked and wrung to the wetness of a squeezed sponge, then worked into the top tray. Bedding is the carbon half of the system and the buffer that keeps the whole thing from tipping acidic — refresh it now and the spring feeding has somewhere to go.</p>
+
+      <figure>
+        <img src="../assets/img/seedling-dark-soil.jpg" alt="A young seedling rising from dark, finished compost" />
+        <figcaption>The first tea of the season, drawn half-and-half, is the feed the garden has been waiting for.</figcaption>
+      </figure>
+
+      <p>Third, draw the tea. A season's worth has been gathering at the base; two litres, diluted half-and-half, is the first feed the garden wants. Drawn straight and undiluted it is too strong for tender spring roots — the half-and-half mark inside the watering can exists for exactly this. Pour it at the base of a pot rather than over the leaves, and the seedlings the compost will go on to raise get their start from the bin that made them.</p>
+
+      <p>By the time the kitchen fills with peelings again, the bin will have found its rhythm. The worms read the season faster than the calendar does — they were already turning toward spring while the trays still felt like winter. Trust the slow start. A digester brought back gently in April is the one still running easily in August.</p>
+
+      <hr />
+      <p class="signoff">— From the bench, OmniCompost</p>
+    </article>
+  </main>
+
+  <section class="endcta"><div class="wrap narrow">
+    <h2>Read the rest in your inbox.</h2>
+    <p>Subscribers receive the full letter — one considered email a month, never a sales blast.</p>
+    <a class="btn btn--solid" href="../newsletter.html">Subscribe to Field Notes</a>
+  </div></section>
+
+  <!-- CART DRAWER -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Shopping cart" tabindex="-1">
+    <div class="dh"><b>Your cart</b><button class="close" id="closeC" aria-label="Close cart">✕</button></div>
+    <div class="ditems" id="ditems"><p style="color:var(--ink-soft);font-size:.9rem">Your cart is empty — add something from the shop.</p></div>
+    <div class="df">
+      <div class="sub"><span>Subtotal</span><b id="sub">$0</b></div>
+      <p class="note">Complimentary delivery &amp; setup across Orange County.</p>
+      <a href="../shop.html" class="btn btn--solid" style="width:100%;text-align:center">Browse the shop</a>
+    </div>
+  </aside>
+  <span class="vh" id="cartLive" role="status" aria-live="polite"></span>
+
+  <footer class="site"><div class="wrap foot-copy">
+    <span>© <span id="year"></span> OmniCompost</span>
+    <span><a href="../index.html">Home</a> &nbsp;·&nbsp; <a href="../shop.html">Shop</a> &nbsp;·&nbsp; <a href="../newsletter.html">Newsletter</a></span>
+  </div></footer>
+
+  <script>
+    document.getElementById('year').textContent=new Date().getFullYear();
+    var mb=document.querySelector('.menu-btn'),nav=document.querySelector('nav.main');
+    mb.addEventListener('click',function(){var open=nav.style.display==='flex';nav.style.display=open?'':'flex';
+      if(!open){nav.style.position='absolute';nav.style.flexDirection='column';nav.style.top='100%';nav.style.right='0';nav.style.background='var(--cream)';nav.style.padding='1.2rem 2rem';nav.style.border='1px solid var(--line)';nav.style.gap='1rem';}});
+  </script>
+  <script src="../cart.js"></script>
+</body>
+</html>
