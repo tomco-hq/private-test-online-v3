@@ -10,6 +10,29 @@
   const drawer = $('drawer'), scrim = $('scrim'), live = $('cartLive');
   const empty = '<p style="color:var(--ink-soft); font-size:.9rem">Your cart is empty — add something from the shop.</p>';
 
+  // Free Orange County delivery once the order clears this subtotal. Change the
+  // one number to adjust the threshold; copy below updates automatically.
+  const FREE_SHIP_MIN = 150;
+  // A dynamic progress line in the cart footer ("Add $X …" / "qualifies …").
+  let shipNote = null;
+  const df = sub ? sub.closest('.df') : null;
+  if (df) {
+    shipNote = document.createElement('p');
+    shipNote.className = 'shipnote';
+    shipNote.setAttribute('role', 'status');
+    shipNote.setAttribute('aria-live', 'polite');
+    const areaNote = df.querySelector('.note');
+    if (areaNote) df.insertBefore(shipNote, areaNote); else df.insertBefore(shipNote, df.lastElementChild);
+    if (!document.getElementById('shipNoteStyle')) {
+      const st = document.createElement('style');
+      st.id = 'shipNoteStyle';
+      st.textContent =
+        '.shipnote{font-size:.8rem;margin:.5rem 0 0;min-height:1em;color:var(--ink-soft)}' +
+        '.shipnote.ok{color:var(--sage)}';
+      document.head.appendChild(st);
+    }
+  }
+
   const FOCUSABLE = 'a[href],button:not([disabled]),input,[tabindex]:not([tabindex="-1"])';
   let lastFocus = null;
 
@@ -39,19 +62,33 @@
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   };
 
+  function shipMsg(total) {
+    if (!shipNote) return;
+    if (!cart.length) { shipNote.textContent = ''; shipNote.className = 'shipnote'; return; }
+    if (total >= FREE_SHIP_MIN) {
+      shipNote.textContent = 'Your order earns complimentary Orange County delivery.';
+      shipNote.className = 'shipnote ok';
+    } else {
+      shipNote.textContent = 'Add $' + (FREE_SHIP_MIN - total) + ' more for complimentary Orange County delivery.';
+      shipNote.className = 'shipnote';
+    }
+  }
+
   function render() {
     save();
     const n = cart.reduce((a, c) => a + c.q, 0);
     if (ct) ct.textContent = n;
     if (live) live.textContent = n === 0 ? 'Cart is empty' : (n + (n === 1 ? ' item' : ' items') + ' in cart');
     if (!ditems) return; // page has only the count badge (e.g. newsletter)
-    if (!cart.length) { ditems.innerHTML = empty; if (sub) sub.textContent = '$0'; return; }
+    if (!cart.length) { ditems.innerHTML = empty; if (sub) sub.textContent = '$0'; shipMsg(0); return; }
     ditems.innerHTML = cart.map((c, idx) =>
       `<div class="di"><img src="${c.i}" alt=""><div><div class="n">${c.n}</div>` +
       `<div class="qty"><button data-d="${idx}" aria-label="Decrease">−</button>` +
       `<span class="meta">Qty ${c.q}</span><button data-u="${idx}" aria-label="Increase">+</button></div></div>` +
       `<div class="p">$${c.p * c.q}</div></div>`).join('');
-    if (sub) sub.textContent = '$' + cart.reduce((a, c) => a + c.p * c.q, 0);
+    const total = cart.reduce((a, c) => a + c.p * c.q, 0);
+    if (sub) sub.textContent = '$' + total;
+    shipMsg(total);
     ditems.querySelectorAll('[data-u]').forEach(b => b.onclick = () => {
       const c = cart[+b.dataset.u]; const cap = c.s || Infinity;
       if (c.q < cap) c.q++; render();

@@ -195,6 +195,11 @@ PRODUCT_PAGE = """<!doctype html>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>OmniCompost — {name}</title>
   <meta name="description" content="{meta_desc}" />
+  <meta property="og:type" content="product" />
+  <meta property="og:title" content="OmniCompost — {name}" />
+  <meta property="og:description" content="{meta_desc}" />
+  <meta property="og:image" content="../{image}" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -238,6 +243,10 @@ PRODUCT_PAGE = """<!doctype html>
     .pdp .media img{{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}}
     .pdp .media .badge{{position:absolute;top:1rem;left:1rem;background:var(--sage-deep);color:var(--cream);
       font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .7rem}}
+    .pdp .thumbs{{display:flex;gap:.5rem;padding:.5rem;background:var(--cream-deep);border-top:1px solid var(--line)}}
+    .pdp .thumbs img{{width:74px;height:56px;object-fit:cover;cursor:pointer;border:1px solid var(--line);
+      opacity:.65;transition:opacity .2s}}
+    .pdp .thumbs img.sel,.pdp .thumbs img:hover{{opacity:1;outline:1px solid var(--sage-deep)}}
     .pdp .cat{{font-family:"Inter";font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}}
     .pdp h1{{font-size:clamp(2.1rem,4vw,3rem);margin:.5rem 0 .8rem}}
     .pdp .prate{{font-size:.92rem;color:var(--ochre);margin-bottom:1.1rem}}
@@ -292,7 +301,8 @@ PRODUCT_PAGE = """<!doctype html>
       <nav class="main">
         <a href="../index.html#product">The Digester</a>
         <a href="../shop.html">Shop</a>
-        <a href="../index.html#how">How it works</a>
+        <a href="../learn.html">How it works</a>
+        <a href="../gallery.html">Gallery</a>
         <a href="../newsletter.html">Newsletter</a>
         <a href="../index.html#faq">Questions</a>
       </nav>
@@ -307,7 +317,7 @@ PRODUCT_PAGE = """<!doctype html>
 
   <main class="wrap">
     <article class="pdp">
-      <div class="media">{badge}<img src="../{image}" alt="{alt}" /></div>
+      <div class="media">{badge}<img id="hero" src="../{image}" alt="{alt}" />{thumbs}</div>
       <div class="info">
         <span class="cat">{cat_label}</span>
         <h1>{name}</h1>
@@ -340,12 +350,15 @@ PRODUCT_PAGE = """<!doctype html>
   <span class="vh" id="cartLive" role="status" aria-live="polite"></span>
 
   <footer class="site"><div class="wrap foot-copy">
-    <span>© <span id="year"></span> OmniCompost</span>
+    <span>© <span id="year"></span> OmniCompost · v0.9</span>
     <span><a href="../index.html">Home</a> &nbsp;·&nbsp; <a href="../shop.html">Shop</a> &nbsp;·&nbsp; <a href="../newsletter.html">Newsletter</a></span>
   </div></footer>
 
   <script>
     document.getElementById('year').textContent=new Date().getFullYear();
+    function swapHero(el){{document.getElementById('hero').src=el.src;
+      document.querySelectorAll('.thumbs img').forEach(function(i){{i.classList.remove('sel');}});
+      el.classList.add('sel');}}
     var mb=document.querySelector('.menu-btn'),nav=document.querySelector('nav.main');
     mb.addEventListener('click',function(){{var open=nav.style.display==='flex';nav.style.display=open?'':'flex';
       if(!open){{nav.style.position='absolute';nav.style.flexDirection='column';nav.style.top='100%';nav.style.right='0';nav.style.background='var(--cream)';nav.style.padding='1.2rem 2rem';nav.style.border='1px solid var(--line)';nav.style.gap='1rem';}}}});
@@ -368,12 +381,30 @@ def product_page_html(product):
     )
     desc = product.get("desc") or product.get("blurb", "")
     meta = desc.replace('"', "&quot;")
+
+    # Optional second image -> a small thumbnail strip with click-to-swap.
+    thumbs = ""
+    if product.get("image2"):
+        alt2 = product.get("alt2", product["alt"])
+        thumbs = (
+            '\n        <div class="thumbs">'
+            '<img class="sel" src="../{image}" alt="{alt}" onclick="swapHero(this)" />'
+            '<img src="../{image2}" alt="{alt2}" onclick="swapHero(this)" />'
+            "</div>\n      "
+        ).format(
+            image=product["image"],
+            alt=product["alt"],
+            image2=product["image2"],
+            alt2=alt2,
+        )
+
     return PRODUCT_PAGE.format(
         name=product["name"],
         meta_desc=meta,
         badge=badge,
         image=product["image"],
         alt=product["alt"],
+        thumbs=thumbs,
         cat_label=product["category"].capitalize(),
         rating=rating_html(product),
         price=money(product["price"]),

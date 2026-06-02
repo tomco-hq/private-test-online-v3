@@ -1,0 +1,19 @@
+# OmniCompost — short-URL redirects for printed-guide QR codes.
+# Format: Netlify / Cloudflare Pages `_redirects` (one rule per line:  from  to  status).
+#
+# The QR codes on the printed guides encode STABLE short URLs (/g/<slug>), never the
+# PDF's real path. The host 302-redirects each short URL to the current hosted PDF, so a
+# card printed today keeps resolving after the PDF is re-exported. Keep the slug forever;
+# change only the target on the right. Use 302 (temporary) so scanners/browsers never
+# cache an old target; promote to 301 only if a destination is truly permanent.
+
+/g/kitchen          /assets/guides/kitchen-guide-v5.png      302
+/g/lawn             /assets/guides/lawn-guide-v6.png         302
+/g/troubleshooting  /assets/guides/troubleshooting-guide.pdf 302
+
+# Note: kitchen/lawn point at the PNG today because that is the current export; swap the
+# right-hand side to the .pdf once the final Canva PDFs are hosted. troubleshooting already
+# targets its PDF.
+
+# Branded 404 (CLAUDE.md: "host should map 404s here").
+/*  /404.html  404

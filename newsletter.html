@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>OmniCompost — The Field Notes newsletter</title>
   <meta name="description" content="Field Notes — seasonal composting guidance, garden timing, and the occasional letter from the OmniCompost studio. One considered email a month." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="OmniCompost — Field Notes" />
+  <meta property="og:description" content="Seasonal composting guidance, garden timing, and the occasional letter from the studio. One considered email a month." />
+  <meta property="og:image" content="assets/img/og-card.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -113,7 +118,8 @@
       <nav class="main">
         <a href="index.html#product">The Digester</a>
         <a href="shop.html">Shop</a>
-        <a href="index.html#how">How it works</a>
+        <a href="learn.html">How it works</a>
+        <a href="gallery.html">Gallery</a>
         <a href="newsletter.html" aria-current="page">Newsletter</a>
         <a href="index.html#faq">Questions</a>
       </nav>
@@ -142,7 +148,7 @@
     <div class="feat">
       <div class="it"><span class="numeral">I.</span><hr class="dash" /><h3>What's ready this month</h3><p>The scraps that compost fastest right now, and the ones to hold back until the bin warms up.</p></div>
       <div class="it"><span class="numeral">II.</span><hr class="dash" /><h3>From counter to garden</h3><p>When to draw the tea, how to dilute it, and which beds want it first as the season turns.</p></div>
-      <div class="it"><span class="numeral">III.</span><hr class="dash" /><h3>A letter from the bench</h3><p>A short, unhurried note on a single idea — the kind of thing we'd tell a neighbour over the fence.</p></div>
+      <div class="it"><span class="numeral">III.</span><hr class="dash" /><h3>A letter from the bench</h3><p>A short, unhurried note on a single idea — the kind of thing we'd tell a neighbor over the fence.</p></div>
     </div>
   </div></section>
 
@@ -151,7 +157,7 @@
     <p class="sub">A taste of the archive. Subscribers receive the full letter.</p>
     <div class="issues">
       <article class="issue"><span class="mo">April · 2026</span><h4>The spring wake-up</h4><p>Why the bin slows in winter and the three small adjustments that bring it back to life as the kitchen fills with peelings again.</p><a href="notes/april-2026.html">Read the opening →</a></article>
-      <article class="issue"><span class="mo">March · 2026</span><h4>On compost tea</h4><p>The fortnight rule, the half-and-half dilution, and the beds that respond first. A quiet case for patience.</p><a href="notes/march-2026.html">Read the opening →</a></article>
+      <article class="issue"><span class="mo">March · 2026</span><h4>On compost tea</h4><p>The two-week rule, the half-and-half dilution, and the beds that respond first. A quiet case for patience.</p><a href="notes/march-2026.html">Read the opening →</a></article>
       <article class="issue"><span class="mo">February · 2026</span><h4>What the worms won't touch</h4><p>The short list of things to keep out — and why the glossy, the waxy, and the citrus-heavy cause more trouble than they're worth.</p><a href="notes/february-2026.html">Read the opening →</a></article>
     </div>
   </div></section>
@@ -170,7 +176,7 @@
   <span class="vh" id="cartLive" role="status" aria-live="polite"></span>
 
   <footer class="site"><div class="wrap foot-copy">
-    <span>© <span id="year"></span> OmniCompost · v1.0</span>
+    <span>© <span id="year"></span> OmniCompost · v0.9</span>
     <span><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="shop.html">Shop</a></span>
   </div></footer>
 
@@ -181,7 +187,7 @@
       if(!open){nav.style.position='absolute';nav.style.flexDirection='column';nav.style.top='100%';nav.style.right='0';nav.style.background='var(--cream)';nav.style.padding='1.2rem 2rem';nav.style.border='1px solid var(--line)';nav.style.gap='1rem';}});
     // ── Newsletter sign-up → email service provider ──────────────────────────
     // Paste your ESP's form-submit endpoint below (Mailchimp/ConvertKit/Buttondown
-    // /Formspree all expose one). Leave it empty to keep the inert demo behaviour.
+    // /Formspree all expose one). Leave it empty to keep the inert demo behavior.
     // No API keys live here — the endpoint URL is the only thing you configure,
     // and ESP endpoints are designed to be public form targets.
     const ESP_ENDPOINT = ''; // e.g. 'https://buttondown.email/api/emails/embed-subscribe/yourlist'

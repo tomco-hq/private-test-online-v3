@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>OmniCompost — The shop</title>
   <meta name="description" content="The OmniCompost shop — the digester and everything that keeps the loop running: worms, bedding, tools, and compost tea." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="OmniCompost — The shop" />
+  <meta property="og:description" content="The digester and everything that keeps the loop running: worms, bedding, tools, and compost tea." />
+  <meta property="og:image" content="assets/img/og-card.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -97,7 +102,7 @@
   </style>
 </head>
 <body>
-  <div class="strip">Edition One &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; Complimentary delivery across Orange County</div>
+  <div class="strip">Edition One &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; Complimentary Orange County delivery over $150</div>
 
   <header class="site">
     <div class="site-inner">
@@ -108,7 +113,8 @@
       <nav class="main">
         <a href="index.html#product">The Digester</a>
         <a href="shop.html" aria-current="page">Shop</a>
-        <a href="index.html#how">How it works</a>
+        <a href="learn.html">How it works</a>
+        <a href="gallery.html">Gallery</a>
         <a href="newsletter.html">Newsletter</a>
         <a href="index.html#faq">Questions</a>
       </nav>
@@ -143,11 +149,15 @@
         <div class="body">
           <span class="cat">Digester</span>
           <h3><a href="product/the-digester.html">The Digester</a></h3>
-          <p class="blurb">The centrepiece — a stacked-tray vermicomposter in powder-coated steel and beechwood, sized for a household of four. Worms up top, compost tea drawn from a brass tap below.</p>
+          <p class="blurb">The centerpiece — a stacked-tray vermicomposter in powder-coated steel and beechwood, sized for a household of four. Worms up top, compost tea drawn from a brass tap below.</p>
           <div class="prate">★★★★★ <i>4.9 (312 reviews)</i></div>
           <span class="price">$385</span> <span class="stock stock--in">In stock</span>
           <button class="btn btn--solid add" data-n="The Digester" data-p="385" data-i="assets/img/compost-in-hands.jpg" data-s="14">Add to cart</button>
         </div>
+      </article>
+      <article class="pcard" data-cat="digester">
+        <div class="ph"><span class="badge">For balconies</span><img src="assets/img/tools-greenhouse-glass.jpg" alt="The OmniCompost mini digester on a balcony" /></div>
+        <div class="body"><span class="cat">Digester</span><h3><a href="product/the-mini-digester.html">The Mini Digester</a></h3><div class="prate">★★★★★ <i>4.8 (61)</i></div><span class="price">$245</span> <span class="stock stock--in">In stock</span><button class="btn btn--solid add" data-n="The Mini Digester" data-p="245" data-i="assets/img/tools-greenhouse-glass.jpg" data-s="12">Add to cart</button></div>
       </article>
       <article class="pcard" data-cat="living">
         <div class="ph"><img src="assets/img/earthworm-soil-macro.jpg" alt="Red wiggler worms" /></div>
@@ -192,14 +202,14 @@
     <div class="ditems" id="ditems"><p style="color:var(--ink-soft);font-size:.9rem">Your cart is empty — add something from the shop.</p></div>
     <div class="df">
       <div class="sub"><span>Subtotal</span><b id="sub">$0</b></div>
-      <p class="note">Complimentary delivery &amp; setup across Orange County. Worms ship timed to your delivery week.</p>
+      <p class="note">Delivery &amp; setup across Orange County. Worms ship timed to your delivery week.</p>
       <button class="btn btn--solid" style="width:100%;text-align:center" id="checkoutBtn">Checkout</button>
     </div>
   </aside>
   <span class="vh" id="cartLive" role="status" aria-live="polite"></span>
 
   <footer class="site"><div class="wrap foot-copy">
-    <span>© <span id="year"></span> OmniCompost · v1.0</span>
+    <span>© <span id="year"></span> OmniCompost · v0.9</span>
     <span><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="newsletter.html">Newsletter</a></span>
   </div></footer>
 

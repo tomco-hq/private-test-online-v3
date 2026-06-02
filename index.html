@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>OmniCompost — The kitchen worm digester</title>
   <meta name="description" content="OmniCompost is a quiet, well-made worm composting digester for the home. Feed it your kitchen scraps; harvest finished compost and compost tea for the garden." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="OmniCompost — The kitchen worm digester" />
+  <meta property="og:description" content="A quiet, well-made worm composting digester for the home. Scraps in, garden out." />
+  <meta property="og:image" content="assets/img/og-card.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -68,6 +73,20 @@
     nav.main a.cta{border:1px solid var(--ink); padding:.5rem 1.15rem;
       text-transform:uppercase; letter-spacing:.12em; font-size:.7rem; font-weight:500; color:var(--ink)}
     nav.main a.cta:hover{background:var(--ink); color:var(--cream)}
+    /* nav dropdowns (homepage: jump within page or go to the full page) */
+    nav.main .drop{position:relative; display:inline-flex; align-items:center}
+    nav.main .drop>.top{display:inline-flex; align-items:center; gap:.32rem; cursor:pointer}
+    nav.main .drop>.top::after{content:"\25BE"; font-size:.62em; opacity:.55; transition:transform .18s}
+    nav.main .drop:hover>.top::after,nav.main .drop:focus-within>.top::after{transform:rotate(180deg)}
+    nav.main .menu{position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(7px);
+      background:var(--cream); border:1px solid var(--line); min-width:12rem; padding:.45rem 0;
+      opacity:0; visibility:hidden; transition:opacity .18s,transform .18s; z-index:60;
+      box-shadow:0 12px 32px rgba(42,37,48,.12)}
+    nav.main .drop:hover .menu,nav.main .drop:focus-within .menu{opacity:1; visibility:visible; transform:translateX(-50%) translateY(0)}
+    nav.main .menu a{display:block; padding:.55rem 1.15rem; font-size:.8rem; white-space:nowrap}
+    nav.main .menu a:hover{background:var(--cream-deep); color:var(--ink)}
+    nav.main .menu .mlabel{display:block; padding:.35rem 1.15rem .1rem; font-size:.6rem; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--terra)}
     .menu-btn{display:none; background:none; border:0; cursor:pointer; padding:.4rem}
     .menu-btn span{display:block; width:22px; height:1.5px; background:var(--ink); margin:5px 0}
 
@@ -133,18 +152,6 @@
     .step .numeral{display:block; margin-bottom:.5rem}
     .step h3{font-size:1.4rem; margin-bottom:.5rem}
     .step p{color:var(--ink-soft); font-size:.98rem}
-
-    /* zones row */
-    .zones{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--line)}
-    .zone{padding:2.2rem 1.8rem; border-right:1px solid var(--line)}
-    .zone:last-child{border-right:0}
-    .zone .ztag{font-family:"Inter",sans-serif; font-weight:500; font-size:.68rem;
-      text-transform:uppercase; letter-spacing:.16em; padding:.3rem .7rem; display:inline-block; margin-bottom:1rem}
-    .zone--tools .ztag{color:var(--teal); border:1px solid var(--teal)}
-    .zone--ops .ztag{color:var(--sage); border:1px solid var(--sage)}
-    .zone--tips .ztag{color:var(--ochre); border:1px solid var(--ochre)}
-    .zone h3{font-size:1.25rem; margin-bottom:.5rem}
-    .zone p{color:var(--ink-soft); font-size:.94rem}
 
     /* gallery */
     .gallery .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1rem}
@@ -297,8 +304,6 @@
       .menu-btn{display:block}
       .hero-grid,.product .split,.featured .split,.closing .split{grid-template-columns:1fr; gap:2.5rem}
       .steps-grid,.tcards{grid-template-columns:1fr}
-      .zones{grid-template-columns:1fr}
-      .zone{border-right:0; border-bottom:1px solid var(--line)}
       .gallery .grid{grid-template-columns:repeat(2,1fr)}
       .gallery .grid figure:nth-child(1){grid-row:auto}
       .shop-grid{grid-template-columns:repeat(2,1fr)}
@@ -310,7 +315,7 @@
 </head>
 <body>
 
-  <div class="strip">Edition One &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; Complimentary delivery across Orange County</div>
+  <div class="strip">Edition One &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; Complimentary Orange County delivery over $150</div>
 
   <header class="site">
     <div class="site-inner">
@@ -320,9 +325,12 @@
       </a>
       <nav class="main">
         <a href="#product">The Digester</a>
-        <a href="shop.html">Shop</a>
-        <a href="#how">How it works</a>
-        <a href="#garden">The Garden</a>
+        <span class="drop" tabindex="0"><a class="top" href="#shop">Shop</a>
+          <span class="menu"><span class="mlabel">Shop</span><a href="#shop">A quick browse</a><a href="shop.html">The full shop</a></span></span>
+        <span class="drop" tabindex="0"><a class="top" href="#how">How it works</a>
+          <span class="menu"><span class="mlabel">How it works</span><a href="#how">The short version</a><a href="learn.html">The full guide &amp; FAQ</a></span></span>
+        <span class="drop" tabindex="0"><a class="top" href="#garden">Gallery</a>
+          <span class="menu"><span class="mlabel">Gallery</span><a href="#garden">A few favorites</a><a href="gallery.html">The full gallery</a></span></span>
         <a href="newsletter.html">Newsletter</a>
         <a href="#faq">Questions</a>
       </nav>
@@ -341,7 +349,7 @@
         <div class="hero-copy">
           <span class="eyebrow reveal">A quiet machine for the kitchen.</span>
           <h1 class="reveal">Scraps in.<br /><em>Garden out.</em></h1>
-          <p class="lede reveal">OmniCompost is a worm composting digester built for the home — feed it the day's peelings and trimmings, and harvest finished compost and compost tea for the beds. No turning, no odour, no fuss.</p>
+          <p class="lede reveal">OmniCompost is a worm composting digester built for the home. Feed it the day's peelings and trimmings; harvest finished compost and compost tea for the beds. No turning, no odor, no fuss.</p>
           <div class="hero-actions reveal">
             <a href="#order" class="btn btn--solid">Reserve a digester</a>
             <a href="#how" class="btn">See how it works</a>
@@ -357,8 +365,10 @@
 
     <!-- TICKER -->
     <div class="ticker" aria-hidden="true">
+      <!-- Two identical halves; the -50% scroll keyframe loops seamlessly only while
+           one half is wider than the viewport, so each half repeats the set twice. -->
       <div class="ticker-track">
-        <span>Vermicompost</span><span>Compost tea</span><span>No turning</span><span>Odour-free</span><span>Counter to garden</span><span>Made to last</span><span>Vermicompost</span><span>Compost tea</span><span>No turning</span><span>Odour-free</span><span>Counter to garden</span><span>Made to last</span>
+        <span>Vermicompost</span><span>Compost tea</span><span>No turning</span><span>Odor-free</span><span>Counter to garden</span><span>Made to last</span><span>Vermicompost</span><span>Compost tea</span><span>No turning</span><span>Odor-free</span><span>Counter to garden</span><span>Made to last</span><span>Vermicompost</span><span>Compost tea</span><span>No turning</span><span>Odor-free</span><span>Counter to garden</span><span>Made to last</span><span>Vermicompost</span><span>Compost tea</span><span>No turning</span><span>Odor-free</span><span>Counter to garden</span><span>Made to last</span>
       </div>
     </div>
 
@@ -397,7 +407,7 @@
             <li><span class="k">Capacity</span><span class="v">Up to 5 gallons of scraps in a single day — roughly 2 lbs daily on average.</span></li>
             <li><span class="k">Footprint</span><span class="v">14 inches square, 24 inches tall. Sits on a counter, a balcony, or under the sink.</span></li>
             <li><span class="k">Materials</span><span class="v">Powder-coated steel, beechwood lid, food-safe BPA-free trays, brass tap.</span></li>
-            <li><span class="k">Yield</span><span class="v">Finished compost in 8 weeks; compost tea within the first fortnight.</span></li>
+            <li><span class="k">Yield</span><span class="v">Finished compost in 8 weeks; compost tea within the first two weeks.</span></li>
           </ul>
           <button class="btn btn--solid add" style="margin-top:1.8rem" data-n="The Digester" data-p="385" data-i="assets/img/compost-in-hands.jpg" data-s="14">Add to cart — $385</button>
         </div>
@@ -428,11 +438,15 @@
             <div class="body">
               <span class="cat">Digester</span>
               <h3><a href="product/the-digester.html">The Digester</a></h3>
-              <p class="blurb">The centrepiece — a stacked-tray vermicomposter in powder-coated steel and beechwood, sized for a household of four. Worms up top, compost tea drawn from a brass tap below.</p>
+              <p class="blurb">The centerpiece — a stacked-tray vermicomposter in powder-coated steel and beechwood, sized for a household of four. Worms up top, compost tea drawn from a brass tap below.</p>
               <div class="prate">★★★★★ <i>4.9 (312 reviews)</i></div>
               <span class="price">$385</span> <span class="stock stock--in">In stock</span>
               <button class="btn btn--solid add" data-n="The Digester" data-p="385" data-i="assets/img/compost-in-hands.jpg" data-s="14">Add to cart</button>
             </div>
+          </article>
+          <article class="pcard" data-cat="digester">
+            <div class="ph"><span class="badge">For balconies</span><img src="assets/img/tools-greenhouse-glass.jpg" alt="The OmniCompost mini digester on a balcony" /></div>
+            <div class="body"><span class="cat">Digester</span><h3><a href="product/the-mini-digester.html">The Mini Digester</a></h3><div class="prate">★★★★★ <i>4.8 (61)</i></div><span class="price">$245</span> <span class="stock stock--in">In stock</span><button class="btn btn--solid add" data-n="The Mini Digester" data-p="245" data-i="assets/img/tools-greenhouse-glass.jpg" data-s="12">Add to cart</button></div>
           </article>
           <article class="pcard" data-cat="living">
             <div class="ph"><img src="assets/img/earthworm-soil-macro.jpg" alt="Red wiggler worms" /></div>
@@ -468,6 +482,9 @@
           </article>
           <!-- /BUILD:SHOP -->
         </div>
+        <div class="shop-more reveal" style="margin-top:2.4rem; text-align:center">
+          <a href="shop.html" class="btn">View the full shop</a>
+        </div>
       </div>
     </section>
 
@@ -477,7 +494,7 @@
         <div class="sec-head reveal">
           <span class="numeral">III.</span>
           <h2>How it works.</h2>
-          <p>Four unhurried steps. The worms do the labour; the household keeps the rhythm.</p>
+          <p>Four unhurried steps. The worms do the labor; the household keeps the rhythm.</p>
         </div>
         <div class="steps-grid">
           <div class="step reveal">
@@ -505,53 +522,8 @@
             <p>After eight weeks, lift the bottom tray and spread the castings — about 6 inches deep around the roots that need it most.</p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ZONES -->
-    <section class="product" id="garden">
-      <div class="wrap">
-        <div class="sec-head reveal">
-          <span class="numeral">IV.</span>
-          <h2>From counter to garden.</h2>
-          <p>The same content, three working zones — the way the field guide reads it.</p>
-        </div>
-        <div class="zones reveal">
-          <div class="zone zone--tools">
-            <span class="ztag">Tools</span>
-            <h3>What it asks of you.</h3>
-            <p>A trowel, a watering can, a fortnightly minute. The digester does the rest, indoors and out of sight.</p>
-          </div>
-          <div class="zone zone--ops">
-            <span class="ztag">Operations</span>
-            <h3>The daily rhythm.</h3>
-            <p>Empty the kitchen container within 3 days. Adding up to 5 gallons in a single day won't trouble the system.</p>
-          </div>
-          <div class="zone zone--tips">
-            <span class="ztag">Tips</span>
-            <h3>For a better harvest.</h3>
-            <p>Crushed eggshells sweeten the bed. Tear cardboard for bedding. A handful of grit keeps the castings light.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- GALLERY -->
-    <section class="gallery">
-      <div class="wrap">
-        <div class="sec-head reveal">
-          <span class="numeral">V.</span>
-          <h2>What it gives back.</h2>
-          <p>A season of the table and the garden, fed by the same quiet machine.</p>
-        </div>
-        <div class="grid reveal">
-          <figure><img src="assets/img/tomatoes-kraft-still.jpg" alt="Vine tomatoes on kraft paper" /><figcaption>The harvest</figcaption></figure>
-          <figure><img src="assets/img/hands-seedling-soil.jpg" alt="Hands holding a seedling in dark soil" /><figcaption>The planting</figcaption></figure>
-          <figure><img src="assets/img/radishes-herbs-twine.jpg" alt="Radishes and herbs tied with twine" /><figcaption>The greens</figcaption></figure>
-          <figure><img src="assets/img/dark-soil-macro.jpg" alt="Macro of dark crumbly soil" /><figcaption>The castings</figcaption></figure>
-          <figure><img src="assets/img/greens-bowl-wood.jpg" alt="Greens in a wooden bowl" /><figcaption>The kitchen</figcaption></figure>
-          <figure><img src="assets/img/cherry-tomatoes-vine.jpg" alt="Cherry tomatoes ripening on the vine" /><figcaption>The vine</figcaption></figure>
-          <figure><img src="assets/img/sourdough-linen-towel.jpg" alt="A loaf of sourdough resting on linen" /><figcaption>The table</figcaption></figure>
+        <div class="how-more reveal" style="margin-top:2.4rem; text-align:center">
+          <a href="learn.html" class="btn">Read the full guide — method, feeding chart, and FAQ</a>
         </div>
       </div>
     </section>
@@ -563,14 +535,41 @@
         <div class="reveal">
           <span class="eyebrow">The quiet partner.</span>
           <h2>The work happens<br />below the lid.</h2>
-          <p>A thriving colony of red wigglers is the engine of the digester — turning a household's scraps into some of the richest soil amendment there is. They keep to themselves, ask for nothing, and never need turning.</p>
+          <p>A thriving colony of red wigglers is the engine of the digester — turning a household's scraps into some of the richest soil amendment there is. It never needs turning, and never asks anything of you.</p>
           <a href="#how" class="btn">Read the method</a>
           <div class="pillars">
-            <div class="pillar"><span class="label">No odour</span><p>A balanced bin smells of forest floor, never of refuse.</p></div>
+            <div class="pillar"><span class="label">No odor</span><p>A balanced bin smells of forest floor, never of refuse.</p></div>
             <div class="pillar"><span class="label">No turning</span><p>Stacked trays migrate the worms upward on their own.</p></div>
             <div class="pillar"><span class="label">Two-week grace</span><p>Travel without worry — the colony is fine on its own.</p></div>
             <div class="pillar"><span class="label">Made to last</span><p>Steel and beechwood, built to outlive a decade of seasons.</p></div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery" id="garden">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="numeral">IV.</span>
+          <h2>What it gives back.</h2>
+          <p>A season of the table and the garden, fed by the same quiet machine.</p>
+        </div>
+        <div class="grid reveal">
+          <figure><img src="assets/img/tomatoes-kraft-still.jpg" alt="Vine tomatoes on kraft paper" /><figcaption>The harvest</figcaption></figure>
+          <figure><img src="assets/img/hands-seedling-soil.jpg" alt="Hands holding a seedling in dark soil" /><figcaption>The planting</figcaption></figure>
+          <figure><img src="assets/img/radishes-herbs-twine.jpg" alt="Radishes and herbs tied with twine" /><figcaption>The greens</figcaption></figure>
+          <figure><img src="assets/img/dark-soil-macro.jpg" alt="Macro of dark crumbly soil" /><figcaption>The castings</figcaption></figure>
+          <figure><img src="assets/img/greens-bowl-wood.jpg" alt="Greens in a wooden bowl" /><figcaption>The kitchen</figcaption></figure>
+          <figure><img src="assets/img/cherry-tomatoes-vine.jpg" alt="Cherry tomatoes ripening on the vine" /><figcaption>The vine</figcaption></figure>
+          <figure><img src="assets/img/sourdough-linen-towel.jpg" alt="A loaf of sourdough resting on linen" /><figcaption>The table</figcaption></figure>
+          <figure><img src="assets/img/rainbow-carrots-tray.jpg" alt="Rainbow carrots on a metal tray" /><figcaption>The roots</figcaption></figure>
+          <figure><img src="assets/img/bee-lavender-macro.jpg" alt="A bee on a lavender stem" /><figcaption>The pollinators</figcaption></figure>
+          <!-- TEMP-COMP child-watering-raised-bed — watermarked Unsplash+ comp; remove once seat confirmed -->
+          <figure><img src="assets/img/child-watering-raised-bed.jpg" alt="A child watering a raised garden bed" /><figcaption>The next hands</figcaption></figure>
+        </div>
+        <div class="how-more reveal" style="margin-top:2.4rem; text-align:center">
+          <a href="gallery.html" class="btn">View the full gallery</a>
         </div>
       </div>
     </section>
@@ -588,7 +587,7 @@
     <section id="voices" style="padding-top:0">
       <div class="wrap">
         <div class="sec-head reveal">
-          <span class="numeral">VI.</span>
+          <span class="numeral">V.</span>
           <h2>Voices from the kitchen.</h2>
         </div>
         <div class="tcards">
@@ -618,11 +617,11 @@
     <section class="product" id="faq">
       <div class="wrap">
         <div class="sec-head reveal">
-          <span class="numeral">VII.</span>
+          <span class="numeral">VI.</span>
           <h2>Questions.</h2>
         </div>
         <div class="faq reveal">
-          <details><summary>Does it smell?</summary><p>A balanced digester smells faintly of soil — never of waste. Odour is a sign of overfeeding or too much moisture, both quickly corrected by easing off the scraps for a few days.</p></details>
+          <details><summary>Does it smell?</summary><p>A balanced digester smells faintly of soil — never of waste. Odor is a sign of overfeeding or too much moisture, both quickly corrected by easing off the scraps for a few days.</p></details>
           <details><summary>What can the worms eat?</summary><p>Fruit and vegetable scraps, coffee grounds, crushed eggshells, and torn cardboard. Keep out meat, dairy, oils, and anything with a glossy or waxy plastic coating.</p></details>
           <details><summary>What if I travel?</summary><p>The colony keeps two weeks without food or water. For longer absences, a deeper feeding and a damp sheet of cardboard will carry it through a month.</p></details>
           <details><summary>How much can I add at once?</summary><p>Up to 5 gallons in a single day won't hurt the system — a holiday or a big cleanup is no trouble. The steady average is roughly 2 lbs a day.</p></details>
@@ -666,7 +665,7 @@
     <div class="ditems" id="ditems"><p style="color:var(--ink-soft); font-size:.9rem">Your cart is empty — add something from the shop.</p></div>
     <div class="df">
       <div class="sub"><span>Subtotal</span><b id="sub">$0</b></div>
-      <p class="note">Complimentary delivery &amp; setup across Orange County. Worms ship timed to your delivery week.</p>
+      <p class="note">Delivery &amp; setup across Orange County. Worms ship timed to your delivery week.</p>
       <a href="#order" class="btn btn--solid" style="width:100%; text-align:center" id="checkoutBtn">Checkout</a>
     </div>
   </aside>
@@ -687,13 +686,13 @@
           <li><a href="#product">The Digester</a></li>
           <li><a href="shop.html">Shop</a></li>
           <li><a href="newsletter.html">Newsletter</a></li>
-          <li><a href="#how">How it works</a></li>
+          <li><a href="learn.html">How it works</a></li>
         </ul>
       </div>
       <div>
         <h4>Garden</h4>
         <ul>
-          <li><a href="#garden">From counter to garden</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
           <li><a href="#voices">Voices</a></li>
           <li><a href="#faq">Questions</a></li>
         </ul>
@@ -701,9 +700,9 @@
       <div>
         <h4>Studio</h4>
         <ul>
-          <li><a href="#">About</a></li>
+          <li><a href="newsletter.html">About &amp; the letter</a></li>
           <li><a href="mailto:hello@omnicompost.example">Contact</a></li>
-          <li><a href="#">The field guide</a></li>
+          <li><a href="learn.html">The field guide</a></li>
         </ul>
       </div>
     </div>

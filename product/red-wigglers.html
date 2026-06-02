@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>OmniCompost — Red Wigglers</title>
   <meta name="description" content="Eisenia fetida — the red wiggler, the worm that does the work. One pound establishes the digester and roughly doubles its population across a season of steady feeding. Shipped live in moist bedding, ready for the top tray." />
+  <meta property="og:type" content="product" />
+  <meta property="og:title" content="OmniCompost — Red Wigglers" />
+  <meta property="og:description" content="Eisenia fetida — the red wiggler, the worm that does the work. One pound establishes the digester and roughly doubles its population across a season of steady feeding. Shipped live in moist bedding, ready for the top tray." />
+  <meta property="og:image" content="../assets/img/earthworm-soil-macro.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -48,6 +53,10 @@
     .pdp .media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
     .pdp .media .badge{position:absolute;top:1rem;left:1rem;background:var(--sage-deep);color:var(--cream);
       font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .7rem}
+    .pdp .thumbs{display:flex;gap:.5rem;padding:.5rem;background:var(--cream-deep);border-top:1px solid var(--line)}
+    .pdp .thumbs img{width:74px;height:56px;object-fit:cover;cursor:pointer;border:1px solid var(--line);
+      opacity:.65;transition:opacity .2s}
+    .pdp .thumbs img.sel,.pdp .thumbs img:hover{opacity:1;outline:1px solid var(--sage-deep)}
     .pdp .cat{font-family:"Inter";font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
     .pdp h1{font-size:clamp(2.1rem,4vw,3rem);margin:.5rem 0 .8rem}
     .pdp .prate{font-size:.92rem;color:var(--ochre);margin-bottom:1.1rem}
@@ -102,7 +111,8 @@
       <nav class="main">
         <a href="../index.html#product">The Digester</a>
         <a href="../shop.html">Shop</a>
-        <a href="../index.html#how">How it works</a>
+        <a href="../learn.html">How it works</a>
+        <a href="../gallery.html">Gallery</a>
         <a href="../newsletter.html">Newsletter</a>
         <a href="../index.html#faq">Questions</a>
       </nav>
@@ -117,7 +127,7 @@
 
   <main class="wrap">
     <article class="pdp">
-      <div class="media"><img src="../assets/img/earthworm-soil-macro.jpg" alt="Red wiggler worms" /></div>
+      <div class="media"><img id="hero" src="../assets/img/earthworm-soil-macro.jpg" alt="Red wiggler worms" /></div>
       <div class="info">
         <span class="cat">Living</span>
         <h1>Red Wigglers</h1>
@@ -153,12 +163,15 @@
   <span class="vh" id="cartLive" role="status" aria-live="polite"></span>
 
   <footer class="site"><div class="wrap foot-copy">
-    <span>© <span id="year"></span> OmniCompost</span>
+    <span>© <span id="year"></span> OmniCompost · v0.9</span>
     <span><a href="../index.html">Home</a> &nbsp;·&nbsp; <a href="../shop.html">Shop</a> &nbsp;·&nbsp; <a href="../newsletter.html">Newsletter</a></span>
   </div></footer>
 
   <script>
     document.getElementById('year').textContent=new Date().getFullYear();
+    function swapHero(el){document.getElementById('hero').src=el.src;
+      document.querySelectorAll('.thumbs img').forEach(function(i){i.classList.remove('sel');});
+      el.classList.add('sel');}
     var mb=document.querySelector('.menu-btn'),nav=document.querySelector('nav.main');
     mb.addEventListener('click',function(){var open=nav.style.display==='flex';nav.style.display=open?'':'flex';
       if(!open){nav.style.position='absolute';nav.style.flexDirection='column';nav.style.top='100%';nav.style.right='0';nav.style.background='var(--cream)';nav.style.padding='1.2rem 2rem';nav.style.border='1px solid var(--line)';nav.style.gap='1rem';}});

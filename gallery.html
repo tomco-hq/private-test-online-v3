@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OmniCompost — Gallery</title>
+  <meta name="description" content="The loop, end to end — editorial photography in the OmniCompost register. The harvest, the garden, and the pollinators a living soil brings back." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="OmniCompost — Gallery" />
+  <meta property="og:description" content="The harvest, the garden, and the pollinators — a season fed by one quiet machine." />
+  <meta property="og:image" content="assets/img/og-card.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" />
+  <style>
+    :root{
+      --cream:#F4EDE0; --cream-deep:#EBE2D2;
+      --sage:#5D7A5E; --sage-deep:#3D5444;
+      --terra:#9B5A44; --ochre:#9A6E1D; --teal:#5B7B7A;
+      --rust:#8A3A2A; --ink:#2A2530; --ink-soft:#564f55;
+      --line:rgba(42,37,48,.16);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--cream); color:var(--ink);
+      font-family:"Inter",system-ui,sans-serif; font-weight:400;
+      font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden}
+    h1,h2,h3,h4{font-family:"Fraunces","Georgia",serif; font-weight:400; line-height:1.1; letter-spacing:-.01em}
+    em{font-family:"Fraunces",serif; font-style:italic; font-weight:300}
+    a{color:inherit}
+    img{display:block; max-width:100%}
+    .wrap{max-width:1180px; margin:0 auto; padding:0 2rem}
+    .eyebrow{font-family:"Fraunces",serif; font-style:italic; font-weight:300; color:var(--terra); font-size:1.05rem}
+    .numeral{font-family:"Fraunces",serif; font-style:italic; color:var(--terra); font-size:.95rem; letter-spacing:.04em}
+    .btn{display:inline-block; font-family:"Inter"; font-weight:500; font-size:.82rem; letter-spacing:.1em;
+      text-transform:uppercase; text-decoration:none; padding:.95rem 2rem; border:1px solid var(--ink);
+      color:var(--ink); background:transparent; cursor:pointer; transition:background .25s,color .25s}
+    .btn:hover{background:var(--ink); color:var(--cream)}
+
+    .strip{background:var(--sage-deep); color:var(--cream); text-align:center; font-size:.72rem;
+      letter-spacing:.18em; text-transform:uppercase; padding:.55rem 1rem}
+    header.site{position:sticky; top:0; z-index:50; background:rgba(244,237,224,.9);
+      backdrop-filter:saturate(140%) blur(8px); border-bottom:1px solid var(--line)}
+    .site-inner{display:flex; align-items:center; justify-content:space-between; max-width:1180px; margin:0 auto; padding:.85rem 2rem}
+    .brand{display:flex; align-items:center; gap:.7rem; text-decoration:none}
+    .brand img{height:34px; width:auto}
+    .brand .word{font-family:"Fraunces",serif; font-size:1.32rem}
+    .brand .word b{font-weight:600; color:var(--ink)}
+    .brand .word span{font-weight:400; color:var(--sage-deep)}
+    nav.main{display:flex; gap:2rem; align-items:center}
+    nav.main a{text-decoration:none; font-size:.82rem; letter-spacing:.04em; color:var(--ink-soft); transition:color .2s}
+    nav.main a:hover,nav.main a[aria-current]{color:var(--ink)}
+    .cart-btn{display:flex; align-items:center; gap:.4rem; border:1px solid var(--ink); padding:.5rem 1rem;
+      font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; background:transparent; color:var(--ink); font-family:"Inter"}
+    .cart-btn:hover{background:var(--ink); color:var(--cream)}
+    .cart-btn b{font-weight:600}
+    .menu-btn{display:none; background:none; border:0; cursor:pointer; padding:.4rem}
+    .menu-btn span{display:block; width:22px; height:1.5px; background:var(--ink); margin:5px 0}
+
+    /* page hero */
+    .ghero{padding:3.5rem 0 2.5rem}
+    .ghero h1{font-size:clamp(2.4rem,5vw,3.8rem); margin:.5rem 0 1rem}
+    .ghero p{color:var(--ink-soft); font-size:1.15rem; max-width:40rem}
+
+    section.gband{padding:3rem 0 3.5rem; border-top:1px solid var(--line)}
+    .sec-head{max-width:46rem; margin-bottom:2rem}
+    .sec-head h2{font-size:clamp(1.7rem,3.4vw,2.4rem); margin:.3rem 0}
+    .sec-head p{color:var(--ink-soft); font-size:1.02rem; margin-top:.4rem}
+
+    .gal{display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; grid-auto-rows:1fr; grid-auto-flow:dense}
+    figure.fig{position:relative; overflow:hidden; border:1px solid var(--line); margin:0; background:var(--cream-deep)}
+    figure.fig img{width:100%; height:100%; object-fit:cover; aspect-ratio:1/1; filter:saturate(.92); transition:transform .7s ease}
+    figure.fig:hover img{transform:scale(1.04)}
+    figure.fig.tall{grid-row:span 2}
+    figure.fig.tall img{aspect-ratio:3/4}
+    figure.fig.wide{grid-column:span 2}
+    figure.fig.wide img{aspect-ratio:16/10}
+    figure.fig figcaption{position:absolute; left:0; right:0; bottom:0; padding:1.4rem 1.1rem .9rem;
+      font-family:"Fraunces",serif; font-style:italic; font-weight:300; color:#fff; font-size:1.02rem;
+      background:linear-gradient(to top, rgba(20,16,22,.66), rgba(20,16,22,0)); opacity:0; transform:translateY(8px);
+      transition:opacity .35s, transform .35s}
+    figure.fig:hover figcaption, figure.fig:focus-within figcaption{opacity:1; transform:none}
+
+    .closing{background:var(--sage-deep); color:var(--cream); text-align:center; padding:4rem 0; border-top:1px solid var(--line)}
+    .closing h2{font-size:clamp(1.8rem,3.5vw,2.6rem); margin-bottom:1rem}
+    .closing p{color:rgba(244,237,224,.82); max-width:34rem; margin:0 auto 1.6rem}
+    .closing .btn{border-color:var(--cream); color:var(--cream)}
+    .closing .btn:hover{background:var(--cream); color:var(--sage-deep)}
+
+    footer.site{background:var(--ink); color:var(--cream); padding:2.6rem 0 2rem}
+    .foot-copy{display:flex; justify-content:space-between; font-size:.78rem; color:rgba(244,237,224,.55); flex-wrap:wrap; gap:1rem}
+    footer.site a{color:rgba(244,237,224,.75); text-decoration:none}
+    footer.site a:hover{color:var(--cream)}
+
+    @media(max-width:880px){
+      nav.main{display:none}
+      .menu-btn{display:block}
+      .gal{grid-template-columns:repeat(2,1fr)}
+      figure.fig.wide{grid-column:span 2}
+    }
+    @media(max-width:560px){
+      .gal{grid-template-columns:1fr}
+      figure.fig.wide,figure.fig.tall{grid-column:auto; grid-row:auto}
+      figure.fig.wide img,figure.fig.tall img{aspect-ratio:4/3}
+      figure.fig figcaption{opacity:1; transform:none}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="strip">Edition One &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; Complimentary Orange County delivery over $150</div>
+
+  <header class="site">
+    <div class="site-inner">
+      <a class="brand" href="index.html">
+        <img src="assets/logo/horizon_hero_512.png" alt="OmniCompost mark" />
+        <span class="word"><b>Omni</b><span>Compost</span></span>
+      </a>
+      <nav class="main">
+        <a href="index.html#product">The Digester</a>
+        <a href="shop.html">Shop</a>
+        <a href="learn.html">How it works</a>
+        <a href="gallery.html" aria-current="page">Gallery</a>
+        <a href="newsletter.html">Newsletter</a>
+        <a href="learn.html#faq">Questions</a>
+      </nav>
+      <div style="display:flex; align-items:center; gap:1rem">
+        <button class="cart-btn" id="cartBtn" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false" aria-label="Open cart">Cart (<b id="ct">0</b>)</button>
+        <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="ghero">
+      <div class="wrap">
+        <span class="eyebrow">The loop, end to end.</span>
+        <h1>Gallery.</h1>
+        <p>Editorial photography in the OmniCompost register — soft daylight, muted tone, the work shown by the hands and the material. A season of the table and the garden, fed by the same quiet machine.</p>
+      </div>
+    </section>
+
+    <!-- I. THE HARVEST -->
+    <section class="gband">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="numeral">I.</span>
+          <h2>The harvest.</h2>
+          <p>What the beds give back — produce raised on finished castings and diluted tea.</p>
+        </div>
+        <div class="gal">
+          <figure class="fig tall"><img src="assets/img/rainbow-carrots-tray.jpg" alt="Rainbow carrots on a metal tray" loading="lazy" /><figcaption>Rainbow carrots, just lifted.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/tomatoes-vine-garden.jpg" alt="Ripening tomatoes on the vine" loading="lazy" /><figcaption>Tomatoes on the vine.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/strawberries-colander-crate.jpg" alt="Just-picked strawberries in a colander" loading="lazy" /><figcaption>The first strawberries.</figcaption></figure>
+          <figure class="fig wide"><img src="assets/img/carrots-kale-linen.jpg" alt="Carrots and kale resting on linen" loading="lazy" /><figcaption>Carrots and kale, on linen.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/garlic-bulbs-macro.jpg" alt="Cured garlic bulbs, close up" loading="lazy" /><figcaption>Garlic, cured.</figcaption></figure>
+          <!-- TEMP-COMP garlic-bowl-linen-dark — watermarked Unsplash+ comp; remove once seat confirmed -->
+          <figure class="fig"><img src="assets/img/garlic-bowl-linen-dark.jpg" alt="A bowl of garlic on dark linen" loading="lazy" /><figcaption>Garlic, in the bowl.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/heirloom-veg-basket-top.jpg" alt="A basket of heirloom vegetables from above" loading="lazy" /><figcaption>A basket from the beds.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/citrus-slices-dark-board.jpg" alt="Citrus halved on a dark board" loading="lazy" /><figcaption>Citrus, halved.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/apples-walnuts-basket-muted.jpg" alt="Apples and walnuts in a basket" loading="lazy" /><figcaption>The autumn pick.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/avocados-rustic-wood.jpg" alt="Avocados on bare wood" loading="lazy" /><figcaption>Avocados, on bare wood.</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- II. THE GARDEN -->
+    <section class="gband">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="numeral">II.</span>
+          <h2>The garden.</h2>
+          <p>The quiet hours that keep the loop turning — soil, water, and the tools that ask little.</p>
+        </div>
+        <div class="gal">
+          <figure class="fig"><img src="assets/img/hands-soil-backlit.jpg" alt="Hands holding dark soil in backlight" loading="lazy" /><figcaption>Soil, in the late light.</figcaption></figure>
+          <figure class="fig tall"><img src="assets/img/watering-can-backlit.jpg" alt="A watering can backlit by morning sun" loading="lazy" /><figcaption>The can, backlit.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/greenhouse-tools-window.jpg" alt="Garden hand tools at a greenhouse window" loading="lazy" /><figcaption>Tools at the glass.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/watering-can-boots-bench.jpg" alt="A watering can and boots on a garden bench" loading="lazy" /><figcaption>The morning round.</figcaption></figure>
+          <figure class="fig wide"><img src="assets/img/garden-flowers-fence-row.jpg" alt="A fence-row border of garden flowers" loading="lazy" /><figcaption>The fence-row border.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/chive-blossoms-soft.jpg" alt="Chive blossoms in soft focus" loading="lazy" /><figcaption>Chive blossom.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/salvia-golden-backlit.jpg" alt="Salvia spikes at golden hour" loading="lazy" /><figcaption>Salvia, at golden hour.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/hand-blossom-branch-pale.jpg" alt="A hand holding a branch in blossom" loading="lazy" /><figcaption>A branch in blossom.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/windowsill-plant-leaf.jpg" alt="A leafy plant on a kitchen windowsill" loading="lazy" /><figcaption>The kitchen windowsill.</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- III. THE POLLINATORS -->
+    <section class="gband">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="numeral">III.</span>
+          <h2>The pollinators.</h2>
+          <p>The end of the loop you don't tend — the visitors a living soil and an unsprayed border bring back.</p>
+        </div>
+        <div class="gal">
+          <figure class="fig"><img src="assets/img/bee-lavender-macro.jpg" alt="A bee on a lavender stem" loading="lazy" /><figcaption>A bee on lavender.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/bee-blossom-warm.jpg" alt="A bee working a warm-toned blossom" loading="lazy" /><figcaption>Bee, at work.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/butterfly-buddleia-muted.jpg" alt="A butterfly on muted buddleia" loading="lazy" /><figcaption>Buddleia, and a visitor.</figcaption></figure>
+          <figure class="fig wide"><img src="assets/img/sunflower-field-muted-sky.jpg" alt="A field of sunflowers under a muted sky" loading="lazy" /><figcaption>The sunflower field.</figcaption></figure>
+          <figure class="fig"><img src="assets/img/purple-flowers-soft-dof.jpg" alt="Purple flowers in soft focus" loading="lazy" /><figcaption>The quiet bed.</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <section class="closing">
+      <div class="wrap">
+        <h2>It starts with the scraps.</h2>
+        <p>One quiet machine on the counter, and a season of this in return. Reserve the Spring edition — delivered and set up across Orange County.</p>
+        <a href="index.html#order" class="btn">Reserve a digester</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site">
+    <div class="wrap foot-copy">
+      <span>© <span id="year"></span> OmniCompost · v0.9</span>
+      <span><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="shop.html">Shop</a> &nbsp;·&nbsp; <a href="learn.html">How it works</a> &nbsp;·&nbsp; <a href="newsletter.html">Field Notes</a></span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    var mb=document.querySelector('.menu-btn'), nav=document.querySelector('nav.main');
+    mb.addEventListener('click',function(){
+      var open=nav.style.display==='flex';
+      nav.style.display=open?'':'flex';
+      if(!open){nav.style.position='absolute';nav.style.flexDirection='column';nav.style.top='100%';nav.style.right='0';nav.style.background='var(--cream)';nav.style.padding='1.2rem 2rem';nav.style.border='1px solid var(--line)';nav.style.gap='1rem';}
+    });
+  </script>
+  <script src="cart.js"></script>
+</body>
+</html>
