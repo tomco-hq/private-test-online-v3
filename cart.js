@@ -1,4 +1,5 @@
 // OmniCompost — shared cart. Persisted in localStorage, synced across pages/tabs.
+// Identical file in the Premium and Family sites; tier-agnostic by design.
 (function () {
   const CART_KEY = 'oc_cart';
   let cart = [];
@@ -10,27 +11,65 @@
   const drawer = $('drawer'), scrim = $('scrim'), live = $('cartLive');
   const empty = '<p style="color:var(--ink-soft); font-size:.9rem">Your cart is empty — add something from the shop.</p>';
 
-  // Free Orange County delivery once the order clears this subtotal. Change the
-  // one number to adjust the threshold; copy below updates automatically.
-  const FREE_SHIP_MIN = 150;
-  // A dynamic progress line in the cart footer ("Add $X …" / "qualifies …").
-  let shipNote = null;
-  const df = sub ? sub.closest('.df') : null;
-  if (df) {
-    shipNote = document.createElement('p');
-    shipNote.className = 'shipnote';
-    shipNote.setAttribute('role', 'status');
-    shipNote.setAttribute('aria-live', 'polite');
-    const areaNote = df.querySelector('.note');
-    if (areaNote) df.insertBefore(shipNote, areaNote); else df.insertBefore(shipNote, df.lastElementChild);
-    if (!document.getElementById('shipNoteStyle')) {
+  // ── Regional shipping ──────────────────────────────────────────────────────
+  // One ZIP entry drives a flat shipping cost by region tier. Orders over
+  // FREE_SHIP_MIN ship free. This replaces the old Orange-County-only gate: we
+  // now ship everywhere, OC just gets the cheapest tier. Client-side estimate
+  // only — the authoritative charge is computed server-side at checkout.
+  const ZIP_KEY = 'oc_zip';
+  const FREE_SHIP_MIN = 150; // free shipping threshold (one number to tune)
+  const SHIP_TIERS = {
+    oc:    { label: 'Orange County',                    cost: 7  }, // low
+    metro: { label: 'L.A. / San Diego / Inland Empire', cost: 12 }, // medium
+    rest:  { label: 'rest of California & nationwide',   cost: 20 }, // high
+  };
+  // L.A. + San Diego + Inland Empire ZIP prefixes (3-digit). OC is matched by
+  // exact range first, so the 906xx overlap resolves to OC, not metro.
+  const METRO_PREFIXES = [
+    '900','901','902','903','904','905','907','908','910','911','912','913',
+    '914','915','917','918',          // Los Angeles County
+    '919','920','921',                // San Diego County
+    '922','923','924','925',          // Inland Empire (Riverside / San Bernardino)
+  ];
+  const zipTier = (z) => {
+    if (!/^\d{5}$/.test(z)) return null;
+    const n = +z;
+    if ((n >= 90620 && n <= 90899) || (n >= 92600 && n <= 92899)) return 'oc';
+    if (METRO_PREFIXES.includes(z.slice(0, 3))) return 'metro';
+    return 'rest';
+  };
+
+  let zipInput = null, shipLine = null;
+  const foot = sub ? sub.closest('.df, .dfoot') : null;
+  if (foot) {
+    const box = document.createElement('div');
+    box.className = 'shipbox';
+    box.innerHTML =
+      '<label for="ocZip">Shipping postcode</label>' +
+      '<input id="ocZip" inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="e.g. 92614">' +
+      '<p class="shipline" id="shipLine" role="status" aria-live="polite"></p>';
+    const checkout = foot.querySelector('#checkoutBtn');
+    if (checkout) foot.insertBefore(box, checkout); else foot.appendChild(box);
+    zipInput = $('ocZip'); shipLine = $('shipLine');
+
+    if (!document.getElementById('shipStyle')) {
       const st = document.createElement('style');
-      st.id = 'shipNoteStyle';
+      st.id = 'shipStyle';
       st.textContent =
-        '.shipnote{font-size:.8rem;margin:.5rem 0 0;min-height:1em;color:var(--ink-soft)}' +
-        '.shipnote.ok{color:var(--sage)}';
+        '.shipbox{margin:.6rem 0 .9rem}' +
+        '.shipbox label{display:block;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.35rem}' +
+        '.shipbox input{width:100%;padding:.55rem .65rem;border:1px solid var(--line);background:var(--cream);font:inherit;font-size:.95rem;color:var(--ink)}' +
+        '.shipbox input:focus{outline:2px solid var(--sage);outline-offset:-1px}' +
+        '.shipline{font-size:.78rem;margin:.45rem 0 0;min-height:1em;color:var(--ink-soft)}' +
+        '.shipline.ok{color:var(--sage)}';
       document.head.appendChild(st);
     }
+    try { zipInput.value = localStorage.getItem(ZIP_KEY) || ''; } catch (e) {}
+    zipInput.addEventListener('input', () => {
+      const z = zipInput.value.trim();
+      if (/^\d{5}$/.test(z)) { try { localStorage.setItem(ZIP_KEY, z); } catch (e) {} }
+      render();
+    });
   }
 
   const FOCUSABLE = 'a[href],button:not([disabled]),input,[tabindex]:not([tabindex="-1"])';
@@ -63,14 +102,22 @@
   };
 
   function shipMsg(total) {
-    if (!shipNote) return;
-    if (!cart.length) { shipNote.textContent = ''; shipNote.className = 'shipnote'; return; }
+    if (!shipLine) return;
+    if (!cart.length) { shipLine.textContent = ''; shipLine.className = 'shipline'; return; }
+    const tier = zipTier(zipInput ? zipInput.value.trim() : '');
+    if (!tier) {
+      shipLine.textContent = 'Enter your postcode for a shipping estimate.';
+      shipLine.className = 'shipline';
+      return;
+    }
+    const t = SHIP_TIERS[tier];
     if (total >= FREE_SHIP_MIN) {
-      shipNote.textContent = 'Your order earns complimentary Orange County delivery.';
-      shipNote.className = 'shipnote ok';
+      shipLine.textContent = 'Free shipping to ' + t.label + ' on orders over $' + FREE_SHIP_MIN + '.';
+      shipLine.className = 'shipline ok';
     } else {
-      shipNote.textContent = 'Add $' + (FREE_SHIP_MIN - total) + ' more for complimentary Orange County delivery.';
-      shipNote.className = 'shipnote';
+      shipLine.textContent = t.label.charAt(0).toUpperCase() + t.label.slice(1) +
+        ' shipping: $' + t.cost + '. Add $' + (FREE_SHIP_MIN - total) + ' for free shipping.';
+      shipLine.className = 'shipline';
     }
   }
 
@@ -110,59 +157,7 @@
   if (cartBtn) cartBtn.onclick = openC;
   if (closeBtn) closeBtn.onclick = closeC;
   if (scrim) scrim.onclick = closeC;
-
-  // ── Orange County delivery gate ──────────────────────────────────────────
-  // Delivery and setup are limited to Orange County, CA. Checkout stays locked
-  // until the shopper enters a postcode inside the OC ranges. Client-side only.
-  const ZIP_KEY = 'oc_zip';
-  const inOC = (z) => /^\d{5}$/.test(z) &&
-    ((+z >= 90620 && +z <= 90899) || (+z >= 92600 && +z <= 92899));
-
-  if (checkoutBtn && checkoutBtn.tagName === 'BUTTON') {
-    const df = checkoutBtn.parentNode;
-    const gate = document.createElement('div');
-    gate.className = 'ocgate';
-    gate.innerHTML =
-      '<label for="ocZip">Delivery postcode</label>' +
-      '<input id="ocZip" inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="e.g. 92614">' +
-      '<p class="ocmsg" id="ocMsg" role="status" aria-live="polite"></p>';
-    df.insertBefore(gate, checkoutBtn);
-
-    if (!document.getElementById('ocGateStyle')) {
-      const st = document.createElement('style');
-      st.id = 'ocGateStyle';
-      st.textContent =
-        '.ocgate{margin-bottom:.9rem}' +
-        '.ocgate label{display:block;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.35rem}' +
-        '.ocgate input{width:100%;padding:.55rem .65rem;border:1px solid var(--line);background:var(--cream);font:inherit;font-size:.95rem;color:var(--ink)}' +
-        '.ocgate input:focus{outline:2px solid var(--sage);outline-offset:-1px}' +
-        '.ocmsg{font-size:.74rem;margin:.4rem 0 0;min-height:1em}' +
-        '.ocmsg.ok{color:var(--sage)}.ocmsg.bad{color:var(--terra)}' +
-        '#checkoutBtn[disabled]{opacity:.45;cursor:not-allowed}';
-      document.head.appendChild(st);
-    }
-
-    const zipInput = $('ocZip'), zipMsg = $('ocMsg');
-    const applyGate = () => {
-      const z = zipInput.value.trim();
-      if (!z) {
-        checkoutBtn.disabled = true;
-        zipMsg.textContent = ''; zipMsg.className = 'ocmsg';
-      } else if (inOC(z)) {
-        checkoutBtn.disabled = false;
-        zipMsg.textContent = 'Within our delivery area.'; zipMsg.className = 'ocmsg ok';
-        try { localStorage.setItem(ZIP_KEY, z); } catch (e) {}
-      } else {
-        checkoutBtn.disabled = true;
-        zipMsg.textContent = 'Outside Orange County — delivery isn’t available here yet.';
-        zipMsg.className = 'ocmsg bad';
-      }
-    };
-    try { zipInput.value = localStorage.getItem(ZIP_KEY) || ''; } catch (e) {}
-    zipInput.addEventListener('input', applyGate);
-    applyGate();
-    checkoutBtn.onclick = () => { if (!checkoutBtn.disabled) closeC(); };
-  }
+  if (checkoutBtn && checkoutBtn.tagName === 'BUTTON') checkoutBtn.onclick = () => closeC();
 
   // shop filters (no-op if no chips on the page)
   const cards = [...document.querySelectorAll('.pcard')];

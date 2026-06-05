@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OmniCompost — The guarantee</title>
+  <meta name="description" content="The OmniCompost guarantee: thirty days to return the digester for a full refund, and a living guarantee on the worms — replaced if they arrive other than alive or fail to establish in the first six weeks." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="OmniCompost — The guarantee" />
+  <meta property="og:description" content="Thirty days to return the hardware, and a living guarantee on the worms." />
+  <meta property="og:image" content="assets/img/og-card.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" />
+  <style>
+    :root{
+      --cream:#F4EDE0; --cream-deep:#EBE2D2;
+      --sage:#5D7A5E; --sage-deep:#3D5444;
+      --terra:#9B5A44; --ochre:#9A6E1D; --teal:#5B7B7A;
+      --ink:#2A2530; --ink-soft:#564f55;
+      --line:rgba(42,37,48,.16);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--cream); color:var(--ink);
+      font-family:"Inter",system-ui,sans-serif; font-weight:400;
+      font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden}
+    h1,h2,h3{font-family:"Fraunces","Georgia",serif; font-weight:400; line-height:1.1; letter-spacing:-.01em}
+    em{font-family:"Fraunces",serif; font-style:italic; font-weight:300; color:var(--sage-deep)}
+    a{color:inherit}
+    img{display:block; max-width:100%}
+    .wrap{max-width:1180px; margin:0 auto; padding:0 2rem}
+    .narrow{max-width:760px}
+    .eyebrow{font-family:"Fraunces",serif; font-style:italic; font-weight:300; color:var(--terra); font-size:1.05rem}
+    .numeral{font-family:"Fraunces",serif; font-style:italic; color:var(--terra); font-size:.95rem; letter-spacing:.04em}
+    .btn{display:inline-block; font-family:"Inter"; font-weight:500; font-size:.82rem; letter-spacing:.1em;
+      text-transform:uppercase; text-decoration:none; padding:.95rem 2rem; border:1px solid var(--ink);
+      color:var(--ink); background:transparent; cursor:pointer; transition:background .25s,color .25s}
+    .btn:hover{background:var(--ink); color:var(--cream)}
+    .btn--solid{background:var(--sage-deep); border-color:var(--sage-deep); color:var(--cream)}
+    .btn--solid:hover{background:var(--ink); border-color:var(--ink)}
+
+    .strip{background:var(--sage-deep); color:var(--cream); text-align:center; font-size:.72rem;
+      letter-spacing:.18em; text-transform:uppercase; padding:.55rem 1rem}
+    header.site{position:sticky; top:0; z-index:50; background:rgba(244,237,224,.9);
+      backdrop-filter:saturate(140%) blur(8px); border-bottom:1px solid var(--line)}
+    .site-inner{display:flex; align-items:center; justify-content:space-between; max-width:1180px; margin:0 auto; padding:.85rem 2rem}
+    .brand{display:flex; align-items:center; gap:.7rem; text-decoration:none}
+    .brand img{height:34px; width:auto}
+    .brand .word{font-family:"Fraunces",serif; font-size:1.32rem}
+    .brand .word b{font-weight:600; color:var(--ink)}
+    .brand .word span{font-weight:400; color:var(--sage-deep)}
+    nav.main{display:flex; gap:2rem; align-items:center}
+    nav.main a{text-decoration:none; font-size:.82rem; letter-spacing:.04em; color:var(--ink-soft); transition:color .2s}
+    nav.main a:hover,nav.main a[aria-current]{color:var(--ink)}
+    .cart-btn{display:flex; align-items:center; gap:.4rem; border:1px solid var(--ink); padding:.5rem 1rem;
+      font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; background:transparent; color:var(--ink); font-family:"Inter"}
+    .cart-btn:hover{background:var(--ink); color:var(--cream)}
+    .cart-btn b{font-weight:600}
+    .menu-btn{display:none; background:none; border:0; cursor:pointer; padding:.4rem}
+    .menu-btn span{display:block; width:22px; height:1.5px; background:var(--ink); margin:5px 0}
+
+    .ghero{padding:3.5rem 0 1rem}
+    .ghero h1{font-size:clamp(2.4rem,5vw,3.6rem); margin:.5rem 0 1rem}
+    .ghero p{color:var(--ink-soft); font-size:1.15rem; max-width:38rem}
+
+    section{padding:3.5rem 0; border-top:1px solid var(--line)}
+    .sec-head{max-width:46rem; margin-bottom:1.8rem}
+    .sec-head h2{font-size:clamp(1.8rem,4vw,2.5rem); margin:.4rem 0}
+    .gbody p{color:var(--ink-soft); margin-top:1rem; max-width:46rem}
+    .gbody p:first-child{margin-top:0}
+    .terms{list-style:none; margin:1.6rem 0 0; border-top:1px dashed var(--line)}
+    .terms li{padding:.9rem 0; border-bottom:1px dashed var(--line); color:var(--ink-soft); display:flex; gap:.9rem; align-items:baseline}
+    .terms li::before{content:"—"; color:var(--terra); flex:none}
+
+    .closing{background:var(--sage-deep); color:var(--cream); text-align:center; border-top:0}
+    .closing h2{font-size:clamp(1.6rem,3.5vw,2.3rem); margin-bottom:1rem}
+    .closing p{color:rgba(244,237,224,.82); max-width:34rem; margin:0 auto 1.6rem}
+    .closing .btn{border-color:var(--cream); color:var(--cream)}
+    .closing .btn:hover{background:var(--cream); color:var(--sage-deep)}
+
+    footer.site{background:var(--ink); color:var(--cream); padding:2.6rem 0 2rem}
+    .foot-copy{display:flex; justify-content:space-between; font-size:.78rem; color:rgba(244,237,224,.55); flex-wrap:wrap; gap:1rem}
+    footer.site a{color:rgba(244,237,224,.75); text-decoration:none}
+    footer.site a:hover{color:var(--cream)}
+
+    @media(max-width:880px){ nav.main{display:none} .menu-btn{display:block} }
+  </style>
+</head>
+<body>
+
+  <div class="strip">Edition One &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; Ships statewide and nationwide — free over $150</div>
+
+  <header class="site">
+    <div class="site-inner">
+      <a class="brand" href="index.html">
+        <img src="assets/logo/horizon_hero_512.png" alt="OmniCompost mark" />
+        <span class="word"><b>Omni</b><span>Compost</span></span>
+      </a>
+      <nav class="main">
+        <a href="index.html#product">The Digester</a>
+        <a href="shop.html">Shop</a>
+        <a href="learn.html">How it works</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="newsletter.html">Newsletter</a>
+        <a href="learn.html#faq">Questions</a>
+      </nav>
+      <div style="display:flex; align-items:center; gap:1rem">
+        <button class="cart-btn" id="cartBtn" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false" aria-label="Open cart">Cart (<b id="ct">0</b>)</button>
+        <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="ghero" style="border-top:0">
+      <div class="wrap narrow">
+        <span class="eyebrow">A first season, without the risk.</span>
+        <h1>The guarantee.</h1>
+        <p>A digester is a long acquaintance, and a worm colony takes a few weeks to find its feet. So the guarantee comes in two parts — one for the object, one for the living half of it.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap narrow">
+        <div class="sec-head">
+          <span class="numeral">I.</span>
+          <h2>Thirty days for the hardware.</h2>
+        </div>
+        <div class="gbody">
+          <p>Return the digester or any tool within thirty days of delivery for a full refund of its price. Live the season's first weeks with it on the counter — if it isn't right for the kitchen or the household, send it back.</p>
+          <ul class="terms">
+            <li>Thirty days from the delivery date, on the digester, the Mini, the bundle, and every garden tool.</li>
+            <li>Refunded in full to the original payment. Across Orange County we collect it; elsewhere a prepaid return label is sent.</li>
+            <li>Returned in usable condition — the original crate kept where it can be. Ordinary marks of a trial run are expected, not penalized.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap narrow">
+        <div class="sec-head">
+          <span class="numeral">II.</span>
+          <h2>A living guarantee on the worms.</h2>
+        </div>
+        <div class="gbody">
+          <p>Worms are shipped live in moist bedding, and a colony settles at its own pace — eating lightly for the first two or three weeks before it finds its rhythm. The living half of the order is covered for that establishment, not just for arrival.</p>
+          <ul class="terms">
+            <li>Arrive other than alive and healthy — replaced at no charge, no return required.</li>
+            <li>Fail to establish within the first six weeks of ordinary feeding — a fresh pound is sent, once, on the original order.</li>
+            <li>A short note on the bin's conditions helps the next batch settle; the troubleshooting card and the field guide cover the common causes.</li>
+          </ul>
+          <p>The two windows run in parallel: the thirty-day hardware return and the six-week living guarantee both start the day the order arrives.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap narrow">
+        <div class="sec-head">
+          <span class="numeral">III.</span>
+          <h2>To start a return.</h2>
+        </div>
+        <div class="gbody">
+          <p>Write to <a href="mailto:hello@omnicompost.example" style="color:var(--terra)">hello@omnicompost.example</a> with the order and a line on what went wrong. A refund or a replacement is arranged the same week — no queue, no restocking fee.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="wrap">
+        <h2>Start the loop.</h2>
+        <p>Thirty days to return the hardware, six weeks of cover on the worms, and a season to see what the garden does with it.</p>
+        <a href="index.html#order" class="btn">Reserve a digester</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site">
+    <div class="wrap foot-copy">
+      <span>© <span id="year"></span> OmniCompost · v0.9</span>
+      <span><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="shop.html">Shop</a> &nbsp;·&nbsp; <a href="learn.html#faq">Questions</a></span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    var mb=document.querySelector('.menu-btn'), nav=document.querySelector('nav.main');
+    mb.addEventListener('click',function(){
+      var open=nav.style.display==='flex';
+      nav.style.display=open?'':'flex';
+      if(!open){nav.style.position='absolute';nav.style.flexDirection='column';nav.style.top='100%';nav.style.right='0';nav.style.background='var(--cream)';nav.style.padding='1.2rem 2rem';nav.style.border='1px solid var(--line)';nav.style.gap='1rem';}
+    });
+  </script>
+  <script src="cart.js"></script>
+</body>
+</html>

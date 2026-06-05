@@ -261,6 +261,15 @@ PRODUCT_PAGE = """<!doctype html>
     .pdp ul.specs{{list-style:none;border-top:1px dashed var(--line);margin-bottom:1.8rem}}
     .pdp ul.specs li{{padding:.7rem 0;border-bottom:1px dashed var(--line);font-size:.92rem;display:flex;gap:.7rem;align-items:baseline}}
     .pdp ul.specs li::before{{content:"—";color:var(--terra)}}
+    .pdp details.specbox{{border-top:1px dashed var(--line);border-bottom:1px dashed var(--line);margin:0 0 1.8rem}}
+    .pdp details.specbox summary{{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-family:"Inter";font-weight:500;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);padding:.9rem 0}}
+    .pdp details.specbox summary::-webkit-details-marker{{display:none}}
+    .pdp details.specbox summary::after{{content:"+";font-family:"Inter";font-weight:300;font-size:1.3rem;color:var(--terra)}}
+    .pdp details.specbox[open] summary::after{{content:"\2013"}}
+    .pdp .spectable{{width:100%;border-collapse:collapse;font-size:.9rem;margin:0 0 1rem}}
+    .pdp .spectable th{{text-align:left;font-family:"Inter";font-weight:500;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding:.55rem 1rem .55rem 0;vertical-align:top;width:10rem;border-top:1px dashed var(--line)}}
+    .pdp .spectable td{{padding:.55rem 0;color:var(--ink);border-top:1px dashed var(--line)}}
+    .pdp .spectable tr:first-child th,.pdp .spectable tr:first-child td{{border-top:0}}
     .pdp .actions{{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}}
     .pdp .back{{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none}}
     .pdp .back:hover{{color:var(--ink)}}
@@ -290,7 +299,7 @@ PRODUCT_PAGE = """<!doctype html>
   </style>
 </head>
 <body>
-  <div class="strip">Edition One &nbsp;·&nbsp; Complimentary delivery across Orange County</div>
+  <div class="strip">Edition One &nbsp;·&nbsp; Ships statewide and nationwide — free over $150</div>
 
   <header class="site">
     <div class="site-inner">
@@ -328,6 +337,7 @@ PRODUCT_PAGE = """<!doctype html>
         <ul class="specs">
 {specs}
         </ul>
+        {spec_block}
         <div class="actions">
           {add_btn}
           <a class="back" href="../shop.html">← Back to the shop</a>
@@ -343,7 +353,7 @@ PRODUCT_PAGE = """<!doctype html>
     <div class="ditems" id="ditems"><p style="color:var(--ink-soft);font-size:.9rem">Your cart is empty — add something from the shop.</p></div>
     <div class="df">
       <div class="sub"><span>Subtotal</span><b id="sub">$0</b></div>
-      <p class="note">Complimentary delivery &amp; setup across Orange County.</p>
+      <p class="note">Free shipping over $150. Orange County adds local delivery and setup; worms ship timed to your week.</p>
       <a href="../index.html#order" class="btn btn--solid" id="checkoutBtn" style="width:100%;text-align:center">Checkout</a>
     </div>
   </aside>
@@ -379,6 +389,26 @@ def product_page_html(product):
     specs = "\n".join(
         "          <li>{}</li>".format(item) for item in product.get("details", [])
     )
+
+    # Quiet "Specifications" expander -- exact figures, kept separate from the
+    # marketing details bullets above. Rendered only when products.json carries
+    # a "specs" object for the product.
+    spec_block = ""
+    spec_data = product.get("specs")
+    if spec_data:
+        rows = "\n".join(
+            "            <tr><th>{}</th><td>{}</td></tr>".format(key, value)
+            for key, value in spec_data.items()
+        )
+        spec_block = (
+            '<details class="specbox">\n'
+            "          <summary>Specifications</summary>\n"
+            '          <table class="spectable">\n'
+            "{rows}\n"
+            "          </table>\n"
+            "        </details>"
+        ).format(rows=rows)
+
     desc = product.get("desc") or product.get("blurb", "")
     meta = desc.replace('"', "&quot;")
 
@@ -411,6 +441,7 @@ def product_page_html(product):
         stock=stock_html(product),
         desc=desc,
         specs=specs,
+        spec_block=spec_block,
         add_btn=add_button(product, solid=True),
     )
 

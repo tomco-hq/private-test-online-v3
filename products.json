@@ -30,7 +30,16 @@
         "Sized for a household of four",
         "Brass tap for compost tea",
         "Odorless when the bin is balanced"
-      ]
+      ],
+      "specs": {
+        "Capacity": "Up to 5 gallons of scraps in a single day — roughly 2 lbs daily on average",
+        "Dimensions": "14 inches square, 24 inches tall",
+        "Trays": "Two working trays, stackable",
+        "Materials": "Powder-coated steel, beechwood lid, food-safe BPA-free trays, brass tap",
+        "Worms": "Establishes on 1 lb of red wigglers (sold separately)",
+        "First compost": "About 8 weeks",
+        "Compost tea": "Within the first two weeks"
+      }
     },
     {
       "id": "oc-mini-digester",
@@ -54,7 +63,16 @@
         "Balcony and galley-kitchen footprint",
         "Digests slower, by design",
         "Brass tap for compost tea"
-      ]
+      ],
+      "specs": {
+        "Capacity": "About half the Digester's volume — sized for one or two",
+        "Dimensions": "11 inches square, 18 inches tall",
+        "Trays": "Two working trays, stackable",
+        "Materials": "Powder-coated steel, beechwood lid, food-safe BPA-free trays, brass tap",
+        "Worms": "Establishes on 1 lb of red wigglers (sold separately)",
+        "First compost": "About 8 weeks",
+        "Compost tea": "Within the first two weeks"
+      }
     },
     {
       "id": "oc-red-wigglers",
@@ -76,7 +94,15 @@
         "Eisenia fetida",
         "Ships live in moist bedding",
         "Doubles in a season under steady feeding"
-      ]
+      ],
+      "specs": {
+        "Species": "Eisenia fetida (red wiggler)",
+        "Quantity": "1 lb live — roughly 1,000 worms",
+        "Shipping": "Live in moist bedding, timed to your delivery week",
+        "Establishes": "One pound seeds a full-size digester",
+        "Growth": "Doubles across a season of steady feeding",
+        "Guarantee": "Replaced if they arrive other than alive or fail to establish in six weeks"
+      }
     },
     {
       "id": "oc-starter-kit",
@@ -100,7 +126,13 @@
         "Mineral grit for grinding",
         "Six-week feeding guide",
         "Pairs with Red Wigglers"
-      ]
+      ],
+      "specs": {
+        "Contents": "Coir bedding block, mineral grit, six-week feeding guide",
+        "Bedding yield": "About 8 liters expanded",
+        "Pairs with": "1 lb of Red Wigglers (sold separately)",
+        "Covers": "The first six weeks of a new bin"
+      }
     },
     {
       "id": "oc-bedding-bricks",
@@ -122,7 +154,13 @@
         "Roughly 8 L expanded each",
         "Low-dust, pH-neutral",
         "Refreshes wet or sour trays"
-      ]
+      ],
+      "specs": {
+        "Count": "3 compressed coir bricks",
+        "Yield": "Roughly 8 liters expanded, each",
+        "Material": "Coir — low-dust, pH-neutral",
+        "Use": "Refresh wet or sour trays"
+      }
     },
     {
       "id": "oc-harvest-trowel",
@@ -146,7 +184,12 @@
         "Beechwood handle",
         "Narrow profile for tray work",
         "6-inch blade"
-      ]
+      ],
+      "specs": {
+        "Blade": "Stainless steel, 6-inch, narrow profile",
+        "Handle": "Beechwood, to match the digester",
+        "Use": "Lifting finished trays without disturbing the worms"
+      }
     },
     {
       "id": "oc-tea-can",
@@ -170,7 +213,13 @@
         "Long reaching spout",
         "Half-and-half fill mark",
         "Draws from the tap"
-      ]
+      ],
+      "specs": {
+        "Capacity": "2 liters",
+        "Material": "Glazed stoneware",
+        "Spout": "Long reach for the base of a pot",
+        "Fill mark": "Half-and-half, inside the rim"
+      }
     },
     {
       "id": "oc-seedling-pots",
@@ -194,7 +243,13 @@
         "7 cm diameter",
         "Unglazed and breathable",
         "Drainage hole in each"
-      ]
+      ],
+      "specs": {
+        "Count": "6 terracotta pots",
+        "Diameter": "7 cm across",
+        "Finish": "Unglazed — breathable, even drying",
+        "Drainage": "One hole in each"
+      }
     },
     {
       "id": "oc-tea-concentrate",
@@ -216,7 +271,13 @@
         "Live microbial culture",
         "One capful per brew",
         "Bridges the first weeks"
-      ]
+      ],
+      "specs": {
+        "Volume": "250 ml concentrate",
+        "Contents": "Live microbial culture",
+        "Dose": "One capful per brew",
+        "Use": "Bridges the first weeks of a young bin"
+      }
     },
     {
       "id": "oc-whole-loop",
@@ -241,7 +302,13 @@
         "Red Wigglers + Worm Starter Kit",
         "Trowel, watering can, bedding, concentrate",
         "Saves $66 versus buying separately"
-      ]
+      ],
+      "specs": {
+        "Includes": "The Digester, Red Wigglers, Worm Starter Kit, Harvest Trowel, Tea Watering Can, Bedding Bricks, Tea Concentrate",
+        "Saves": "$66 versus buying the pieces separately",
+        "Sized for": "A household of four",
+        "Worms": "1 lb of red wigglers, shipped live and timed to delivery"
+      }
     }
   ]
 }
