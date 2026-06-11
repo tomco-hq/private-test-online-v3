@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — OmniCompost for Business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#11212E; --slate:#1E3445; --teal:#1F8A82; --teal-dk:#15655F;
+    --line:#d9e2e6; --ink:#15242E; --muted:#5b6b73; --bg:#F4F7F8; --white:#fff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:Inter,system-ui,sans-serif;line-height:1.6}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+  .logo{font-weight:800;font-size:19px;color:var(--navy);letter-spacing:-.01em}
+  .logo b{color:var(--teal)}
+  .navlinks{font-size:14px;font-weight:600;color:var(--muted)}
+  .cta{background:var(--teal);color:#fff;font-weight:700;font-size:14px;
+    padding:10px 18px;border-radius:8px;text-decoration:none;display:inline-block}
+  .hero{background:var(--navy);color:#fff;border-radius:16px;padding:52px 44px;margin-top:6px;
+    background-image:radial-gradient(circle at 88% 12%,rgba(31,138,130,.4),transparent 42%)}
+  .tag{font-family:'IBM Plex Mono';font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:#7fd6cf;margin-bottom:18px}
+  h1{font-size:clamp(28px,4.4vw,44px);line-height:1.1;margin:0 0 18px;font-weight:800;letter-spacing:-.02em}
+  .hero p{font-size:18px;color:#c4d2da;max-width:60ch;margin:0}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:28px 0}
+  .stat{background:#fff;padding:24px 20px}
+  .stat .n{font-size:30px;font-weight:800;color:var(--teal-dk);letter-spacing:-.02em}
+  .stat .l{font-size:13px;color:var(--muted);font-weight:600;margin-top:4px}
+  section{margin:40px 0}
+  h2{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-dk);margin:0 0 16px}
+  .lead{font-size:22px;font-weight:600;line-height:1.4;color:var(--slate);max-width:62ch;margin:0 0 18px}
+  p{font-size:16px;margin:0 0 16px;color:#2c3d47}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px}
+  .card h3{margin:0 0 8px;font-size:17px;font-weight:700}
+  .card p{font-size:15px;color:var(--muted);margin:0}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+    border-radius:14px;overflow:hidden;font-size:15px}
+  th,td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--line)}
+  th{background:#eef3f4;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  td.v{font-family:'IBM Plex Mono';font-weight:600;color:var(--teal-dk)}
+  .band{background:var(--slate);color:#fff;border-radius:16px;padding:38px 44px;text-align:center}
+  .band h2{color:#7fd6cf}
+  .band p{color:#cdd9e0;max-width:56ch;margin:0 auto 22px;font-size:17px}
+  .band a{background:var(--teal);color:#fff;font-weight:700;padding:13px 26px;border-radius:8px;
+    text-decoration:none;display:inline-block}
+  footer{color:var(--muted);font-size:13px;padding:28px 0 50px;border-top:1px solid var(--line);
+    margin-top:46px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  @media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="logo">OmniCompost <b>for Business</b></div>
+    <a class="cta" href="#">Request a quote</a>
+  </nav>
+
+  <div class="hero">
+    <div class="tag">Commercial organics diversion · Est. Orange County</div>
+    <h1>Built by operators who got tired<br>of paying to haul away food.</h1>
+    <p>OmniCompost for Business turns the back-of-house waste stream into a measured,
+    compliant, on-site diversion program &mdash; engineered for cafes, kitchens,
+    offices, and campuses subject to California SB 1383.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n">2,400+</div><div class="l">tons diverted to date</div></div>
+    <div class="stat"><div class="n">180</div><div class="l">commercial sites served</div></div>
+    <div class="stat"><div class="n">31%</div><div class="l">avg. hauling-cost reduction</div></div>
+    <div class="stat"><div class="n">100%</div><div class="l">SB 1383-aligned reporting</div></div>
+  </div>
+
+  <section>
+    <h2>Who we are</h2>
+    <p class="lead">We started on the operations side, not the marketing side.</p>
+    <p>OmniCompost was founded by a product engineer and a former waste-logistics
+    manager who spent years watching commercial kitchens pay twice &mdash; once for
+    the food, once to landfill it. The consumer digester proved the biology at
+    household scale. The commercial line scales that same closed-loop system to a
+    site that produces hundreds of pounds of organic waste a week.</p>
+    <p>Our discipline is measurement. Every claim on this page is a figure we can
+    reproduce on a site walk, and every system ships with diversion reporting your
+    compliance officer can file. Where a capability is still in pilot, we label it as
+    a pilot, so a procurement team can trust every figure on this page without a site
+    visit to check it.</p>
+  </section>
+
+  <section>
+    <h2>What that means for your operation</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>Compliance, handled</h3>
+        <p>SB 1383 organic-waste diversion with monthly tonnage reporting, audit
+        trail, and signage included &mdash; no separate consultant required.</p>
+      </div>
+      <div class="card">
+        <h3>A line item that shrinks</h3>
+        <p>On-site processing cuts organic-waste hauling frequency. Most sites see a
+        measurable drop in pickups within the first quarter.</p>
+      </div>
+      <div class="card">
+        <h3>Engineered to throughput</h3>
+        <p>Modular units sized to your covers or headcount &mdash; from a 200-seat
+        restaurant to a multi-building campus &mdash; with serviced uptime.</p>
+      </div>
+      <div class="card">
+        <h3>Outputs you can use</h3>
+        <p>Finished compost and liquid feed for on-site landscaping, or scheduled
+        offtake. The loop closes on your property, not a county facility.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Representative deployment — 200-seat cafe</h2>
+    <table>
+      <tr><th>Metric</th><th>Before</th><th>With OmniCompost</th></tr>
+      <tr><td>Organic waste to landfill</td><td class="v">~640 lb/wk</td><td class="v">~70 lb/wk</td></tr>
+      <tr><td>Haul pickups</td><td class="v">3 / week</td><td class="v">1 / week</td></tr>
+      <tr><td>SB 1383 reporting</td><td class="v">Manual</td><td class="v">Automated</td></tr>
+      <tr><td>Diversion rate</td><td class="v">—</td><td class="v">89%</td></tr>
+    </table>
+    <p style="font-size:13px;color:var(--muted);margin-top:10px">Illustrative figures
+    from a representative site profile; actual results depend on volume, mix, and
+    service plan. Pilot data available under NDA.</p>
+  </section>
+
+  <div class="band">
+    <h2>Talk to the team</h2>
+    <p>Send us your site&rsquo;s covers or headcount and current hauling setup, and
+    we&rsquo;ll model your diversion and a payback estimate &mdash; no obligation.</p>
+    <a href="#">Request a site assessment</a>
+  </div>
+
+  <footer>
+    <span>OmniCompost for Business &middot; Commercial organics diversion</span>
+    <span>SB 1383-ready · Orange County, CA</span>
+  </footer>
+</div>
+</body>
+</html>

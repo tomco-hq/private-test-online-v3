@@ -10,10 +10,14 @@
 /g/kitchen          /assets/guides/kitchen-guide-v5.pdf      302
 /g/lawn             /assets/guides/lawn-guide-v6.pdf         302
 /g/troubleshooting  /assets/guides/troubleshooting-guide.pdf 302
+/g/compost          /can-i-compost                           302
 
-# All three now target the rendered print PDFs in assets/guides/. Swap a right-hand
+# The first three target the rendered print PDFs in assets/guides/. Swap a right-hand
 # side if a final Canva re-export lands under a new filename; the /g/<slug> on the left
 # stays fixed so already-printed cards keep resolving.
+# /g/compost is the searchable "Can I Compost This?" page (can-i-compost.html, generated
+# from field-guides/items.json by build_mobile.py). 302 until the URL is final; promote to
+# 301 once it's printed on stickers/guides.
 
 # Branded 404 (CLAUDE.md: "host should map 404s here").
 /*  /404.html  404

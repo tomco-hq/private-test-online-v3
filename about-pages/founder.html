@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ===================================================================
+     about-premium-real-v11 — DEFINITIVE / LOCKED FOR TESTING (2026-06-05)
+     Best-of synthesis, each device drawn from the version that did it best:
+       · SPINE  — v7 limits-ledger ("Before what it does, here is what it can't";
+                  four honest limits, each paired to a measured number). v7 scored 9.3.
+       · HERO   — v7/v9/v10 solid-plate hero (AA by construction; cream plate on image).
+       · GALLERY— v3/v9 bench gallery.
+       · SPEC + BUILD STEPS — v9/v10 (v7 had neither).
+       · CREED  — v6 invariant-promise device (NOT attributed to Mateo Salas).
+       · CLOSE  — v1 first-person narrative close + signature.
+       · EPIGRAPH — verified Darwin earthworm line (1881), set between the honesty
+                  section and the make section.
+       · TYPE   — true Fraunces italics (ital axis added to the font request).
+     NEW FOUNDER (v11): Cornell Briggs, marine fabricator / boatwright, San Pedro, CA.
+       Fills the cast's missing Black founder — but individuated by TRADE and VOICE
+       (marine craft idiom), per notes/founder-profile-v6.md's "representation-as-set-
+       dressing" caution: vary the person, not just the face. Invariant creed + spec kept.
+     FOUNDER-PHOTO GATE: LIFTED 2026-06-06 by owner decision ("the gate is wrong").
+       img/founder-portrait.jpg now fronts the founder — a stock portrait (Unsplash License,
+       older Black man, San Pedro-consistent) standing in for Cornell Briggs. NOTE: this is a
+       real face attached to a fictional named founder; before LAUNCH, confirm this is the
+       intended representation or swap for genuine founder photography / a consented likeness.
+     EDIT 2026-06-05b: Section III step 1 rewritten from costless competence to a real cost
+       (prototype #7 soured a batch, the marine trade did NOT save him). Guards against the
+       "Magical Negro"/serene-sage register — the trade-voice must occasionally fail the man,
+       not only validate the buyer (cf. Key & Peele "Dueling Magical Negroes"; v6 set-dressing
+       caution). One beat only; genre kept (still about the bin), creed + spec untouched.
+     ==================================================================== -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What it can&rsquo;t do — Cornell Briggs, OmniCompost</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<!-- ital axis requested so Fraunces italics are real, not faux-slanted -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F4EDE0;--ink:#23211C;--muted:#6E665A;--sage:#7E8C6A;--terracotta:#B5654A;
+    --ochre:#C99A4B;--teal:#3E6B66;--rule:#cabfa9;--card:#efe7d6}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;
+    line-height:1.68;-webkit-font-smoothing:antialiased}
+  em{font-family:"Fraunces",serif;font-style:italic;font-weight:300}
+  .topbar{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;justify-content:space-between;
+    align-items:baseline;padding:24px 32px}
+  .topbar .brand{font-family:Fraunces;font-weight:600;font-size:19px;color:#fff;text-decoration:none;text-shadow:0 1px 12px rgba(0,0,0,.5)}
+  .topbar .nav{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#fff;opacity:.92;
+    text-decoration:none;border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:3px;text-shadow:0 1px 12px rgba(0,0,0,.5)}
+  .topbar .nav:hover{opacity:1;border-color:#fff}
+  /* Solid-plate hero — AA by construction (v7/v9/v10) */
+  .hero{position:relative;height:70vh;min-height:460px;overflow:hidden;display:flex;align-items:flex-end}
+  .hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;
+    filter:saturate(.84) contrast(1.03) brightness(.94)}
+  .hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,16,12,.28),rgba(18,16,12,.42))}
+  .hero .plate{position:relative;z-index:2;background:var(--paper);max-width:560px;margin:0 0 56px 0;
+    padding:34px 38px;border-top:3px solid var(--terracotta);box-shadow:0 22px 50px rgba(0,0,0,.28)}
+  .hero .eyebrow{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--terracotta);margin-bottom:14px}
+  .hero h1{font-family:Fraunces;font-weight:500;font-size:clamp(30px,4.6vw,46px);line-height:1.08;margin:0;letter-spacing:-.01em;color:var(--ink)}
+  .wrap{max-width:880px;margin:0 auto;padding:0 28px}
+  .lede{font-family:Fraunces;font-weight:400;font-size:22px;line-height:1.5;color:#34302a;margin:52px 0 26px;max-width:60ch}
+  .byline{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    border-top:1px dashed var(--rule);border-bottom:1px dashed var(--rule);padding:12px 0;margin-bottom:8px}
+  section{margin:46px 0}
+  h2{font-family:Fraunces;font-weight:500;font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--teal);margin:0 0 16px;display:flex;align-items:baseline;gap:12px}
+  h2 .rn{color:var(--ochre);font-size:15px}
+  p{margin:0 0 18px;font-size:17px;max-width:64ch}
+  .num{color:var(--terracotta);font-family:Fraunces}
+  .pull{font-family:Fraunces;font-weight:400;font-size:26px;line-height:1.38;border-left:2px solid var(--sage);
+    padding:6px 0 6px 24px;margin:40px 0;color:#332f29;max-width:none}
+  /* Founder intro at top — portrait beside the lede */
+  .intro{display:flex;gap:32px;align-items:flex-start;margin:52px 0 8px}
+  .intro .text{flex:1;min-width:0}
+  .intro .lede{margin:0 0 16px}
+  .intro-portrait{width:212px;flex:none;margin:0}
+  /* PHOTO GATE: labeled placeholder, not a real/synthetic face */
+  .portrait-ph{width:100%;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;text-align:center;
+    border:1px dashed var(--rule);background:var(--card);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);padding:14px;line-height:1.5}
+  .intro-portrait figcaption{font-size:12px;color:var(--muted);margin-top:9px;
+    border-top:1px dashed var(--rule);padding-top:8px;letter-spacing:.03em}
+  .intro-portrait b{color:var(--ink)}
+  /* Limits ledger — each honest limit paired with the real number (v7 spine) */
+  .limits{border-top:1px dashed var(--rule);margin-top:6px}
+  .limit{display:grid;grid-template-columns:1fr 150px;gap:24px;align-items:start;
+    padding:22px 0;border-bottom:1px dashed var(--rule)}
+  .limit h3{font-family:Fraunces;font-weight:500;font-size:20px;margin:0 0 6px}
+  .limit p{margin:0;font-size:16px;color:#3c372f}
+  .limit .fig{text-align:right}
+  .limit .fig dd{margin:0;font-family:Fraunces;font-size:26px;color:var(--terracotta);line-height:1.1}
+  .limit .fig dt{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  /* Epigraph — verified quote, distinct from the founder's own .pull voice */
+  .epigraph{text-align:center;max-width:48ch;margin:34px auto;padding:22px 0;
+    border-top:1px dashed var(--rule);border-bottom:1px dashed var(--rule)}
+  .epigraph q{font-family:"Fraunces",serif;font-style:italic;font-weight:300;font-size:20px;
+    line-height:1.5;color:#3c372f;quotes:"\201C""\201D"}
+  .epigraph cite{display:block;margin-top:12px;font-style:normal;font-size:12px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  /* Bench gallery (v3/v9) */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:8px 0}
+  .gallery figure{margin:0}
+  .gallery img{width:100%;height:300px;object-fit:cover;display:block;border:1px solid var(--rule);filter:saturate(.88) contrast(1.02)}
+  .gallery figure:nth-child(1) img{object-position:50% 38%}
+  .gallery figure:nth-child(3) img{object-position:50% 45%}
+  .gallery .rn{font-family:Fraunces;color:var(--ochre);font-size:13px;letter-spacing:.1em;margin-top:10px}
+  .gallery figcaption{font-size:13px;color:#423d35;margin-top:3px}
+  /* Product shot + spec table (v9/v10) */
+  .product-shot{margin:8px 0 6px}
+  .product-shot .slot{width:100%;height:420px;display:flex;align-items:center;justify-content:center;
+    border:1px dashed var(--rule);background:var(--card);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .product-shot figcaption{font-size:13px;color:var(--muted);margin-top:10px;border-top:1px dashed var(--rule);padding-top:8px;letter-spacing:.02em}
+  .spec{border-top:1px dashed var(--rule);border-bottom:1px dashed var(--rule);display:grid;grid-template-columns:repeat(4,1fr);margin:8px 0}
+  .spec div{padding:18px 4px;border-right:1px dashed var(--rule)}
+  .spec div:last-child{border-right:none}
+  .spec dt{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .spec dd{margin:6px 0 0;font-family:Fraunces;font-size:21px}
+  /* Build steps (v9/v10) */
+  .steps{border-top:1px dashed var(--rule);margin-top:10px;padding-top:8px}
+  .step{display:grid;grid-template-columns:54px 1fr;gap:18px;padding:18px 0;border-bottom:1px dashed var(--rule)}
+  .step .no{font-family:Fraunces;font-size:32px;color:var(--terracotta);line-height:1}
+  .step h3{font-family:Fraunces;font-weight:500;font-size:20px;margin:0 0 6px}
+  .step p{margin:0;font-size:16px;color:#3c372f;max-width:60ch}
+  /* Creed (v6 device) */
+  .creed{border-top:1px dashed var(--rule);margin-top:6px}
+  .tenet{display:grid;grid-template-columns:48px 1fr;gap:18px;padding:18px 0;border-bottom:1px dashed var(--rule)}
+  .tenet .rn{font-family:Fraunces;font-size:22px;color:var(--ochre);line-height:1.2}
+  .tenet h3{font-family:Fraunces;font-weight:500;font-size:19px;margin:0 0 5px}
+  .tenet p{margin:0;font-size:15px;color:#3c372f}
+  .cta-line{margin:38px 0 8px}
+  .cta-link{display:inline-flex;align-items:baseline;gap:10px;font-family:Fraunces;font-weight:500;font-size:20px;
+    color:var(--teal);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:6px;transition:gap .2s,border-color .2s,color .2s}
+  .cta-link .arr{transition:transform .2s}
+  .cta-link:hover{color:var(--terracotta);border-color:var(--terracotta)}
+  .cta-link:hover .arr{transform:translateX(4px)}
+  .signoff{background:var(--card);border:1px solid var(--rule);padding:24px 26px;margin-top:32px}
+  .sig{font-family:Caveat,'Segoe Script',cursive;font-size:36px;line-height:.9;color:var(--ink)}
+  .sigmeta{font-size:13px;color:var(--muted);margin-top:8px;letter-spacing:.02em}
+  footer{border-top:1px dashed var(--rule);margin-top:54px;padding:26px 0 60px;font-size:13px;color:var(--muted);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  @media(max-width:760px){
+    .hero{height:auto;min-height:0;display:block}
+    .hero>img{position:relative;height:44vh}
+    .hero .veil{display:none}
+    .hero .plate{max-width:none;margin:-48px 16px 0}
+    .limit{grid-template-columns:1fr;gap:8px}
+    .limit .fig{text-align:left}
+    .gallery{grid-template-columns:1fr}.gallery img{height:auto}
+    .product-shot .slot{height:280px}
+    .spec{grid-template-columns:1fr 1fr}.spec div:nth-child(2){border-right:none}
+    .intro{flex-direction:column;gap:18px}.intro-portrait{width:100%;max-width:240px}
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="brand" href="../index.html">OmniCompost</a>
+    <a class="nav" href="../shop.html">See the bin &rarr;</a>
+  </div>
+
+  <div class="hero">
+    <img src="img/tools-wood-door.jpg" alt="Wood-handled tools hanging on a weathered wooden door">
+    <div class="veil"></div>
+    <div class="plate">
+      <div class="eyebrow">About OmniCompost &middot; San Pedro, California</div>
+      <h1>Before what it does, here is what it can&rsquo;t.</h1>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="intro">
+      <div class="text">
+        <p class="lede">Most About pages lead with the best case. I&rsquo;d rather you knew the
+        edges first &mdash; the four honest limits of this bin, each one tied to a number I
+        measured rather than chose. On the water you learn a thing&rsquo;s worth by where it
+        fails, not where it shines. If these edges suit your kitchen, the rest is easy.</p>
+        <div class="byline">Written by Cornell Briggs &middot; Founder &amp; maker</div>
+      </div>
+      <figure class="intro-portrait">
+        <img src="img/founder-portrait.jpg" alt="Cornell Briggs, founder of OmniCompost — an older Black man with a grey beard, arms crossed, calm and composed" style="width:100%;height:auto;display:block">
+        <figcaption><b>Cornell Briggs</b> &middot; Founder &amp; maker, San Pedro</figcaption>
+      </figure>
+    </div>
+
+    <section>
+      <h2><span class="rn">I</span> Four honest limits</h2>
+      <div class="limits">
+        <div class="limit">
+          <div>
+            <h3>It can&rsquo;t keep up past five gallons a day</h3>
+            <p>Every hull has a waterline, and this bin has one too. It&rsquo;s sized for a
+            household of four. Feed it a restaurant&rsquo;s worth of scraps and the colony falls
+            behind &mdash; this is a kitchen tool, not a facility.</p>
+          </div>
+          <dl class="fig"><dd>5 gal</dd><dt>Max per day</dt></dl>
+        </div>
+        <div class="limit">
+          <div>
+            <h3>It can&rsquo;t turn scraps to soil overnight</h3>
+            <p>Composting is biology, and biology keeps its own schedule &mdash; you can&rsquo;t
+            rush a tide. What it <em>can</em> do is hold for two weeks with no food and no
+            attention while you&rsquo;re away.</p>
+          </div>
+          <dl class="fig"><dd>2 wks</dd><dt>Unattended</dt></dl>
+        </div>
+        <div class="limit">
+          <div>
+            <h3>It can&rsquo;t be left out of trim</h3>
+            <p>Balance matters the way it does in a bilge: too wet and it sours, too dry and it
+            stalls. Scraps run 50&ndash;90% water, and the bin stays quiet and odorless only when
+            that balance is kept.</p>
+          </div>
+          <dl class="fig"><dd>50&ndash;90%</dd><dt>Water in scraps</dt></dl>
+        </div>
+        <div class="limit">
+          <div>
+            <h3>It wasn&rsquo;t cheap or quick to build right</h3>
+            <p>It took <span class="num">fourteen</span> prototypes before the lines were true,
+            and it still ships in short runs, checked one unit at a time. There is sometimes a
+            wait &mdash; that isn&rsquo;t a tactic, it&rsquo;s honest assembly.</p>
+          </div>
+          <dl class="fig"><dd>14</dd><dt>Prototypes</dt></dl>
+        </div>
+      </div>
+    </section>
+
+    <div class="pull">&ldquo;Forty years on the waterfront taught me a fitting either holds back
+    the sea or it doesn&rsquo;t. A bin is no different &mdash; it holds or it doesn&rsquo;t, and
+    the rest is talk.&rdquo;</div>
+
+    <div class="epigraph">
+      <q>It may be doubted whether there are many other animals which have played so important
+      a part in the history of the world as these lowly organised creatures.</q>
+      <cite>Charles Darwin &middot; on the earthworm, 1881</cite>
+    </div>
+
+    <section>
+      <h2><span class="rn">II</span> What it&rsquo;s made of</h2>
+      <figure class="product-shot">
+        <div class="slot">Photograph of the bin &mdash; to be added</div>
+        <figcaption>Powder-coated steel, beechwood, and a brass tap for the compost tea &mdash;
+        the same bronze-and-timber logic as good marine hardware.</figcaption>
+      </figure>
+      <div class="gallery">
+        <figure><img src="img/trowel-wood-soil.jpg" alt="A steel trowel with a wooden handle on a plank workbench">
+          <div class="rn">i</div><figcaption>The bench. Steel and beechwood, chosen to weather evenly &mdash; not to photograph well once.</figcaption></figure>
+        <figure><img src="img/finished-castings-in-hands.jpg" alt="Weathered hands lifting finished compost from dark soil">
+          <div class="rn">ii</div><figcaption>The castings. The part the worms do; I just built the room.</figcaption></figure>
+        <figure><img src="img/tools-wood-door.jpg" alt="Wood-handled tools hanging on a weathered wooden door">
+          <div class="rn">iii</div><figcaption>The shop. A few blocks from the harbor, short runs only.</figcaption></figure>
+      </div>
+      <dl class="spec">
+        <div><dt>Eats per day</dt><dd>5 gallons</dd></div>
+        <div><dt>Water in scraps</dt><dd>50&ndash;90%</dd></div>
+        <div><dt>Left alone</dt><dd>2 weeks</dd></div>
+        <div><dt>Sized for</dt><dd>A household of 4</dd></div>
+      </dl>
+    </section>
+
+    <section>
+      <h2><span class="rn">III</span> How it&rsquo;s built</h2>
+      <div class="steps">
+        <div class="step"><div class="no">1</div><div>
+          <h3>Fourteen prototypes</h3>
+          <p>The seventh one I was sure of. I ran it three months, then it soured a full batch
+          and the smell ran me out of my own kitchen &mdash; forty years on the water hadn&rsquo;t
+          taught me a thing about how a colony drowns. I had it wrong, and the bin that ships is the
+          one that finally proved me wrong slowly enough to fix.</p></div></div>
+        <div class="step"><div class="no">2</div><div>
+          <h3>Built to outlast the weather</h3>
+          <p>Powder-coated steel and beechwood, with a brass tap for the tea. Sized for a
+          household of four, quiet, and odorless when the colony is in trim. Made to sit in the
+          open for a decade, not hide in a garage for a season.</p></div></div>
+        <div class="step"><div class="no">3</div><div>
+          <h3>Checked by one pair of hands</h3>
+          <p>I assemble in short runs and check each unit myself &mdash; old waterfront habit, and
+          a good one. The wait isn&rsquo;t a tactic; it&rsquo;s just how long good assembly takes
+          when one person still insists on doing it.</p></div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="rn">IV</span> The promise, in four lines</h2>
+      <div class="creed">
+        <div class="tenet"><div class="rn">i</div><div>
+          <h3>The numbers are measured, not rounded up</h3>
+          <p>Every figure on this page was checked on a bench, not chosen for a headline.</p></div></div>
+        <div class="tenet"><div class="rn">ii</div><div>
+          <h3>We tell you what it can&rsquo;t do</h3>
+          <p>If something isn&rsquo;t ready, you&rsquo;ll read that here before you read a claim about it.</p></div></div>
+        <div class="tenet"><div class="rn">iii</div><div>
+          <h3>It ships slowly, on purpose</h3>
+          <p>Short runs, checked one unit at a time. The wait is honest assembly, not a tactic.</p></div></div>
+        <div class="tenet"><div class="rn">iv</div><div>
+          <h3>The promise outlasts the maker</h3>
+          <p>Whoever assembles your bin, it is held to these same four lines.</p></div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="rn">V</span> Who stands behind it</h2>
+      <p>I&rsquo;m Cornell Briggs. For forty years I built and mended boat hardware on the San
+      Pedro waterfront &mdash; bronze fittings and marine steel that had to survive salt, sun, and
+      a decade of weather without anyone thinking about them twice. When my family tried to compost
+      our own scraps, every bin we could buy was built for a garage or a farm: loud, ugly, or the
+      size of a chest freezer. None of it was made to last, and none of it belonged in a kitchen.</p>
+      <p>So I built the one I&rsquo;d put my stamp on. A page that leads with a product&rsquo;s
+      limits ought to come from a person willing to put a name to them &mdash; so here is mine.
+      The four limits above aren&rsquo;t a humility act; they are the honest edges of a bin
+      I&rsquo;d rather you buy with open eyes than return with a grievance.</p>
+
+      <div class="cta-line">
+        <a class="cta-link" href="../shop.html">See the bin <span class="arr">&rarr;</span></a>
+      </div>
+
+      <div class="signoff">
+        <div class="sig">Cornell Briggs</div>
+        <div class="sigmeta">Founder &amp; maker, OmniCompost &middot; San Pedro, CA</div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <span>OmniCompost &middot; Made one at a time</span>
+    <span>The edges first, then the rest</span>
+  </footer>
+</body>
+</html>

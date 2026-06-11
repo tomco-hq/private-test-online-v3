@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F4EDE0">
+<title>OmniCompost — Can I Compost This?</title>
+<style>
+  /* The QR landing page (omnicompost.com/can-i-compost) — promoted to full use 2026-06-10.
+     Single static file, no dependencies; phone-first. The ITEMS/ZONES data
+     between the BUILD:ITEMS markers is generated from items.json by
+     scripts/build_mobile.py — never hand-edit it (see ITEM-DATABASE-PLAN.md).
+     This file is the editable source; website/can-i-compost.html is its generated copy. */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #F4EDE0; color: #2A2530; font-family: 'Inter', -apple-system, Arial, sans-serif; }
+  header { padding: 22px 18px 14px; text-align: center; border-bottom: 1px dashed #2A2530; }
+  header h1 { font-family: Georgia, 'Fraunces', serif; font-size: 26px; }
+  header .tag { font-family: Georgia, serif; font-style: italic; font-size: 13px; color: #9B5A44; margin-top: 2px; }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 14px 14px 40px; }
+
+  .search { position: sticky; top: 0; background: #F4EDE0; padding: 10px 0 8px; z-index: 3; }
+  .search input {
+    width: 100%; font-size: 16px; padding: 12px 14px; border-radius: 10px;
+    border: 1.5px solid #B9AF9C; background: #FBF7EE; color: #2A2530; outline: none;
+  }
+  .search input:focus { border-color: #54734F; }
+
+  /* Legend doubles as a verdict filter (tap to filter, tap again to clear). */
+  .legend { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 4px 0 12px; }
+  .legend button { font-family: inherit; font-size: 10.5px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; padding: 3px 9px; border-radius: 999px; color: #fff; border: 2px solid transparent;
+    cursor: pointer; transition: opacity .12s, transform .12s; }
+  .legend.has-active button { opacity: .55; }
+  .legend button.on { opacity: 1; border-color: #2A2530; transform: scale(1.04); }
+  .legend .jump { margin-left: auto; font-size: 12px; font-weight: 600; color: #9B5A44;
+    background: none; border: none; text-transform: none; letter-spacing: 0; cursor: pointer; padding: 3px 2px; }
+
+  .zone-head { display: flex; align-items: baseline; gap: 8px; position: sticky; top: 56px; z-index: 2;
+    background: #F4EDE0; padding: 14px 0 5px; margin-bottom: 4px; border-bottom: 1px solid #B9AF9C; }
+  .zone-head h3 { font-family: Georgia, 'Fraunces', serif; font-weight: 700; font-size: 17px; color: #2A2530; }
+  .zone-head .ct { font-family: Georgia, serif; font-style: italic; font-size: 12px; color: #9B5A44; }
+
+  .item { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    background: #FBF7EE; border: 1px solid #E4DCC9; border-radius: 10px; padding: 10px 12px; margin-bottom: 7px; }
+  .item .nm { font-size: 14.5px; font-weight: 600; }
+  .item .note { font-size: 12px; color: #6B6357; margin-top: 1px; }
+  .badge { flex: none; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 999px; color: #fff; }
+  .v-add  { background: #54734F; }
+  .v-prep { background: #8F6212; }   /* darkened from #B07D2B for WCAG AA on white text */
+  .v-no   { background: #6B6357; }
+  .v-ban  { background: #9B5A44; }
+
+  .showall { width: 100%; font-family: inherit; font-size: 13px; font-weight: 600; color: #54734F;
+    background: #FBF7EE; border: 1.5px solid #B9AF9C; border-radius: 12px; padding: 12px; margin: 8px 0 4px;
+    cursor: pointer; }
+  .showall:hover { border-color: #54734F; }
+
+  /* View toggle (common vs all) — always visible at the top of the browse list.
+     Same bar restates the active filter while searching/chip-filtering. */
+  .viewbar { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 0 0 10px; }
+  .viewbar .vw { font-family: Georgia, serif; font-style: italic; font-size: 12.5px; color: #6B6357; }
+  .viewbar button { font-family: inherit; font-size: 12.5px; font-weight: 600; color: #54734F;
+    background: none; border: none; border-bottom: 1px solid #54734F; cursor: pointer; padding: 0 0 1px; }
+
+  /* Verdict sub-landmark inside a zone — breaks long same-color runs. */
+  .vsub { display: flex; align-items: center; gap: 7px; font-size: 10px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; color: #6B6357; margin: 11px 2px 5px; }
+  .vsub .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+
+  .none { text-align: center; color: #6B6357; font-size: 14px; padding: 24px 0 8px; }
+  .none b { color: #2A2530; }
+
+  details.off { margin: 26px 0 0; }
+  details.off > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px;
+    min-height: 44px; }
+  details.off > summary::-webkit-details-marker { display: none; }
+  details.off > summary h2 { font-family: Georgia, 'Fraunces', serif; font-size: 19px; margin: 0; }
+  details.off > summary .chev { margin-left: auto; color: #9B5A44; font-size: 13px; transition: transform .15s; }
+  details.off[open] > summary .chev { transform: rotate(180deg); }
+  .fix { background: #FBF7EE; border: 1px solid #E4DCC9; border-radius: 10px; padding: 11px 12px; margin: 7px 0 0; }
+  .fix .sym { font-weight: 700; font-size: 14px; }
+  .fix .cause { display: inline-block; font-size: 9.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    color: #9B5A44; border: 1px solid #D9C7BC; border-radius: 999px; padding: 1px 8px; margin: 4px 0; }
+  .fix .how { font-size: 13px; line-height: 1.45; }
+  .fix .how b { color: #54734F; }
+
+  #top { position: fixed; right: 16px; bottom: 18px; width: 42px; height: 42px; border-radius: 50%;
+    background: #F4EDE0; border: 1.5px solid #B9AF9C; color: #54734F; font-size: 18px; cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,.15); display: none; z-index: 4; }
+  #top.show { display: block; }
+
+  footer { text-align: center; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+    color: #9B5A44; font-weight: 600; padding: 26px 0 34px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Can I Compost This?</h1>
+  <div class="tag">The OmniCompost digester guide, in your pocket</div>
+</header>
+
+<div class="wrap">
+  <div class="search"><input id="q" type="search" placeholder="Type an item — banana, pizza box, bones…" autocomplete="off"></div>
+  <div class="legend" id="legend">
+    <button class="v-add"  data-v="add">Add it</button><button class="v-prep" data-v="prep">Prep first</button><button class="v-no" data-v="no">Skip it</button><button class="v-ban" data-v="ban">Never</button>
+    <button class="jump" id="jump">Something off? ↓</button>
+  </div>
+  <div id="list"></div>
+  <div id="none" class="none" hidden>No match for "<b></b>". When unsure, leave it out — the bin forgives missing scraps, not wrong ones.</div>
+
+  <details class="off" id="off" open>
+    <summary><h2>Something off?</h2><span class="chev">▾</span></summary>
+    <div id="fixes"></div>
+  </details>
+</div>
+
+<button id="top" aria-label="Back to top">↑</button>
+<footer>OmniCompost &middot; omnicompost.com</footer>
+
+<script>
+// BUILD:ITEMS — generated from ../items.json by scripts/build_mobile.py. Do not hand-edit between markers.
+const ZONES = [["kitchen", "Kitchen & Food"], ["paper", "Paper & Packaging"], ["yard", "Yard & Garden"], ["household", "Household & Everything Else"]];
+const ITEMS = [
+  { n: "Baby food", k: "puree formula", v: "add", z: "kitchen" },
+  { n: "Banana peels", k: "banana skin", v: "add", z: "kitchen", c: 1, note: "Remove sticker" },
+  { n: "Bay leaves & whole dried herbs", k: "bay laurel rosemary sprig", v: "add", z: "kitchen" },
+  { n: "Beer, wine & coffee dregs", k: "alcohol drink leftover", v: "add", z: "kitchen" },
+  { n: "Bouillon cubes & stock paste", k: "stock cube broth concentrate", v: "add", z: "kitchen" },
+  { n: "Bread, pasta & rice", k: "toast noodles grain cereal", v: "add", z: "kitchen", c: 1 },
+  { n: "Cheese rinds", k: "parmesan wax rind", v: "add", z: "kitchen", note: "Peel off colored wax coating" },
+  { n: "Chips, crackers & snacks", k: "chip cracker cookie candy", v: "add", z: "kitchen" },
+  { n: "Chocolate & candy", k: "sweets dessert cake", v: "add", z: "kitchen" },
+  { n: "Citrus peels & fruit", k: "orange lemon lime grapefruit", v: "add", z: "kitchen", c: 1 },
+  { n: "Coconut flesh & cream", k: "coconut meat milk", v: "add", z: "kitchen" },
+  { n: "Coffee grounds & tea leaves", k: "coffee tea bag grounds loose", v: "add", z: "kitchen", c: 1 },
+  { n: "Corn husks", k: "husk", v: "add", z: "kitchen" },
+  { n: "Dressed salad & slaw", k: "lettuce greens coleslaw", v: "add", z: "kitchen" },
+  { n: "Edamame & pea pods", k: "soybean snap pea shell", v: "add", z: "kitchen" },
+  { n: "Eggshells", k: "egg shell", v: "add", z: "kitchen", c: 1, note: "Crushed is better — feeds worm calcium" },
+  { n: "Expired canned food", k: "can tin expired", v: "add", z: "kitchen", note: "Contents only — never the can — rinse the can too" },
+  { n: "Expired dried spices", k: "seasoning herbs jar", v: "add", z: "kitchen", note: "Loose spices only — no packets" },
+  { n: "Fallen fruit", k: "windfall apples rotten", v: "add", z: "kitchen" },
+  { n: "Fat, oil & grease", k: "cooking oil lard bacon fat butter", v: "add", z: "kitchen", c: 1 },
+  { n: "Fish bones & skin", k: "fish skeleton", v: "add", z: "kitchen" },
+  { n: "Fish guts & trimmings", k: "offal innards cleaning", v: "add", z: "kitchen" },
+  { n: "Flour, sugar & baking dry goods", k: "baking soda expired pantry", v: "add", z: "kitchen" },
+  { n: "Food scraps, small bones, meat", k: "chicken fish cooked", v: "add", z: "kitchen", c: 1 },
+  { n: "Fruit & vegetables", k: "banana apple peel core carrot broccoli", v: "add", z: "kitchen", c: 1 },
+  { n: "Gelatin, Jell-O & marshmallows", k: "jelly pudding gummy", v: "add", z: "kitchen" },
+  { n: "Ginger, turmeric & root spices", k: "galangal horseradish", v: "add", z: "kitchen" },
+  { n: "Herbs & mushrooms", k: "basil cilantro fungi", v: "add", z: "kitchen" },
+  { n: "Honey, jam & syrup", k: "maple sugar sweet preserves", v: "add", z: "kitchen" },
+  { n: "Hot peppers", k: "chili jalapeno spicy", v: "add", z: "kitchen" },
+  { n: "Ice cream", k: "frozen dessert", v: "add", z: "kitchen" },
+  { n: "Juice pulp & smoothie leftovers", k: "juicer pulp smoothie", v: "add", z: "kitchen" },
+  { n: "Kombucha SCOBY & brewing leftovers", k: "scoby ferment culture", v: "add", z: "kitchen" },
+  { n: "Leftovers & expired food", k: "dinner plate old moldy food", v: "add", z: "kitchen", c: 1 },
+  { n: "Milk & dairy", k: "cheese yogurt milk cream", v: "add", z: "kitchen", c: 1 },
+  { n: "Moldy or freezer-burned food", k: "spoiled rotten freezer burn", v: "add", z: "kitchen" },
+  { n: "Onions & garlic", k: "onion skin garlic clove", v: "add", z: "kitchen", c: 1 },
+  { n: "Pasta water, broth, rinse water", k: "soup stock liquid", v: "add", z: "kitchen" },
+  { n: "Peanut & nut butters", k: "almond butter spread", v: "add", z: "kitchen" },
+  { n: "Pickles & vinegar", k: "pickle brine fermented", v: "add", z: "kitchen" },
+  { n: "Popcorn & kernels", k: "kernel", v: "add", z: "kitchen" },
+  { n: "Potato peels", k: "potato skin", v: "add", z: "kitchen", c: 1 },
+  { n: "Protein powder & meal shakes", k: "supplement whey shake", v: "add", z: "kitchen" },
+  { n: "Sauces, dips, seasonings, spices", k: "ketchup mustard salsa dressing mayo", v: "add", z: "kitchen" },
+  { n: "Seaweed & kelp", k: "nori algae ocean", v: "add", z: "kitchen" },
+  { n: "Shelled nuts & seeds", k: "sunflower pumpkin seed walnut meat", v: "add", z: "kitchen" },
+  { n: "Shrimp shells", k: "prawn", v: "add", z: "kitchen" },
+  { n: "Soup, gravy & sauces (leftover)", k: "stew curry", v: "add", z: "kitchen" },
+  { n: "Sourdough starter & yeast", k: "starter discard yeast leaven", v: "add", z: "kitchen" },
+  { n: "Stale cereal & granola", k: "cereal oats muesli", v: "add", z: "kitchen" },
+  { n: "Table salt & heavy brine", k: "salt brine cure", v: "add", z: "kitchen" },
+  { n: "Tofu & plant proteins", k: "tempeh seitan soy", v: "add", z: "kitchen" },
+  { n: "Tomatoes", k: "tomato", v: "add", z: "kitchen", c: 1 },
+  { n: "Whole eggs", k: "raw egg expired", v: "add", z: "kitchen" },
+  { n: "Artichoke leaves & chokes", k: "globe thistle", v: "prep", z: "kitchen", note: "Cut small — fibrous" },
+  { n: "Avocado pits", k: "avocado seed stone", v: "prep", z: "kitchen", note: "Split in half first" },
+  { n: "Clams, oysters, escargot shells", k: "mussel snail", v: "prep", z: "kitchen", note: "Crack open, or slow-cook" },
+  { n: "Corn cobs", k: "corn cob", v: "prep", z: "kitchen", note: "Break or cut — slow to break down" },
+  { n: "Crab & lobster shells", k: "shellfish", v: "prep", z: "kitchen", note: "Crack open" },
+  { n: "Large fruits & veggies", k: "watermelon pumpkin squash melon whole", v: "prep", z: "kitchen", note: "Cut up to speed the breakdown" },
+  { n: "Medium bones", k: "pork rib", v: "prep", z: "kitchen", note: "Crack open, or slow-cook" },
+  { n: "Peach, cherry & olive pits", k: "stone pit mango plum", v: "prep", z: "kitchen", note: "Crack or split first" },
+  { n: "Peanut shells", k: "peanut", v: "prep", z: "kitchen", note: "Crack open" },
+  { n: "Pineapple tops & skin", k: "pineapple crown", v: "prep", z: "kitchen", note: "Cut up to speed the breakdown" },
+  { n: "Pumpkins & jack-o'-lanterns", k: "halloween gourd carved", v: "prep", z: "kitchen", note: "Cut up; scrape out any candle wax" },
+  { n: "Walnut & hard nut shells", k: "walnut pecan almond shell", v: "prep", z: "kitchen", note: "Crack open" },
+  { n: "Coconut shells", k: "coconut husk", v: "no", z: "kitchen", note: "Too tough" },
+  { n: "Pet food", k: "kibble dog cat food", v: "no", z: "kitchen", note: "Only add if certified all natural organic" },
+  { n: "Very hard or very large bones", k: "beef femur lamb t-bone steak", v: "no", z: "kitchen", note: "Too tough for the digester" },
+  { n: "Aluminum trays & foil wrap", k: "takeout tin", v: "ban", z: "kitchen" },
+  { n: "Butter & margarine wrappers", k: "stick wrapper foil", v: "ban", z: "kitchen", note: "Usually foil or plastic-lined" },
+  { n: "Candy & granola bar wrappers", k: "wrapper foil snack", v: "ban", z: "kitchen" },
+  { n: "Chewing gum", k: "gum", v: "ban", z: "kitchen", note: "Synthetic rubber" },
+  { n: "Brown kraft packing paper", k: "butcher wrapping brown", v: "add", z: "paper" },
+  { n: "Coffee filters", k: "paper filter", v: "add", z: "paper", c: 1 },
+  { n: "Facial tissues", k: "kleenex used", v: "add", z: "paper" },
+  { n: "Gift tissue paper", k: "wrapping tissue", v: "add", z: "paper", note: "No glitter or foil" },
+  { n: "Home-compostable plastics (certified)", k: "bioplastic cup utensil cutlery tuv", v: "add", z: "paper", note: "TUV OK compost HOME ONLY — must be clearly marked" },
+  { n: "Newspaper & shredded paper", k: "office paper shred", v: "add", z: "paper", c: 1 },
+  { n: "Paper bags", k: "kraft grocery", v: "add", z: "paper", c: 1 },
+  { n: "Paper towels & napkins", k: "tissue serviette", v: "add", z: "paper", c: 1 },
+  { n: "Sticky notes", k: "post-it", v: "add", z: "paper" },
+  { n: "Used paper plates", k: "disposable plate", v: "add", z: "paper", note: "Uncoated only, marked compostable" },
+  { n: "Book pages & paperbacks", k: "novel pages", v: "prep", z: "paper", note: "Remove glued spine; tear and soak" },
+  { n: "Clean cardboard", k: "box carton", v: "prep", z: "paper", c: 1, note: "Tear up and soak — no plastic" },
+  { n: "Envelopes", k: "mail letter", v: "prep", z: "paper", note: "No plastic window" },
+  { n: "Paper egg cartons", k: "pulp carton", v: "prep", z: "paper", note: "No plastic" },
+  { n: "Paper muffin & cupcake liners", k: "baking cup liner", v: "prep", z: "paper", note: "Uncoated only" },
+  { n: "Paper straws", k: "straw drinking", v: "prep", z: "paper", note: "Uncoated only" },
+  { n: "Paper takeout containers", k: "chinese box food container", v: "prep", z: "paper", note: "No plastic lining; tear and soak" },
+  { n: "Pizza boxes & dirty cardboard", k: "greasy box", v: "prep", z: "paper", c: 1, note: "Soak in water first" },
+  { n: "Tea bags", k: "teabag tea", v: "prep", z: "paper", c: 1, note: "Check if bag certified plastic-free" },
+  { n: "Toilet & paper-towel tubes", k: "cardboard roll tube", v: "prep", z: "paper", note: "Soak in water first" },
+  { n: "Bamboo plates & cutlery", k: "disposable bamboo fork", v: "no", z: "paper", note: "Pressed bamboo — too tough" },
+  { n: "Crepe & streamer paper", k: "party streamer decoration", v: "no", z: "paper", note: "Dyed — bleeds color" },
+  { n: "Glossy paper & magazines", k: "magazine catalog coated", v: "no", z: "paper", note: "Coatings resist digestion" },
+  { n: "Toothpicks & chopsticks", k: "skewer bamboo", v: "no", z: "paper", note: "Hard wood" },
+  { n: "Wax & parchment paper", k: "baking paper", v: "no", z: "paper" },
+  { n: "Wine corks", k: "cork", v: "no", z: "paper", note: "Too slow to break down" },
+  { n: "Wrapping paper", k: "gift wrap", v: "no", z: "paper", note: "Often dyed, coated or glittered" },
+  { n: "\"Compostable\" plastics (industrial PLA)", k: "bioplastic cup utensil cutlery", v: "ban", z: "paper", note: "Needs industrial heat — not this digester" },
+  { n: "Cellophane & plastic film", k: "cling wrap shrink film", v: "ban", z: "paper" },
+  { n: "Coffee pods / K-cups", k: "keurig pod nespresso", v: "ban", z: "paper", note: "Plastic and metal" },
+  { n: "Milk & juice cartons", k: "tetra pak carton", v: "ban", z: "paper", note: "Plastic-lined" },
+  { n: "Paper coffee cups", k: "disposable cup togo", v: "ban", z: "paper", note: "Plastic-lined" },
+  { n: "Receipts", k: "thermal paper", v: "ban", z: "paper", note: "Thermal coating (BPA)" },
+  { n: "Shipping labels & packing tape", k: "label tape adhesive", v: "ban", z: "paper" },
+  { n: "Styrofoam", k: "polystyrene foam tray cup", v: "ban", z: "paper" },
+  { n: "Birdseed & feeder sweepings", k: "seed hulls", v: "add", z: "yard" },
+  { n: "Coconut coir & coir pots", k: "coir fiber liner", v: "add", z: "yard" },
+  { n: "Coffee chaff & spent hops", k: "roasting chaff brewing", v: "add", z: "yard" },
+  { n: "Cover crops & green manure", k: "clover rye vetch", v: "add", z: "yard" },
+  { n: "Dead annual bedding plants", k: "annual petunia marigold spent", v: "add", z: "yard", note: "Shake off most soil" },
+  { n: "Dead houseplants", k: "potted plant", v: "add", z: "yard", note: "Shake off most soil" },
+  { n: "Flower bulbs & tubers", k: "tulip daffodil bulb", v: "add", z: "yard" },
+  { n: "Ivy & soft vines", k: "creeper vine", v: "add", z: "yard" },
+  { n: "Moss & pond algae", k: "lichen pond skim", v: "add", z: "yard" },
+  { n: "Peat moss & coco peat", k: "peat sphagnum coco", v: "add", z: "yard" },
+  { n: "Spanish moss & air plants", k: "tillandsia epiphyte", v: "add", z: "yard" },
+  { n: "Spent brewing grain & mushroom substrate", k: "brewer mash spent", v: "add", z: "yard" },
+  { n: "Succulents & soft houseplant cuttings", k: "aloe jade cactus pads", v: "add", z: "yard" },
+  { n: "Weeds", k: "dandelion crabgrass", v: "add", z: "yard" },
+  { n: "Acorns", k: "oak nut", v: "prep", z: "yard", note: "Crush first" },
+  { n: "Charcoal briquette ash", k: "bbq grill briquette", v: "prep", z: "yard", note: "Wood-only fires; soak 1 hour" },
+  { n: "Corn stalks", k: "cornstalk maize", v: "prep", z: "yard", note: "Cut small; soak 1 hour" },
+  { n: "Firepit ashes (wood)", k: "wood ash bonfire", v: "prep", z: "yard", note: "Wood-only fires; soak 1 hour" },
+  { n: "Flowers & deadheads", k: "bouquet cut flowers", v: "prep", z: "yard", note: "Soak 1 hour before adding" },
+  { n: "Grass clippings", k: "lawn mow", v: "prep", z: "yard", c: 1, note: "Soak 1 hour before adding" },
+  { n: "Hedge & shrub trimmings", k: "bush clippings green stems", v: "prep", z: "yard", note: "Cut small; soak 1 hour" },
+  { n: "Leaves", k: "autumn fall oak maple", v: "prep", z: "yard", c: 1, note: "Soak 1 hour before adding" },
+  { n: "Palm fronds", k: "palm leaf", v: "prep", z: "yard", note: "Cut small; soak 1 hour" },
+  { n: "Pine needles", k: "evergreen conifer", v: "prep", z: "yard", note: "Soak 1 hour before adding" },
+  { n: "Sawdust", k: "wood dust", v: "prep", z: "yard", note: "Untreated wood only; soak 1 hour" },
+  { n: "Seeds", k: "seed heads", v: "prep", z: "yard", note: "Soak 1 hour before adding" },
+  { n: "Sod & turf pieces", k: "turf", v: "prep", z: "yard", note: "Break up first; soak 1 hour" },
+  { n: "Spiny cactus", k: "prickly pear spines", v: "prep", z: "yard", note: "Chop; mind the spines" },
+  { n: "Straw & hay", k: "mulch bale", v: "prep", z: "yard", note: "Soak 1 hour before adding" },
+  { n: "Thorny stems & rose cuttings", k: "thorns bramble", v: "prep", z: "yard", note: "Cut small; soak 1 hour" },
+  { n: "Tomato & squash vines", k: "garden plant vine stalk", v: "prep", z: "yard", note: "Cut into short lengths; soak 1 hour" },
+  { n: "Bark & bamboo", k: "bamboo cane", v: "no", z: "yard", note: "Too tough" },
+  { n: "Branches & hard wood", k: "stick lumber plank", v: "no", z: "yard", note: "Too tough" },
+  { n: "Christmas trees & large prunings", k: "fir spruce bough", v: "no", z: "yard", note: "Too tough" },
+  { n: "Diseased plants & blighted leaves", k: "blight mildew fungus sick", v: "no", z: "yard", note: "Unknown plant disease can spread" },
+  { n: "Eucalyptus & bay laurel leaves", k: "eucalyptus gum aromatic", v: "no", z: "yard", note: "Aromatic oils resist breakdown" },
+  { n: "Finished compost & old castings", k: "castings humus done", v: "no", z: "yard", note: "Already done — use it in the garden" },
+  { n: "Garden lime & soil amendments", k: "lime gypsum mineral", v: "no", z: "yard", note: "Mineral additive — use it in the garden" },
+  { n: "Pinecones", k: "cone", v: "no", z: "yard", note: "Too tough" },
+  { n: "Rabbit & chicken manure", k: "herbivore droppings coop", v: "no", z: "yard", note: "Too many contaminants unless commercially certified" },
+  { n: "Rocks & gravel", k: "stone pebble", v: "no", z: "yard" },
+  { n: "Soil & dirt", k: "potting mix dirt", v: "no", z: "yard", note: "Inert — takes space, feeds nothing" },
+  { n: "Wood chips & roots", k: "mulch stump", v: "no", z: "yard" },
+  { n: "Garden netting & plant ties", k: "mesh twist tie zip", v: "ban", z: "yard" },
+  { n: "Herbicide-treated grass clippings", k: "weed killer lawn chemical", v: "ban", z: "yard", note: "Herbicide residue" },
+  { n: "Treated or painted wood", k: "pressure stained deck", v: "ban", z: "yard", note: "Chemical treatment" },
+  { n: "Walnut leaves & hulls", k: "walnut juglone black", v: "ban", z: "yard", note: "Juglone is toxic to plants" },
+  { n: "All natural loofah", k: "luffa sponge gourd", v: "add", z: "household" },
+  { n: "Aquarium water & plants", k: "fish tank", v: "add", z: "household" },
+  { n: "Beeswax candle stubs", k: "beeswax candle taper", v: "add", z: "household", note: "Beeswax only — no paraffin" },
+  { n: "Beeswax food wraps", k: "bee wrap cloth", v: "add", z: "household", note: "Cotton + beeswax only" },
+  { n: "Cotton string & natural twine", k: "jute string thread", v: "add", z: "household" },
+  { n: "Organic waste & hair", k: "hair fur nail clippings", v: "add", z: "household" },
+  { n: "Pet fur", k: "dog cat hair brush", v: "add", z: "household" },
+  { n: "Burlap & jute sacking", k: "hessian sack", v: "prep", z: "household", note: "Cut up; all natural fiber only" },
+  { n: "Feathers", k: "down", v: "prep", z: "household", note: "Soak 1 hour before adding" },
+  { n: "Hamster & rabbit cage bedding", k: "guinea pig shavings cage", v: "prep", z: "household", note: "Only add if certified all natural organic" },
+  { n: "Hemp & sisal rope", k: "rope cord sisal jute", v: "prep", z: "household", note: "Cut up; all natural fiber only" },
+  { n: "Wool & silk scraps", k: "wool yarn silk", v: "prep", z: "household", note: "Cut up; all natural fiber only" },
+  { n: "Bamboo cutting boards", k: "chopping board pressed", v: "no", z: "household", note: "Pressed bamboo — too tough" },
+  { n: "Bamboo toothbrushes", k: "toothbrush", v: "no", z: "household", note: "Handle too tough; bristles are nylon" },
+  { n: "Cork coasters & corkboard", k: "cork tile bulletin", v: "no", z: "household", note: "Too slow to break down" },
+  { n: "Cotton balls & swabs", k: "q-tip qtip makeup pad", v: "no", z: "household", note: "Often synthetic blends" },
+  { n: "Dryer lint & vacuum dust", k: "lint hoover", v: "no", z: "household", note: "Synthetic fibers" },
+  { n: "Fabric & clothing", k: "cotton cloth rag sock", v: "no", z: "household", note: "Often synthetic blends" },
+  { n: "Leather", k: "belt shoe", v: "no", z: "household" },
+  { n: "Matches & lighter remains", k: "matchstick", v: "no", z: "household" },
+  { n: "Pencil shavings", k: "sharpener wood", v: "no", z: "household", note: "Painted/treated wood + graphite" },
+  { n: "Small wild animals", k: "dead bird mouse rodent", v: "no", z: "household" },
+  { n: "Wooden clothespins", k: "clothes peg", v: "no", z: "household", note: "Hard wood" },
+  { n: "Balloons & latex gloves", k: "rubber glove", v: "ban", z: "household" },
+  { n: "Bandages", k: "band-aid plaster", v: "ban", z: "household" },
+  { n: "Candle wax stubs", k: "paraffin tealight", v: "ban", z: "household", note: "Paraffin is petroleum-based" },
+  { n: "Cat litter", k: "litter clay", v: "ban", z: "household" },
+  { n: "Chemicals", k: "bleach paint cleaner medicine", v: "ban", z: "household" },
+  { n: "Cigarette butts", k: "tobacco ash", v: "ban", z: "household" },
+  { n: "Dental floss", k: "floss pick", v: "ban", z: "household" },
+  { n: "Diapers", k: "nappy", v: "ban", z: "household" },
+  { n: "Disposable face masks", k: "surgical mask", v: "ban", z: "household", note: "Plastic fibers" },
+  { n: "Dog or cat waste", k: "poop feces manure", v: "ban", z: "household", note: "Too many contaminants unless commercially certified" },
+  { n: "Dryer sheets", k: "fabric softener", v: "ban", z: "household" },
+  { n: "Glass", k: "jar bottle broken", v: "ban", z: "household", c: 1 },
+  { n: "Kitchen sponges", k: "scrubber scouring", v: "ban", z: "household", note: "Synthetic" },
+  { n: "Metal", k: "staple foil can stapler twist tie", v: "ban", z: "household", c: 1 },
+  { n: "Paper towels with cleaning products", k: "windex bleach wipe spray", v: "ban", z: "household", note: "Chemical residue" },
+  { n: "Plastic & produce stickers", k: "wrapper bag bottle sticker", v: "ban", z: "household", c: 1 },
+  { n: "Rubber bands", k: "elastic", v: "ban", z: "household" },
+  { n: "Soap", k: "detergent dish bar", v: "ban", z: "household" },
+  { n: "Wet wipes & makeup wipes", k: "baby wipe cleansing", v: "ban", z: "household", note: "Plastic fibers" },
+];
+// BUILD:ITEMS:END
+
+const FIXES = [
+  ["Sour or rotten smell", "Too wet / overfed", "Stop feeding 1 week; mix in <b>dry bedding</b> (shredded paper or cardboard)."],
+  ["Worms crawling out", "Damp or contaminated", "Add <b>crushed eggshell</b>; check for sprayed or soapy scraps."],
+  ["Fruit flies or gnats", "Food exposed", "Bury scraps under a fresh <b>dry top layer</b>."],
+  ["Worms slow or sluggish", "Too cold / hot", "Hold bin at <b>55–77&deg;F</b>; move indoors in extremes."],
+  ["Liquid pooling at base", "Overwatered", "Drain reservoir; add <b>dry bedding</b>, feed less."],
+  ["Scraps not breaking down", "Pieces too large", "<b>Chop smaller</b>; feed only what disappears."],
+];
+
+const BADGE = { add: ["Add it","v-add"], prep: ["Prep first","v-prep"], no: ["Skip it","v-no"], ban: ["Never","v-ban"] };
+const list = document.getElementById("list"), none = document.getElementById("none"), q = document.getElementById("q");
+const legend = document.getElementById("legend");
+
+let vFilter = null;     // active verdict chip, or null
+let showAll = false;    // false = common items only in the browse view
+
+const itemRow = it => {
+  // Fallback keeps an unknown verdict visible instead of crashing the render.
+  const [label, cls] = BADGE[it.v] || [it.v, "v-no"];
+  return `<div class="item"><div><div class="nm">${it.n}</div>${it.note ? `<div class="note">${it.note}</div>` : ""}</div><span class="badge ${cls}">${label}</span></div>`;
+};
+
+// Token-prefix match: every search term must start a word in the name or
+// keywords. Stops "egg" matching "veggies" while keeping multi-word queries.
+const tokenize = s => s.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+const matchItem = (it, terms) => {
+  const toks = tokenize(it.n + " " + (it.k || ""));
+  return terms.every(t => toks.some(tok => tok.startsWith(t)));
+};
+
+// Render a run of rows already sorted add→prep→no→ban, inserting a verdict
+// sub-landmark each time the verdict changes (breaks long same-color runs).
+function renderRows(rows) {
+  let html = "", cur = null;
+  for (const it of rows) {
+    if (it.v !== cur) {
+      cur = it.v;
+      const [label, cls] = BADGE[cur] || [cur, "v-no"];
+      const n = rows.filter(r => r.v === cur).length;
+      html += `<div class="vsub"><span class="dot ${cls}"></span>${label} · ${n}</div>`;
+    }
+    html += itemRow(it);
+  }
+  return html;
+}
+
+function clearFilters() {
+  q.value = "";
+  vFilter = null;
+  legend.classList.remove("has-active");
+  legend.querySelectorAll("button[data-v]").forEach(b => b.classList.remove("on"));
+  draw();
+}
+
+function draw() {
+  const terms = tokenize(q.value);
+  const filtering = terms.length > 0 || !!vFilter;   // search or chip = flat, full database
+  let pool = ITEMS;
+  if (terms.length) pool = pool.filter(it => matchItem(it, terms));
+  if (vFilter) pool = pool.filter(it => it.v === vFilter);
+
+  if (filtering) {
+    // Restate the scope so a guest knows filters reach the whole database.
+    const bar = `<div class="viewbar"><span class="vw">Filtering all ${ITEMS.length} · ${pool.length} match${pool.length === 1 ? "" : "es"}</span><button class="clearf">Clear</button></div>`;
+    list.innerHTML = bar + pool.map(itemRow).join("");
+    none.hidden = pool.length > 0;
+    if (!pool.length) none.querySelector("b").textContent = q.value.trim() || "that filter";
+    const cb = list.querySelector(".clearf");
+    if (cb) cb.addEventListener("click", clearFilters);
+    return;
+  }
+
+  // Browse view: group by zone, common-only unless expanded.
+  none.hidden = true;
+  const browse = showAll ? ITEMS : ITEMS.filter(it => it.c);
+  // Toggle at the top of the list, so switching views never requires scrolling.
+  let html = showAll
+    ? `<div class="viewbar"><span class="vw">Showing all ${ITEMS.length} items</span><button class="vtoggle">Show common only</button></div>`
+    : `<div class="viewbar"><span class="vw">Showing ${browse.length} common items</span><button class="vtoggle">Show all ${ITEMS.length}</button></div>`;
+  for (const [z, label] of ZONES) {
+    const rows = browse.filter(it => it.z === z);
+    if (!rows.length) continue;
+    html += `<div class="zone-head"><h3>${label}</h3><span class="ct">${rows.length}</span></div>` + renderRows(rows);
+  }
+  // Bottom button mirrors the toggle, for whoever reached the end of the list.
+  html += showAll
+    ? `<button class="showall vtoggle">Show common items only</button>`
+    : `<button class="showall vtoggle">Show all ${ITEMS.length} items</button>`;
+  list.innerHTML = html;
+  list.querySelectorAll(".vtoggle").forEach(b =>
+    b.addEventListener("click", () => { showAll = !showAll; draw(); }));
+}
+
+q.addEventListener("input", draw);
+legend.querySelectorAll("button[data-v]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    vFilter = (vFilter === btn.dataset.v) ? null : btn.dataset.v;
+    legend.classList.toggle("has-active", !!vFilter);
+    legend.querySelectorAll("button[data-v]").forEach(b => b.classList.toggle("on", b.dataset.v === vFilter));
+    draw();
+  });
+});
+draw();
+
+// Jump link → open and scroll to troubleshooting.
+const off = document.getElementById("off");
+document.getElementById("jump").addEventListener("click", () => {
+  off.open = true;
+  off.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+// Back-to-top, appears past two screens.
+const topBtn = document.getElementById("top");
+topBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+addEventListener("scroll", () => topBtn.classList.toggle("show", scrollY > innerHeight * 2));
+
+document.getElementById("fixes").innerHTML = FIXES.map(([sym, cause, how]) =>
+  `<div class="fix"><div class="sym">${sym}</div><span class="cause">${cause}</span><div class="how">${how}</div></div>`).join("");
+</script>
+</body>
+</html>
